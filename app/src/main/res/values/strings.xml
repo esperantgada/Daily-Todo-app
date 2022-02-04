@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Daily To Do</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="just_an_image">Just an image</string>
+    <string name="floating_action_button">Floating action button</string>
+    <string name="todo_name">Todo name</string>
+    <string name="important_task">Important task</string>
+    <string name="just_floating_action_button">Just floating action button</string>
+    <string name="search">Search</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_date_created">Sort by date created</string>
+    <string name="delete_completed_tasks">Delete completed tasks</string>
+    <string name="hide_completed_todo">Hide completed todo</string>
+</resources>
