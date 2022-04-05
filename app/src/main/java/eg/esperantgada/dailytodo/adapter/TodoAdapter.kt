@@ -9,10 +9,34 @@ import androidx.recyclerview.widget.RecyclerView
 import eg.esperantgada.dailytodo.databinding.TodoItemBinding
 import eg.esperantgada.dailytodo.model.TodoEntity
 
-class TodoAdapter : ListAdapter<TodoEntity, TodoAdapter.TodoViewHolder>(DiffCallback) {
+class TodoAdapter(
+    private val listener : OnItemClickedListener
+    ) : ListAdapter<TodoEntity, TodoAdapter.TodoViewHolder>(DiffCallback) {
 
-    class TodoViewHolder(private val binding: TodoItemBinding) :
+   inner class TodoViewHolder(private val binding: TodoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
+
+       //Sets clickListener on Item in the recycler view
+        init {
+            binding.apply {
+                root.setOnClickListener {
+                    //Gets the position of the View holder
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION){
+                        val todo = getItem(position)
+                        listener.onItemClicked(todo)
+                    }
+                }
+
+                checkbox.setOnClickListener {
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION){
+                        val todo = getItem(position)
+                        listener.onCheckBoxClicked(todo, checkbox.isChecked)
+                    }
+                }
+            }
+        }
 
         fun bind(todo: TodoEntity) {
             binding.apply {
@@ -35,6 +59,13 @@ class TodoAdapter : ListAdapter<TodoEntity, TodoAdapter.TodoViewHolder>(DiffCall
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val currentTodo = getItem(position)
         holder.bind(currentTodo)
+    }
+
+    interface OnItemClickedListener{
+
+        fun onItemClicked(todo: TodoEntity)
+
+        fun onCheckBoxClicked(todo: TodoEntity, isChecked : Boolean)
     }
 
     companion object{

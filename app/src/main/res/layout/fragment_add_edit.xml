@@ -10,14 +10,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
         <EditText
             android:id="@+id/todo_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:padding="10dp"
+            android:layout_marginStart="4dp"
             android:hint="@string/todo_name"
+            android:inputType="text"
+            android:textColorHint="#757575"
             android:importantForAutofill="no" />
+
 
         <CheckBox
             android:id="@+id/important_todo"
@@ -33,7 +36,7 @@
             android:id="@+id/date_created_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Date created"/>
+            tools:text="Date created" />
 
     </LinearLayout>
 

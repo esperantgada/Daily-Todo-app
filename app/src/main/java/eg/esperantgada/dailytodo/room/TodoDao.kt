@@ -2,7 +2,7 @@ package eg.esperantgada.dailytodo.room
 
 import androidx.room.*
 import eg.esperantgada.dailytodo.model.TodoEntity
-import eg.esperantgada.dailytodo.viewmodel.SortOrder
+import eg.esperantgada.dailytodo.repository.SortOrder
 import kotlinx.coroutines.flow.Flow
 
 

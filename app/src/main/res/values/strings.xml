@@ -13,4 +13,5 @@
     <string name="sort_by_date_created">Sort by date created</string>
     <string name="delete_completed_tasks">Delete completed tasks</string>
     <string name="hide_completed_todo">Hide completed todo</string>
+    <string name="created_at">Created at %s</string>
 </resources>

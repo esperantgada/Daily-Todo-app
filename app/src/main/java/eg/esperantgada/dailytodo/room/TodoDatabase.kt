@@ -41,6 +41,12 @@ abstract class TodoDatabase : RoomDatabase(){
                 dao.insert(TodoEntity("Go to church meeting"))
                 dao.insert(TodoEntity("Clear room"))
                 dao.insert(TodoEntity("Wash clothes"))
+                dao.insert(TodoEntity("Laugh"))
+                dao.insert(TodoEntity("Break up"))
+                dao.insert(TodoEntity("Wake up"))
+                dao.insert(TodoEntity("Wake up"))
+                dao.insert(TodoEntity("Wake up"))
+                dao.insert(TodoEntity("Wake up"))
             }
         }
     }

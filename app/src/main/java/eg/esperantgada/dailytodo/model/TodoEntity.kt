@@ -11,7 +11,6 @@ import java.text.DateFormat
 @Entity(tableName = "todo_table")
 @Parcelize
 data class TodoEntity(
-
     @ColumnInfo(name = "todo_name")
     val name : String,
 
@@ -20,12 +19,9 @@ data class TodoEntity(
 
     @PrimaryKey(autoGenerate = true)
     val id : Int = 0,
-
-
+    
     @ColumnInfo(name = "created_at")
     val createdAt : Long = System.currentTimeMillis()
-
-
 ) : Parcelable{
     val dataFormatted : String
         get() = DateFormat.getDateTimeInstance().format(createdAt)

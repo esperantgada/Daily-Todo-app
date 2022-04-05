@@ -9,5 +9,22 @@
         android:id="@+id/todoFragment"
         android:name="eg.esperantgada.dailytodo.fragment.TodoFragment"
         android:label="fragment_todo"
-        tools:layout="@layout/fragment_todo" />
+        tools:layout="@layout/fragment_todo" >
+        <action
+            android:id="@+id/action_todoFragment_to_addEditFragment"
+            app:destination="@id/addEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.AddEditFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_add_edit" >
+        <argument
+            android:name="todo"
+            app:argType="eg.esperantgada.dailytodo.model.TodoEntity"
+            app:nullable="true"/>
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
 </navigation>

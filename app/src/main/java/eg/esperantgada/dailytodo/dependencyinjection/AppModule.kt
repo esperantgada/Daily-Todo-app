@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import eg.esperantgada.dailytodo.repository.TodoRepository
 import eg.esperantgada.dailytodo.room.TodoDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -30,6 +31,10 @@ object AppModule{
 
     @Provides
     fun provideTodoDao(todoDatabase: TodoDatabase) = todoDatabase.todoDao()
+
+    @Provides
+    @Singleton
+    fun provideTodoRepository(todoDatabase: TodoDatabase) = TodoRepository(todoDatabase.todoDao())
 
     @ApplicationScope
     @Provides
