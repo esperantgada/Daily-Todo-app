@@ -14,4 +14,10 @@
     <string name="delete_completed_tasks">Delete completed tasks</string>
     <string name="hide_completed_todo">Hide completed todo</string>
     <string name="created_at">Created at %s</string>
+    <string name="name_cannot_be_empty">Name cannot be empty</string>
+    <string name="confirm_deletion_message">Confirm Deletion</string>
+    <string name="cancel">CANCEL</string>
+    <string name="yes">YES</string>
+    <string name="successful_deletion_message">All completed todos deleted successfully</string>
+    <string name="alert_dialog_message">Do you really want to delete all completed todos? You  can\'t get them back</string>
 </resources>

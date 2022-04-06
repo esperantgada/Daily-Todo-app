@@ -1,12 +1,16 @@
 package eg.esperantgada.dailytodo.viewmodel
 
 import androidx.lifecycle.*
-import dagger.assisted.Assisted
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eg.esperantgada.dailytodo.model.TodoEntity
+import eg.esperantgada.dailytodo.event.TodoEvent
+import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.repository.PreferenceRepository
 import eg.esperantgada.dailytodo.repository.SortOrder
 import eg.esperantgada.dailytodo.repository.TodoRepository
+import eg.esperantgada.dailytodo.utils.ADD_TODO_RESULT_OK
+import eg.esperantgada.dailytodo.utils.EDIT_TODO_RESULT_OK
+import eg.esperantgada.dailytodo.utils.TODO_ADDED_MESSAGE
+import eg.esperantgada.dailytodo.utils.TODO_UPDATED_MESSAGE
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.combine
@@ -81,7 +85,7 @@ class TodoViewModel @Inject constructor(
     }
 
     //When an item is selected, navigate to edit Fragment to edit the selected item
-    fun onTodoSelected(todo : TodoEntity){
+    fun onTodoSelected(todo : Todo){
         viewModelScope.launch {
             todoEventChannel.send(TodoEvent.GoToEditFragment(todo))
         }
@@ -89,13 +93,13 @@ class TodoViewModel @Inject constructor(
 
     //When a task is checked, it is updated in the database
     fun onTodoCheckedChanged(
-        todo: TodoEntity,
+        todo: Todo,
         isChecked : Boolean
     ) = viewModelScope.launch { 
         todoRepository.update(todo.copy(isCompleted = isChecked))
     }
 
-    fun onItemSwiped(todo: TodoEntity){
+    fun onItemSwiped(todo: Todo){
         viewModelScope.launch {
             todoRepository.delete(todo)
             todoEventChannel.send(TodoEvent.ShowUndoDeleteTodoMessage(todo))
@@ -103,7 +107,7 @@ class TodoViewModel @Inject constructor(
     }
 
     //This undoes the delete action and insert the task in the database
-    fun onUndoDelete(todo: TodoEntity){
+    fun onUndoDelete(todo: Todo){
         viewModelScope.launch {
             todoRepository.insert(todo)
         }
@@ -116,12 +120,26 @@ class TodoViewModel @Inject constructor(
         }
     }
 
+    //This takes the result value sent by AddEditTodoFragment and shows confirmation message accordingly
+    //in the fragment
+    fun onAddEditTodoResult(result : Int){
+        when (result){
+            ADD_TODO_RESULT_OK -> showAddEditTodoConfirmationMessage(TODO_ADDED_MESSAGE)
 
-    //A sealed class is like an enum class but it can holds data
-    sealed class TodoEvent{
-        object GoToAddTodoFragment : TodoEvent()
-        data class GoToEditFragment(val todo: TodoEntity) : TodoEvent()
-        data class ShowUndoDeleteTodoMessage(val todo: TodoEntity) :TodoEvent()
+            EDIT_TODO_RESULT_OK -> showAddEditTodoConfirmationMessage(TODO_UPDATED_MESSAGE)
+        }
+    }
 
+    //Helper function that sends confirmation message event to the fragment through onAddEditTodoResult method
+    private fun showAddEditTodoConfirmationMessage(message : String){
+        viewModelScope.launch {
+            todoEventChannel.send(TodoEvent.ShowSavedTodoConfirmationMessage(message))
+        }
+    }
+
+    fun goToAlertDialogFragment(){
+        viewModelScope.launch {
+            todoEventChannel.send(TodoEvent.GotoAlertDialogFragment)
+        }
     }
 }

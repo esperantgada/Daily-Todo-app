@@ -10,7 +10,7 @@ import java.text.DateFormat
 
 @Entity(tableName = "todo_table")
 @Parcelize
-data class TodoEntity(
+data class Todo(
     @ColumnInfo(name = "todo_name")
     val name : String,
 

@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eg.esperantgada.dailytodo.databinding.TodoItemBinding
-import eg.esperantgada.dailytodo.model.TodoEntity
+import eg.esperantgada.dailytodo.model.Todo
 
 class TodoAdapter(
     private val listener : OnItemClickedListener
-    ) : ListAdapter<TodoEntity, TodoAdapter.TodoViewHolder>(DiffCallback) {
+    ) : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
 
    inner class TodoViewHolder(private val binding: TodoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -38,7 +38,7 @@ class TodoAdapter(
             }
         }
 
-        fun bind(todo: TodoEntity) {
+        fun bind(todo: Todo) {
             binding.apply {
                 checkbox.isChecked = todo.isCompleted
                 todoTextView.text = todo.name
@@ -63,18 +63,18 @@ class TodoAdapter(
 
     interface OnItemClickedListener{
 
-        fun onItemClicked(todo: TodoEntity)
+        fun onItemClicked(todo: Todo)
 
-        fun onCheckBoxClicked(todo: TodoEntity, isChecked : Boolean)
+        fun onCheckBoxClicked(todo: Todo, isChecked : Boolean)
     }
 
     companion object{
-        val DiffCallback = object : DiffUtil.ItemCallback<TodoEntity>(){
-            override fun areItemsTheSame(oldItem: TodoEntity, newItem: TodoEntity): Boolean {
+        val DiffCallback = object : DiffUtil.ItemCallback<Todo>(){
+            override fun areItemsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: TodoEntity, newItem: TodoEntity): Boolean {
+            override fun areContentsTheSame(oldItem: Todo, newItem: Todo): Boolean {
                 return oldItem == newItem
             }
 
