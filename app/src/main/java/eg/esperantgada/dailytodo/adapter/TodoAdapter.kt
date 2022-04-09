@@ -1,17 +1,21 @@
 package eg.esperantgada.dailytodo.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.TodoItemBinding
 import eg.esperantgada.dailytodo.model.Todo
 
 class TodoAdapter(
+    private val context: Context,
     private val listener : OnItemClickedListener
     ) : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
+
 
    inner class TodoViewHolder(private val binding: TodoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -44,6 +48,8 @@ class TodoAdapter(
                 todoTextView.text = todo.name
                 todoTextView.paint.isStrikeThruText = todo.isCompleted
                 priorityImageView.isVisible = todo.isImportant
+                createdDateAndTime.text = todo.dataFormatted
+                dueDateAndTime.text = context.getString(R.string.date_and_time, todo.date, todo.time)
 
             }
         }

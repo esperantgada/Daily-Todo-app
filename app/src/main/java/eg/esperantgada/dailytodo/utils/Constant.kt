@@ -9,3 +9,12 @@ const val ADD_EDIT_RESULT_KEY = "add_edit_result_key"
 const val INVALID_INPUT_MESSAGE = "Name cannot be empty"
 const val TODO_ADDED_MESSAGE = "Todo saved"
 const val TODO_UPDATED_MESSAGE = "Todo updated"
+
+//for notification
+const val CHANNEL_ID ="channel_id"
+const val NOTIFICATION_ID = 1
+const val NAME = "Notification title"
+const val DESCRIPTION_TEXT = "Notification description"
+
+const val SET_ACTION = "eg.esperantgada.dailytodo.broadcastreceiver.TodoBroadcastReceiver"
+const val TODO_ALARM_TAG = "TodoAlarm"

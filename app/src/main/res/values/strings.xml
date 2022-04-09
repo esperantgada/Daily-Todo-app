@@ -16,8 +16,33 @@
     <string name="created_at">Created at %s</string>
     <string name="name_cannot_be_empty">Name cannot be empty</string>
     <string name="confirm_deletion_message">Confirm Deletion</string>
-    <string name="cancel">CANCEL</string>
+    <string name="cancel">Cancel</string>
     <string name="yes">YES</string>
+    <string name="scheduled_for">Scheduled for %s</string>
+    <string name="date_and_time"> %s %s</string>
     <string name="successful_deletion_message">All completed todos deleted successfully</string>
     <string name="alert_dialog_message">Do you really want to delete all completed todos? You  can\'t get them back</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="settings">Settings</string>
+    <string name="created_date_and_time">Created date and time</string>
+    <string name="april_8_2022_12_36">April 8, 2022 12:36</string>
+    <string name="due_date_and_time">Due date and time</string>
+    <string name="what_do_you_want_to_do">What do you want to do?</string>
+    <string name="on_what_date_will_it_be_achieved">On what date will it be achieved?</string>
+    <string name="what_time_will_it_be_done">What time will it be done?</string>
 </resources>

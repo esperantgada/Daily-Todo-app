@@ -15,7 +15,7 @@ import javax.inject.Provider
  * This database is created or provided by dependency injection
  */
 
-@Database(entities = [Todo::class], version = 1, exportSchema = false)
+@Database(entities = [Todo::class], version = 2, exportSchema = false)
 abstract class TodoDatabase : RoomDatabase(){
 
     abstract fun todoDao() :TodoDao
@@ -26,26 +26,29 @@ abstract class TodoDatabase : RoomDatabase(){
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
 
-            val dao = database.get().todoDao()
+            val tododao = database.get().todoDao()
 
             applicationScope.launch {
-                dao.insert(Todo("Do exercises"))
-                dao.insert(Todo("Wash TV", false))
-                dao.insert(Todo("Create a small application", true, true))
-                dao.insert(Todo("Write a program in Python", true, true))
-                dao.insert(Todo("Do Sport", true, false))
-                dao.insert(Todo("Go to market", false, false))
-                dao.insert(Todo("Take bath"))
-                dao.insert(Todo("Watch courses video"))
-                dao.insert(Todo("Go to church meeting"))
-                dao.insert(Todo("Clear room"))
-                dao.insert(Todo("Wash clothes"))
-                dao.insert(Todo("Laugh"))
-                dao.insert(Todo("Break up"))
-                dao.insert(Todo("Wake up"))
-                dao.insert(Todo("Wake up"))
-                dao.insert(Todo("Wake up"))
-                dao.insert(Todo("Wake up"))
+
+                tododao.insert(Todo(
+                    name = "Watch TV",
+                    date = "Mon, October 3, 2022",
+                    time = "10:50_"))
+
+                tododao.insert(Todo(
+                    name = "Take Google Android Certification Exam",
+                    isImportant = true,
+                    date = "Fri, April 19, 2022",
+                    time = "00:00"
+                ))
+
+                tododao.insert(Todo(
+                    name = "Take Android Development courses",
+                    isImportant = true,
+                    isCompleted = true,
+                    date = "june 2021",
+                    time = "200 hours"
+                ))
             }
         }
     }

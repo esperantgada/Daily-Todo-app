@@ -1,9 +1,11 @@
 package eg.esperantgada.dailytodo.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eg.esperantgada.dailytodo.alarm.TodoAlarm
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.repository.TodoRepository
@@ -17,12 +19,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AddEditTodoViewModel @Inject constructor(
+    private val context: Context,
     private val todoRepository: TodoRepository,
-    private val state : SavedStateHandle
+    private val state : SavedStateHandle,
     ) : ViewModel(){
-
     private val addEditTodoEventChannel = Channel<AddEditTodoEvent>()
     val addEditTodoEvent = addEditTodoEventChannel.receiveAsFlow()
+
 
     //Retrieve the data sent from TodoFragment and save it in the state so that that it doesn't lost
     val sentTodo = state.get<Todo>("todo")
@@ -34,10 +37,22 @@ class AddEditTodoViewModel @Inject constructor(
         state.set("todoName", value)
     }
 
-    var isImportant = state.get<Boolean>("isCompleted") ?: sentTodo?.isImportant ?: false
+    var isImportant = state.get<Boolean>("isImportant") ?: sentTodo?.isImportant ?: false
     set(value) {
         field = value
-        state.set("isCompleted", isImportant)
+        state.set("isImportant", isImportant)
+    }
+
+    var todoDate = state.get<String>("date") ?: sentTodo?.date ?: ""
+    set(value) {
+        field = value
+        state.set("todoDate", todoDate)
+    }
+
+    var todoTime = state.get<String>("todoTime") ?: sentTodo?.time ?: ""
+    set(value) {
+        field = value
+        state.set("todoTime", todoTime)
     }
 
     //Updates item and navigates back
@@ -66,19 +81,28 @@ class AddEditTodoViewModel @Inject constructor(
 
     //Will be executed when FAB will be clicked in the fragment
     fun onSaveClick(){
-        if (todoName.isBlank()){
+        if (todoName.isBlank() || todoDate.isBlank() || todoTime.isBlank()){
             showInvalidInputMessage(INVALID_INPUT_MESSAGE)
             return
         }
 
         //If the received item is not null, take in account the changes made and update it else create another one
         if (sentTodo != null){
-            val updatedTodo = sentTodo.copy(name = todoName, isImportant = isImportant)
+            val updatedTodo = sentTodo.copy(
+                name = todoName,
+                isImportant = isImportant,
+                date = todoDate,
+                time = todoTime
+            )
             updateTodo(updatedTodo)
         }else{
-            val newTodo = Todo(name = todoName, isImportant = isImportant)
+            val newTodo = Todo(
+                name = todoName,
+                isImportant = isImportant,
+                date = todoDate,
+                time = todoTime)
             insertTodo(newTodo)
+            TodoAlarm.setTodoAlarmReminder(context, newTodo)
         }
     }
-
 }

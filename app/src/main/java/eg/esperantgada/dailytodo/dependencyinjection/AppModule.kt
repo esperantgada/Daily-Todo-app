@@ -1,6 +1,7 @@
 package eg.esperantgada.dailytodo.dependencyinjection
 
 import android.app.Application
+import android.content.Context
 import androidx.room.Room
 import dagger.Module
 import dagger.Provides
@@ -40,6 +41,10 @@ object AppModule{
     @Provides
     @Singleton
     fun provideApplicationScope() = CoroutineScope(SupervisorJob())
+
+    @Provides
+    @Singleton
+    fun provideContext(application: Application) : Context = application.applicationContext
 }
 
 /**

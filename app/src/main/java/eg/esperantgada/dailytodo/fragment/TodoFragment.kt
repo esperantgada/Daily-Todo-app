@@ -1,6 +1,7 @@
 package eg.esperantgada.dailytodo.fragment
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import eg.esperantgada.dailytodo.R
+import eg.esperantgada.dailytodo.SettingsActivity
 import eg.esperantgada.dailytodo.adapter.TodoAdapter
 import eg.esperantgada.dailytodo.databinding.FragmentTodoBinding
 import eg.esperantgada.dailytodo.event.TodoEvent
@@ -40,13 +42,13 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
     private val todoViewModel: TodoViewModel by viewModels()
 
-    private var _binding: FragmentTodoBinding? = null
+    private var _binding : FragmentTodoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var todosList : MutableList<Todo>
-    private lateinit var todoAdapter : TodoAdapter
+    private lateinit var todosList: MutableList<Todo>
+    private lateinit var todoAdapter: TodoAdapter
 
-    private lateinit var searchView : SearchView
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +69,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        todoAdapter = TodoAdapter(this)
+        todoAdapter = TodoAdapter(requireContext(), this)
 
         binding.apply {
             recyclerView.apply {
@@ -78,7 +80,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
             }
 
             //Gets and handles the result or adding or editing from AddEditTodoFragment
-            setFragmentResultListener(REQUEST_KEY){ _, bundle ->
+            setFragmentResultListener(REQUEST_KEY) { _, bundle ->
                 val result = bundle.getInt(ADD_EDIT_RESULT_KEY)
                 todoViewModel.onAddEditTodoResult(result)
             }
@@ -97,8 +99,8 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
          */
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             todoViewModel.todoEvent.collect { event ->
-                when(event){
-                    is TodoEvent.ShowUndoDeleteTodoMessage ->{
+                when (event) {
+                    is TodoEvent.ShowUndoDeleteTodoMessage -> {
                         showSnackBarAndToast(event)
                     }
 
@@ -147,11 +149,11 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         inflater.inflate(R.menu.todo_menu, menu)
 
         val searchedTodo = menu.findItem(R.id.search_todo)
-         searchView = searchedTodo.actionView as SearchView
+        searchView = searchedTodo.actionView as SearchView
 
         //This will help to handle searchQuery state during device configuration changes
         val pendingQuery = todoViewModel.searchQuery.value
-        if (pendingQuery != null && pendingQuery.isNotEmpty()){
+        if (pendingQuery != null && pendingQuery.isNotEmpty()) {
             searchedTodo.expandActionView()
             searchView.setQuery(pendingQuery, false)
         }
@@ -192,6 +194,11 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
             R.id.delete_all_completed_todo -> {
                 todoViewModel.goToAlertDialogFragment()
+                true
+            }
+
+            R.id.setting ->{
+                startActivity(Intent(requireContext(), SettingsActivity::class.java))
                 true
             }
 
@@ -241,7 +248,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         super.onDestroyView()
 
         _binding = null
-        searchView.setOnQueryTextListener(null)
+        //searchView.setOnQueryTextListener(null)
     }
 
 }

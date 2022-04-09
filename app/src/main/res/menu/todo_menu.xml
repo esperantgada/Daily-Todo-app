@@ -38,4 +38,10 @@
         android:title="@string/delete_completed_tasks"
         app:showAsAction="never"/>
 
+
+    <item
+        android:id="@+id/setting"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
+
 </menu>

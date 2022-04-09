@@ -18,11 +18,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.FragmentAddEditBinding
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
-import eg.esperantgada.dailytodo.utils.ADD_EDIT_RESULT_KEY
-import eg.esperantgada.dailytodo.utils.REQUEST_KEY
-import eg.esperantgada.dailytodo.utils.exhaustive
+import eg.esperantgada.dailytodo.utils.*
 import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 import kotlinx.coroutines.flow.collect
+import java.util.*
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
 @AndroidEntryPoint
@@ -50,7 +49,12 @@ class AddEditTodoFragment : Fragment() {
             importantTodo.isChecked = viewModel.isImportant
             importantTodo.jumpDrawablesToCurrentState()
             dateCreatedTextView.isVisible = viewModel.sentTodo != null
+            scheduledDateTextView.isVisible = viewModel.sentTodo != null
             dateCreatedTextView.text = context?.getString(R.string.created_at, viewModel.sentTodo?.dataFormatted)
+            binding.todoDate.getDatePicker(requireContext(), "dd/MM/yyyy", Date())
+            binding.todoTime.getTimePicker(requireContext(), "h:mm a")
+            binding.todoTime.setText(viewModel.todoTime)
+            binding.todoDate.setText(viewModel.todoDate)
 
             //Sets item's name in the viewModel to the name of edited item and save it SaveStateHandle
             todoName.addTextChangedListener {
@@ -60,6 +64,14 @@ class AddEditTodoFragment : Fragment() {
             //Sets item's importance in the viewModel to the importance of edited item and save it SaveStateHandle
             importantTodo.setOnCheckedChangeListener { _, isChecked  ->
                 viewModel.isImportant = isChecked
+            }
+
+            todoDate.addTextChangedListener {
+                viewModel.todoDate = it.toString()
+            }
+
+            todoTime.addTextChangedListener {
+                viewModel.todoTime = it.toString()
             }
 
 
