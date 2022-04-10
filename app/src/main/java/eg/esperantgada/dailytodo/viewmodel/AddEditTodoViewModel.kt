@@ -21,8 +21,8 @@ import javax.inject.Inject
 class AddEditTodoViewModel @Inject constructor(
     private val context: Context,
     private val todoRepository: TodoRepository,
-    private val state : SavedStateHandle,
-    ) : ViewModel(){
+    private val state: SavedStateHandle,
+) : ViewModel() {
     private val addEditTodoEventChannel = Channel<AddEditTodoEvent>()
     val addEditTodoEvent = addEditTodoEventChannel.receiveAsFlow()
 
@@ -32,31 +32,31 @@ class AddEditTodoViewModel @Inject constructor(
 
     //This takes a task's name and save it in the state instance as key/value
     var todoName = state.get<String>("todoName") ?: sentTodo?.name ?: ""
-    set(value) {
-        field = value
-        state.set("todoName", value)
-    }
+        set(value) {
+            field = value
+            state.set("todoName", value)
+        }
 
     var isImportant = state.get<Boolean>("isImportant") ?: sentTodo?.isImportant ?: false
-    set(value) {
-        field = value
-        state.set("isImportant", isImportant)
-    }
+        set(value) {
+            field = value
+            state.set("isImportant", isImportant)
+        }
 
     var todoDate = state.get<String>("date") ?: sentTodo?.date ?: ""
-    set(value) {
-        field = value
-        state.set("todoDate", todoDate)
-    }
+        set(value) {
+            field = value
+            state.set("todoDate", todoDate)
+        }
 
     var todoTime = state.get<String>("todoTime") ?: sentTodo?.time ?: ""
-    set(value) {
-        field = value
-        state.set("todoTime", todoTime)
-    }
+        set(value) {
+            field = value
+            state.set("todoTime", todoTime)
+        }
 
     //Updates item and navigates back
-    private fun updateTodo(todo : Todo){
+    private fun updateTodo(todo: Todo) {
         viewModelScope.launch {
             todoRepository.update(todo)
             addEditTodoEventChannel.send(AddEditTodoEvent.GoBackWithResult(EDIT_TODO_RESULT_OK))
@@ -65,7 +65,7 @@ class AddEditTodoViewModel @Inject constructor(
 
 
     //Inserts item and navigates back
-    private fun insertTodo(todo: Todo){
+    private fun insertTodo(todo: Todo) {
         viewModelScope.launch {
             todoRepository.insert(todo)
             addEditTodoEventChannel.send(AddEditTodoEvent.GoBackWithResult(ADD_TODO_RESULT_OK))
@@ -73,36 +73,74 @@ class AddEditTodoViewModel @Inject constructor(
     }
 
     //Shows invalid input message added
-    private fun showInvalidInputMessage(message: String){
+    private fun showInvalidInputMessage(message: String) {
         viewModelScope.launch {
             addEditTodoEventChannel.send(AddEditTodoEvent.ShowInvalidInputMessage(message))
         }
     }
 
-    //Will be executed when FAB will be clicked in the fragment
-    fun onSaveClick(){
-        if (todoName.isBlank() || todoDate.isBlank() || todoTime.isBlank()){
-            showInvalidInputMessage(INVALID_INPUT_MESSAGE)
-            return
-        }
+    private fun isInputInvalid() :Boolean {
+        when {
+            todoName.isBlank() && todoDate.isNotBlank() && todoTime.isNotBlank() -> {
+                showInvalidInputMessage(INVALID_INPUT_MESSAGE)
+                return true
+            }
+            todoName.isBlank() && todoDate.isBlank() && todoTime.isNotBlank() -> {
+                showInvalidInputMessage("Task name and task date cannot be empty")
+                return true
+            }
+            todoName.isBlank() && todoTime.isBlank() && todoDate.isNotBlank() -> {
+                showInvalidInputMessage("Task name and task time cannot be empty")
+                return true
+            }
+            todoDate.isBlank() && todoName.isNotBlank() && todoTime.isNotBlank() -> {
+                showInvalidInputMessage("Task date cannot be empty")
+                return true
+            }
+            todoDate.isBlank() && todoTime.isBlank() && todoName.isNotBlank() -> {
+                showInvalidInputMessage("Task date and time cannot be empty")
+                return true
+            }
+            todoTime.isBlank() && todoName.isNotBlank() && todoDate.isNotBlank() -> {
+                showInvalidInputMessage("Task time cannot be empty")
+                return true
+            }
 
-        //If the received item is not null, take in account the changes made and update it else create another one
-        if (sentTodo != null){
-            val updatedTodo = sentTodo.copy(
-                name = todoName,
-                isImportant = isImportant,
-                date = todoDate,
-                time = todoTime
-            )
-            updateTodo(updatedTodo)
+            todoName.isBlank() && todoDate.isBlank() && todoTime.isBlank() -> {
+                showInvalidInputMessage("Task name, date and time cannot be empty")
+                return true
+            }
+            else -> return false
+        }
+    }
+
+    //Will be executed when FAB will be clicked in the fragment
+    fun onSaveClick() {
+        if (isInputInvalid()){
+            return
         }else{
-            val newTodo = Todo(
-                name = todoName,
-                isImportant = isImportant,
-                date = todoDate,
-                time = todoTime)
-            insertTodo(newTodo)
-            TodoAlarm.setTodoAlarmReminder(context, newTodo)
+            when {
+                sentTodo != null -> {
+                    val updatedTodo = sentTodo.copy(
+                        name = todoName,
+                        isImportant = isImportant,
+                        date = todoDate,
+                        time = todoTime
+                    )
+                    updateTodo(updatedTodo)
+                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
+                }
+                else -> {
+                    val newTodo = Todo(
+                        name = todoName,
+                        isImportant = isImportant,
+                        date = todoDate,
+                        time = todoTime)
+                    insertTodo(newTodo)
+                    TodoAlarm.setTodoAlarmReminder(context, newTodo)
+                }
+
+            }
         }
     }
 }

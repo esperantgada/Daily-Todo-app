@@ -17,10 +17,9 @@ import java.util.*
 //Sets alarm for the broadcast receiver
 object TodoAlarm {
 
-    @SuppressLint("SimpleDateFormat", "InlinedApi")
-    fun setTodoAlarmReminder(context: Context, todo: Todo){
-        val alarmManager : AlarmManager? =
-            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+    fun setTodoAlarmReminder(context: Context, todo: Todo) {
+        val alarmManager: AlarmManager? =
+            context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
         val intent = Intent(context, TodoAlarmReceiver::class.java)
 
@@ -45,7 +44,7 @@ object TodoAlarm {
         val todoTime = format.parse(dateAndTimeReminder)
         val currentTime = Calendar.getInstance().time
 
-        if (currentTime < todoTime){
+        if (currentTime < todoTime) {
             alarmManager?.let {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     alarmManager.setExactAndAllowWhileIdle(
@@ -53,7 +52,7 @@ object TodoAlarm {
                         todoTime.time,
                         pendingIntent
                     )
-                }else{
+                } else {
                     alarmManager.setExact(
                         AlarmManager.RTC_WAKEUP,
                         todoTime.time,
@@ -61,10 +60,8 @@ object TodoAlarm {
                     )
                 }
             }
-        }else{
+        } else {
             alarmManager?.cancel(pendingIntent)
         }
-
-
     }
 }

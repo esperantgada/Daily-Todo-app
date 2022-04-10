@@ -21,7 +21,7 @@ fun TextInputEditText.getDatePicker(
         calendar.set(Calendar.MONTH, month)
         calendar.set(Calendar.DAY_OF_MONTH, day)
 
-        val selectedDate = SimpleDateFormat(format, Locale.ENGLISH)
+        val selectedDate = SimpleDateFormat(format, Locale.UK)
         setText(selectedDate.format(calendar.time))
     }
 
