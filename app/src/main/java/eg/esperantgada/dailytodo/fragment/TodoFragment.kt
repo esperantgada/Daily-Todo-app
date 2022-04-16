@@ -9,6 +9,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.PagingData
@@ -30,10 +31,7 @@ import eg.esperantgada.dailytodo.utils.REQUEST_KEY
 import eg.esperantgada.dailytodo.utils.exhaustive
 import eg.esperantgada.dailytodo.utils.onQueryTextChanged
 import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.util.*
 
@@ -65,7 +63,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
-        _binding = FragmentTodoBinding.inflate(inflater, container, false)
+        _binding = FragmentTodoBinding.inflate(inflater)
 
         return binding.root
     }
@@ -91,7 +89,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
         }
 
-        lifecycleScope.launchWhenCreated {
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             todoViewModel.todos.collectLatest { todosList ->
                 todoList = todosList
                 todoAdapter.submitData(viewLifecycleOwner.lifecycle, todosList)
