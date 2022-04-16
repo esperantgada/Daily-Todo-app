@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import eg.esperantgada.dailytodo.model.Todo
 class TodoAdapter(
     private val context: Context,
     private val listener : OnItemClickedListener
-    ) : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
+    ) : PagingDataAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
 
 
    inner class TodoViewHolder(private val binding: TodoItemBinding) :
@@ -28,7 +29,9 @@ class TodoAdapter(
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION){
                         val todo = getItem(position)
-                        listener.onItemClicked(todo)
+                        if (todo != null) {
+                            listener.onItemClicked(todo)
+                        }
                     }
                 }
 
@@ -36,7 +39,9 @@ class TodoAdapter(
                     val position = adapterPosition
                     if (position != RecyclerView.NO_POSITION){
                         val todo = getItem(position)
-                        listener.onCheckBoxClicked(todo, checkbox.isChecked)
+                        if (todo != null) {
+                            listener.onCheckBoxClicked(todo, checkbox.isChecked)
+                        }
                     }
                 }
             }
@@ -64,7 +69,9 @@ class TodoAdapter(
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val currentTodo = getItem(position)
-        holder.bind(currentTodo)
+        if (currentTodo != null) {
+            holder.bind(currentTodo)
+        }
     }
 
     interface OnItemClickedListener{

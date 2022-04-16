@@ -1,6 +1,8 @@
 package eg.esperantgada.dailytodo.viewmodel
 
 import androidx.lifecycle.*
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eg.esperantgada.dailytodo.event.TodoEvent
 import eg.esperantgada.dailytodo.model.Todo
@@ -74,7 +76,7 @@ class TodoViewModel @Inject constructor(
             filterPreference.hideCompleted)
     }
 
-    val todos = todoFlow.asLiveData()
+    val todos = todoFlow.cachedIn(viewModelScope)
 
     fun onSortOrderSelected(sortOrder: SortOrder) = viewModelScope.launch {
         preferenceRepository.updateSortOrder(sortOrder)

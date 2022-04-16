@@ -12,6 +12,11 @@
     <color name="green_dark">#003300</color>
     <color name="green_light">#A5D6A7</color>
     <color name="blue">#0288D1</color>
+    <color name="lightGray">#E6E6E6</color>
+    <color name="darkGray">#4B4B4B</color>
+    <color name="colorGrey">#757575</color>
+    <color name="colorPrimaryDark">#263238</color>
+    <color name="colorAccent">#2E7D32</color>
     <color name="blue_dark">#005B9F</color>
     <color name="blue_light">#81D4FA</color>>
 

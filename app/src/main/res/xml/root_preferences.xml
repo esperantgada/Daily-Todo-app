@@ -1,65 +1,84 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        app:key="about"
+        app:title="Help">
 
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
+        <Preference
+            app:key="feedback"
+            app:title="@string/send_feedback"
+            app:summary="@string/feedback_summary"/>
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/sync_header">
+    <PreferenceCategory
+        app:key="follow"
+        app:title="Let's be friends">
 
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
+        <Preference
+            app:key="facebook"
+            app:title="Facebook">
 
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://web.facebook.com/gada.esperant/"/>
+        </Preference>
 
+
+        <Preference
+            app:key="linkedin"
+            app:title="LinkedIn">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.linkedin.com/in/esp%C3%A9rant-gada-b88469208/"/>
+        </Preference>
+
+        <Preference
+            app:key="Twitter"
+            app:title="Twitter">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://twitter.com/EsperantGada"/>
+
+        </Preference>
+
+        <Preference
+            app:key="whatsapp"
+            app:title="WhatsApp">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://wa.me/+22997756877"/>
+        </Preference>
+
+        <Preference
+            app:key="instagram"
+            app:title="Instagram">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://www.instagram.com/esperantgada/"/>
+        </Preference>
+
+        <Preference
+            app:key="tiktok"
+            app:title="Tiktok">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://vm.tiktok.com/ZML4tm6rE/"/>
+        </Preference>
+
+        <Preference
+            app:key="medium"
+            app:title="Medium">
+
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="https://medium.com/@esperantgada"/>
+        </Preference>
     </PreferenceCategory>
-    <PreferenceCategory app:title="@string/messages_header">
-
-        <EditTextPreference
-            app:key="signature"
-            app:title="@string/signature_title"
-            app:useSimpleSummaryProvider="true" />
-
-        <ListPreference
-            app:defaultValue="reply"
-            app:entries="@array/reply_entries"
-            app:entryValues="@array/reply_values"
-            app:key="reply"
-            app:title="@string/reply_title"
-            app:useSimpleSummaryProvider="true" />
-
-    </PreferenceCategory>
-    <PreferenceCategory app:title="@string/sync_header">
-
-        <SwitchPreferenceCompat
-            app:key="sync"
-            app:title="@string/sync_title" />
-
-        <SwitchPreferenceCompat
-            app:dependency="sync"
-            app:key="attachment"
-            app:summaryOff="@string/attachment_summary_off"
-            app:summaryOn="@string/attachment_summary_on"
-            app:title="@string/attachment_title" />
-
-    </PreferenceCategory>
-
 </PreferenceScreen>

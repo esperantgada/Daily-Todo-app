@@ -1,3 +1,5 @@
+@file:Suppress("RECEIVER_NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+
 package eg.esperantgada.dailytodo.alarm
 
 import android.annotation.SuppressLint
@@ -17,6 +19,7 @@ import java.util.*
 //Sets alarm for the broadcast receiver
 object TodoAlarm {
 
+    @SuppressLint("SimpleDateFormat", "InlinedApi")
     fun setTodoAlarmReminder(context: Context, todo: Todo) {
         val alarmManager: AlarmManager? =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?

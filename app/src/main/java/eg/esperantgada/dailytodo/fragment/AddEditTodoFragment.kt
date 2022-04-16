@@ -50,6 +50,7 @@ class AddEditTodoFragment : Fragment() {
             importantTodo.jumpDrawablesToCurrentState()
             dateCreatedTextView.isVisible = viewModel.sentTodo != null
             scheduledDateTextView.isVisible = viewModel.sentTodo != null
+            scheduledDateTextView.text = getString(R.string.scheduled_for, viewModel.todoDate, viewModel.todoTime)
             dateCreatedTextView.text = context?.getString(R.string.created_at, viewModel.sentTodo?.dataFormatted)
             binding.todoDate.getDatePicker(requireContext(), "dd/MM/yyyy", Date())
             binding.todoTime.getTimePicker(requireContext(), "h:mm a")

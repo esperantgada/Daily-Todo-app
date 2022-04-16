@@ -32,4 +32,9 @@
         android:name="eg.esperantgada.dailytodo.fragment.AlertDialogFragment"
         android:label="AlertDialogueFragment" />
     <action android:id="@+id/action_global_alertDialogueFragment" app:destination="@id/alertDialogFragment" />
+    <fragment
+        android:id="@+id/instructionsFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.InstructionsFragment"
+        android:label="fragment_instructions"
+        tools:layout="@layout/fragment_instructions" />
 </navigation>

@@ -11,6 +11,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.PagingData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,9 @@ import eg.esperantgada.dailytodo.utils.REQUEST_KEY
 import eg.esperantgada.dailytodo.utils.exhaustive
 import eg.esperantgada.dailytodo.utils.onQueryTextChanged
 import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
@@ -45,10 +48,11 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     private var _binding : FragmentTodoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var todosList: MutableList<Todo>
     private lateinit var todoAdapter: TodoAdapter
 
     private lateinit var searchView: SearchView
+
+    private lateinit var todoList : PagingData<Todo>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +83,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
                 floating.setOnClickListener { todoViewModel.addNewTodo() }
             }
 
-            //Gets and handles the result or adding or editing from AddEditTodoFragment
+            //Gets and handles the result of adding or editing from AddEditTodoFragment
             setFragmentResultListener(REQUEST_KEY) { _, bundle ->
                 val result = bundle.getInt(ADD_EDIT_RESULT_KEY)
                 todoViewModel.onAddEditTodoResult(result)
@@ -87,10 +91,13 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
         }
 
-        todoViewModel.todos.observe(viewLifecycleOwner) {
-            todosList = it as MutableList<Todo>
-            todoAdapter.submitList(todosList)
+        lifecycleScope.launchWhenCreated {
+            todoViewModel.todos.collectLatest { todosList ->
+                todoList = todosList
+                todoAdapter.submitData(viewLifecycleOwner.lifecycle, todosList)
+            }
         }
+
 
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
@@ -231,15 +238,17 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
             val fromPosition = viewHolder.adapterPosition
             val toPosition = target.adapterPosition
 
-            Collections.swap(todosList, fromPosition, toPosition)
+            Collections.swap(todoList as MutableList<*>, fromPosition, toPosition)
             recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
 
             return true
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val todo = todoAdapter.currentList[viewHolder.adapterPosition]
-            todoViewModel.onItemSwiped(todo)
+            val todo = todoAdapter.snapshot()[viewHolder.adapterPosition]
+            if (todo != null) {
+                todoViewModel.onItemSwiped(todo)
+            }
         }
     })
 
@@ -248,7 +257,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         super.onDestroyView()
 
         _binding = null
-        //searchView.setOnQueryTextListener(null)
+        searchView.setOnQueryTextListener(null)
     }
 
 }
