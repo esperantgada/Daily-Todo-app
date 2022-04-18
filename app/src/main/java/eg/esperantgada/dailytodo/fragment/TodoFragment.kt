@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -38,6 +39,7 @@ import java.util.*
 /**
  * Inject the [TodoViewModel] in the [Fragment]
  */
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
@@ -96,6 +98,12 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
             }
         }
 
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            todoViewModel.allTodo.observe(viewLifecycleOwner){
+                binding.emptyItemTextView.isVisible = it.isEmpty()
+            }
+        }
+
 
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
@@ -136,9 +144,10 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
     }
 
+
     //Method that shows SnackBar and Toast messages
     private fun showSnackBarAndToast(event: TodoEvent.ShowUndoDeleteTodoMessage) {
-        Snackbar.make(requireView(), "REALLY DELETE TASK ?", Snackbar.LENGTH_LONG)
+        Snackbar.make(requireView(), "TASK DELETED", Snackbar.LENGTH_LONG)
             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
             .setAction("UNDO") {
                 todoViewModel.onUndoDelete(event.todo)

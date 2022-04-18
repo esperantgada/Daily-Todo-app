@@ -12,7 +12,11 @@
         tools:layout="@layout/fragment_todo" >
         <action
             android:id="@+id/action_todoFragment_to_addEditFragment"
-            app:destination="@id/addEditTodoFragment" />
+            app:destination="@id/addEditTodoFragment"
+            app:enterAnim="@anim/from_left"
+            app:exitAnim="@anim/to_right"
+            app:popEnterAnim="@anim/from_right"
+            app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
         android:id="@+id/addEditTodoFragment"
@@ -35,6 +39,6 @@
     <fragment
         android:id="@+id/instructionsFragment"
         android:name="eg.esperantgada.dailytodo.fragment.InstructionsFragment"
-        android:label="fragment_instructions"
+        android:label="Instructions"
         tools:layout="@layout/fragment_instructions" />
 </navigation>

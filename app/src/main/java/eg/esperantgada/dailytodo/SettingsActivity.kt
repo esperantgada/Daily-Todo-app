@@ -28,7 +28,7 @@ class SettingsActivity : AppCompatActivity() {
 
         if (item.itemId == android.R.id.home){
             super.onBackPressed()
-            return true
+            startActivity(Intent(this, MainActivity::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

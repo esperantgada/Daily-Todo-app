@@ -37,7 +37,7 @@ class NotificationHelper(private val context: Context) {
             .createPendingIntent()
 
         //Creates a default sound for the notification
-        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
+        val defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
 
 
         //The notification that will be sent to the user

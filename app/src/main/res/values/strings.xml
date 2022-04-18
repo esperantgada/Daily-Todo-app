@@ -56,4 +56,5 @@
     <string name="search_todo_instructions">search todo instructions</string>
     <string name="mark_as_completed_instructions">mark as completed instructions</string>
     <string name="instructions">Instructions</string>
+    <string name="empty_todo">Your todo list is empty. Click on the + sign at the bottom right to add a task</string>
 </resources>

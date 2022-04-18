@@ -12,11 +12,13 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/drawable/todo_item_background.xml" value="0.2095" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/activity_main.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/activity_start.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add_edit.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_detail.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_instructions.xml" value="0.11041666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_search.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_start.xml" value="0.25065138092756645" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_todo.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/nav_drawer_header.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/settings_activity.xml" value="0.11041666666666666" />

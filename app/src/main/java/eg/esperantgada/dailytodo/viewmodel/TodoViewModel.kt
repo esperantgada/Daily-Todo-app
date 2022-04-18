@@ -122,6 +122,8 @@ class TodoViewModel @Inject constructor(
         }
     }
 
+    val allTodo = todoRepository.getAllTodo().asLiveData()
+
     //This takes the result value sent by AddEditTodoFragment and shows confirmation message accordingly
     //in the fragment
     fun onAddEditTodoResult(result : Int){

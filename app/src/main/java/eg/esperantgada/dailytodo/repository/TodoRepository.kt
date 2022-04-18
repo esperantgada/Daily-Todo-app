@@ -33,6 +33,8 @@ class TodoRepository @Inject constructor(private val todoDao: TodoDao) {
         ), pagingSourceFactory = {todoDao.getTodoList(searchQuery, sortOrder, hideCompleted)}
         ).flow
 
+    fun getAllTodo() = todoDao.getAllTodo()
+
     fun deleteAllCompletedTodo(){
         todoDao.deleteAllCompletedTodo()
     }

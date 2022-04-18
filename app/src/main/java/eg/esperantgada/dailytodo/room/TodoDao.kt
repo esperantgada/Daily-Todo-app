@@ -41,6 +41,9 @@ interface TodoDao {
     @Query("DELETE  FROM todo_table WHERE isCompleted = 1")
     fun deleteAllCompletedTodo()
 
+    @Query("SELECT * FROM TODO_TABLE")
+    fun getAllTodo() : Flow<List<Todo>>
+
 
 
 }
