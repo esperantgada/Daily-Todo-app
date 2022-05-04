@@ -2,11 +2,13 @@ package eg.esperantgada.dailytodo.utils
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
+import eg.esperantgada.dailytodo.model.Todo
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun TextInputEditText.getDatePicker(
+fun EditText.getDatePicker(
     context: Context,
     format : String, maxDate: Date? = null
 ){

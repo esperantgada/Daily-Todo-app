@@ -13,7 +13,7 @@ import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
-enum class SortOrder{BY_NAME, BY_DATE}
+enum class SortOrder{BY_NAME, BY_DATE, BY_TITLE}
 private const val TAG = "PreferenceRepository"
 
 @Singleton

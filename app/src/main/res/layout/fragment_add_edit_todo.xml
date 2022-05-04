@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#D3D3D3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".fragment.todo.AddEditTodoFragment"
+            tools:ignore="ScrollViewSize">
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/todo_name_edit_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="pressed">
+
+                <EditText
+                    android:id="@+id/todo_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@null"
+                    android:gravity="top|start"
+                    android:hint="@string/what_do_you_want_to_do"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minHeight="48dp"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:importantForAutofill="no" />
+
+            </soup.neumorphism.NeumorphCardView>
+
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/todo_date_edit_text_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/todo_name_edit_neumor"
+                app:layout_constraintTop_toBottomOf="@id/todo_name_edit_neumor"
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="pressed">
+
+                <EditText
+                    android:id="@+id/todo_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/ic_date"
+                    android:gravity="top|start"
+                    android:hint="@string/on_what_date_will_it_be_achieved"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minHeight="48dp"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TextFields"
+                    android:importantForAutofill="no" />
+            </soup.neumorphism.NeumorphCardView>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/todo_time_edit_text_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/todo_date_edit_text_neumor"
+                app:layout_constraintTop_toBottomOf="@id/todo_date_edit_text_neumor"
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="pressed">
+
+                <EditText
+                    android:id="@+id/todo_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/ic_time"
+                    android:gravity="top|start"
+                    android:hint="@string/what_time_will_it_be_done"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minHeight="48dp"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TextFields,DuplicateSpeakableTextCheck"
+                    android:importantForAutofill="no" />
+
+            </soup.neumorphism.NeumorphCardView>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/todo_duration_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/todo_time_edit_text_neumor"
+                app:layout_constraintTop_toBottomOf="@id/todo_time_edit_text_neumor"
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="pressed">
+
+                <EditText
+                    android:id="@+id/todo_duration"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@null"
+                    android:drawableEnd="@drawable/ic_time"
+                    android:gravity="top|start"
+                    android:hint="@string/what_time_will_it_be_done"
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:minHeight="48dp"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="TextFields"
+                    android:importantForAutofill="no" />
+
+            </soup.neumorphism.NeumorphCardView>
+
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/todo_imoprtant_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@id/todo_duration_neumor"
+                app:layout_constraintTop_toBottomOf="@id/todo_duration_neumor"
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="flat">
+
+                <CheckBox
+                    android:id="@+id/important_todo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="@string/important_task"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </soup.neumorphism.NeumorphCardView>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/ringtone_button_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:layout_constraintBottom_toTopOf="@id/repeat_switch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/todo_imoprtant_neumor"
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="pressed">
+
+                <TextView
+                    android:id="@+id/ringtone_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@null"
+                    android:gravity="center"
+                    android:hint="@string/set_notification_sound_optional"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    app:drawableEndCompat="@drawable/ic_notification" />
+            </soup.neumorphism.NeumorphCardView>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/repeat_switch"
+                style="@style/Widget.AppCompat.CompoundButton.Switch"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="20dp"
+                android:checked="true"
+                android:text="Repeat"
+                android:textColor="#2E7D32"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ringtone_button_neumor"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/repeat_interval_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repeat_switch"
+                app:neumorph_shapeType="pressed">
+
+                <TextView
+                    android:id="@+id/repeat_interval_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:gravity="center"
+                    android:text="Set repeat frequency"
+                    android:textSize="16sp" />
+            </soup.neumorphism.NeumorphCardView>
+
+
+            <com.anurag.multiselectionspinner.MultiSpinner
+                android:id="@+id/multi_selection_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="30dp"
+                app:layout_constraintTop_toBottomOf="@id/repeat_interval_neumor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/save_floating_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="50dp"
+        android:contentDescription="@string/just_floating_action_button"
+        android:src="@drawable/ic_check_mark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,ImageContrastCheck,RedundantDescriptionCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

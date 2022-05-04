@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/todoFragment">
+    app:startDestination="@id/startFragment">
 
     <fragment
         android:id="@+id/todoFragment"
-        android:name="eg.esperantgada.dailytodo.fragment.TodoFragment"
-        android:label="Todo List"
-        tools:layout="@layout/fragment_todo" >
+        android:name="eg.esperantgada.dailytodo.fragment.todo.TodoFragment"
+        android:label="My tasks"
+        tools:layout="@layout/fragment_todo">
         <action
             android:id="@+id/action_todoFragment_to_addEditFragment"
             app:destination="@id/addEditTodoFragment"
@@ -20,13 +20,13 @@
     </fragment>
     <fragment
         android:id="@+id/addEditTodoFragment"
-        android:name="eg.esperantgada.dailytodo.fragment.AddEditTodoFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.todo.AddEditTodoFragment"
         android:label="{title}"
-        tools:layout="@layout/fragment_add_edit" >
+        tools:layout="@layout/fragment_add_edit_todo">
         <argument
             android:name="todo"
             app:argType="eg.esperantgada.dailytodo.model.Todo"
-            app:nullable="true"/>
+            app:nullable="true" />
         <argument
             android:name="title"
             app:argType="string" />
@@ -35,10 +35,50 @@
         android:id="@+id/alertDialogFragment"
         android:name="eg.esperantgada.dailytodo.fragment.AlertDialogFragment"
         android:label="AlertDialogueFragment" />
-    <action android:id="@+id/action_global_alertDialogueFragment" app:destination="@id/alertDialogFragment" />
+    <action
+        android:id="@+id/action_global_alertDialogueFragment"
+        app:destination="@id/alertDialogFragment" />
     <fragment
         android:id="@+id/instructionsFragment"
         android:name="eg.esperantgada.dailytodo.fragment.InstructionsFragment"
         android:label="Instructions"
         tools:layout="@layout/fragment_instructions" />
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.note.AddEditNoteFragment"
+        android:label="{titleNote}"
+        tools:layout="@layout/fragment_add_edit_note">
+        <action
+            android:id="@+id/action_addNoteFragment_to_noteListFragment"
+            app:destination="@id/noteListFragment" />
+        <argument
+            android:name="note"
+            app:argType="eg.esperantgada.dailytodo.model.Note"
+            app:nullable="true" />
+        <argument
+            android:name="titleNote"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/noteListFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.note.NoteListFragment"
+        android:label="My notes"
+        tools:layout="@layout/fragment_note_list">
+        <action
+            android:id="@+id/action_noteListFragment_to_addNoteFragment"
+            app:destination="@id/addNoteFragment"
+            app:popUpTo="@id/addNoteFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.StartFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_startFragment_to_noteListFragment"
+            app:destination="@id/noteListFragment" />
+        <action
+            android:id="@+id/action_startFragment_to_todoFragment"
+            app:destination="@id/todoFragment" />
+    </fragment>
 </navigation>

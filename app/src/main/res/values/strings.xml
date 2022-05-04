@@ -20,8 +20,8 @@
     <string name="yes">YES</string>
     <string name="scheduled_for">Scheduled for %s  %s</string>
     <string name="date_and_time"> %s %s</string>
-    <string name="successful_deletion_message">All completed todos deleted successfully</string>
-    <string name="alert_dialog_message">Do you really want to delete all completed todos? You  can\'t get them back</string>
+    <string name="successful_deletion_message"> Deleted successfully</string>
+    <string name="alert_dialog_message">Do you really want to delete? You  cannott get them back</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -46,7 +46,7 @@
     <string name="due_date_and_time">Due date and time</string>
     <string name="what_do_you_want_to_do">What do you want to do?</string>
     <string name="on_what_date_will_it_be_achieved">On what date will it be achieved?</string>
-    <string name="what_time_will_it_be_done">What time will it be done?</string>
+    <string name="what_time_will_it_be_done">What time do you want to start it?</string>
     <string name="add_a_task">Add a task</string>
     <string name="delete_todo">Delete todo</string>
     <string name="search_todo">Search todo</string>
@@ -57,4 +57,56 @@
     <string name="mark_as_completed_instructions">mark as completed instructions</string>
     <string name="instructions">Instructions</string>
     <string name="empty_todo">Your todo list is empty. Click on the + sign at the bottom right to add a task</string>
+    <string name="set_notification_sound">Set notification sound</string>
+    <string name="how_long_will_it_last">How long will it last?</string>
+
+    <string name="ad_banner">ca-app-pub-3940256099942544/6300978111</string>
+
+    <string name="theme">Theme</string>
+    <string name="theme_preference_key">theme_preference</string>
+    <string name="select_theme">Choose a theme</string>
+    <string name="system_theme">System Default</string>
+    <string name="dark_theme">Dark</string>
+    <string name="light_theme">Light</string>
+    <string name="auto_battery_mode">Auto Battery Dark Mode</string>
+    <string name="night_auto_time">Night auto time</string>
+    <string name="system_default">system</string>
+    <string name="light">light</string>
+    <string name="dark">dark</string>
+    <string name="night_auto">time</string>
+    <string name="battery">battery</string>
+    <string name="cancel_ringtone">Cancel</string>
+
+    <!-- Preference Titles -->
+    <string name="ui">UI</string>
+    <string name="dark_mode">Theme</string>
+    <string name="dark_mode_def_value">MODE_NIGHT_FOLLOW_SYSTEM</string>
+    <string name="my_notes_list">My notes list</string>
+    <string name="add_notes">Add notes</string>
+    <string name="note">Note</string>
+    <string name="delete_all_notes">Delete all notes</string>
+    <string name="your_note_list_is_empty">Your note list is empty! Click on the + sign at the bottom right to add a note.</string>
+    <string name="take_notes">Take notes</string>
+
+    <!-- Repeating interval -->
+    <string name="daily">Daily</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="set_notification_sound_optional">Set notification sound(optional)</string>
+
+    <string-array name="repeat_interval">
+        <item>@string/daily</item>
+        <item>@string/monday</item>
+        <item>@string/tuesday</item>
+        <item>@string/wednesday</item>
+        <item>@string/thursday</item>
+        <item>@string/friday</item>
+        <item>@string/saturday</item>
+        <item>@string/sunday</item>
+    </string-array>
 </resources>

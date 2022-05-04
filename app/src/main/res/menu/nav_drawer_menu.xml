@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/noteListFragment"
+        android:icon="@drawable/ic_list"
+        android:title="@string/take_notes" />
+
+    <item
+        android:id="@+id/todoFragment"
+        android:icon="@drawable/ic_list"
+        android:title="My tasks" />
+
     <item
         android:id="@+id/instructionsFragment"
-        android:title="@string/instructions"/>
+        android:icon="@drawable/ic_instructions"
+        android:title="@string/instructions" />
+
 </menu>

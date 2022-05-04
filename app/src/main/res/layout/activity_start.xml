@@ -11,21 +11,21 @@
         android:id="@+id/todo_image"
         android:layout_width="match_parent"
         android:layout_height="600dp"
+        android:contentDescription="Simple todo image"
         android:src="@drawable/todo_image"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Simple todo image" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Schedule your tasks and get reminded"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/green"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/todo_image"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todo_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

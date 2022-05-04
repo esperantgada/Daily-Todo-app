@@ -1,12 +1,17 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <!-- Dark Mode ListPreference -->
+    <string-array name="theme_entries">
+        <item>@string/system_theme</item>
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
+        <item>@string/auto_battery_mode</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="theme_entry_values">
+        <item>@string/system_default</item>
+        <item>@string/light</item>
+        <item>@string/dark</item>
+        <item>@string/battery</item>
     </string-array>
+
 </resources>

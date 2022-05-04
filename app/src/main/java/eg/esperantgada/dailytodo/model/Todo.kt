@@ -6,30 +6,38 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 import java.text.DateFormat
+import java.time.LocalDateTime
 
 
 @Entity(tableName = "todo_table")
 @Parcelize
-data class Todo(
+data class Todo @JvmOverloads constructor(
     @PrimaryKey(autoGenerate = true)
-    val id : Int = 0,
+    val id: Int = 0,
 
     @ColumnInfo(name = "todo_name")
-    val name : String,
+    val name: String,
 
-    val isImportant : Boolean = false,
-    val isCompleted : Boolean = false,
+    val important: Boolean = false,
+    val completed: Boolean = false,
 
     @ColumnInfo(name = "created_at")
-    val createdAt : Long = System.currentTimeMillis(),
+    val createdAt: String,
 
     @ColumnInfo(name = "due_date")
-    val date : String,
+    val date: String,
 
     @ColumnInfo(name = "due_time")
-    val time : String
+    val time: String,
+
+    @ColumnInfo(name = "task_duration")
+    val duration: String,
+
+    @ColumnInfo(name = "task_sound")
+    val ringtoneUri: String
 
 ) : Parcelable{
     val dataFormatted : String
         get() = DateFormat.getDateTimeInstance().format(createdAt)
+
 }

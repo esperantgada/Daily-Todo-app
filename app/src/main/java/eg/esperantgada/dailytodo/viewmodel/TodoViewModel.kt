@@ -48,6 +48,8 @@ class TodoViewModel @Inject constructor(
      * is not ready yet
      */
      private val todoEventChannel = Channel<TodoEvent>()
+
+    //Gets a specific event
     val todoEvent = todoEventChannel.receiveAsFlow()
 
 
@@ -98,7 +100,7 @@ class TodoViewModel @Inject constructor(
         todo: Todo,
         isChecked : Boolean
     ) = viewModelScope.launch { 
-        todoRepository.update(todo.copy(isCompleted = isChecked))
+        todoRepository.update(todo.copy(completed = isChecked))
     }
 
     fun onItemSwiped(todo: Todo){
@@ -122,6 +124,7 @@ class TodoViewModel @Inject constructor(
         }
     }
 
+    //Helps to check if the list is empty and displays empty list message to the user
     val allTodo = todoRepository.getAllTodo().asLiveData()
 
     //This takes the result value sent by AddEditTodoFragment and shows confirmation message accordingly

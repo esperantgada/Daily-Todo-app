@@ -1,5 +1,6 @@
 package eg.esperantgada.dailytodo.room
 
+import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.*
 import eg.esperantgada.dailytodo.model.Todo
@@ -28,22 +29,23 @@ interface TodoDao {
         SortOrder.BY_NAME -> getTodoListSortedByName(query, hideCompleted)
 
         SortOrder.BY_DATE -> getTodoListSortedByDate(query, hideCompleted)
+        else -> getTodoListSortedByDate(query, hideCompleted)
     }
 
-    //Handles search BY_NAME
-    @Query("SELECT * FROM todo_table WHERE (isCompleted != :hideCompleted OR isCompleted = 0) AND todo_name LIKE '%' || :searchQuery || '%' ORDER BY isImportant DESC, todo_name")
+    //Handles sorting BY_NAME
+    @Query("SELECT * FROM todo_table WHERE (completed != :hideCompleted OR completed = 0) AND todo_name LIKE '%' || :searchQuery || '%' ORDER BY important DESC, todo_name")
      fun getTodoListSortedByName(searchQuery : String, hideCompleted : Boolean) : PagingSource<Int, Todo>
 
-     //Handles search BY_DATE
-    @Query("SELECT * FROM todo_table WHERE (isCompleted != :hideCompleted OR isCompleted = 0) AND todo_name LIKE '%' || :searchQuery || '%' ORDER BY isImportant DESC, created_at")
+     //Handles sorting BY_DATE
+    @Query("SELECT * FROM todo_table WHERE (completed != :hideCompleted OR completed = 0) AND todo_name LIKE '%' || :searchQuery || '%' ORDER BY important DESC, created_at")
     fun getTodoListSortedByDate(searchQuery : String, hideCompleted : Boolean) : PagingSource<Int, Todo>
 
-    @Query("DELETE  FROM todo_table WHERE isCompleted = 1")
+    @Query("DELETE  FROM todo_table WHERE completed = 1")
     fun deleteAllCompletedTodo()
 
     @Query("SELECT * FROM TODO_TABLE")
     fun getAllTodo() : Flow<List<Todo>>
 
-
-
+    /*@Query("SELECT * FROM todo_table WHERE id= :todoId")
+    fun getUri(todoId : Int) : LiveData<String>*/
 }

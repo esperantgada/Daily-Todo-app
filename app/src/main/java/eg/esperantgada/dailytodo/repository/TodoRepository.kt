@@ -1,5 +1,6 @@
 package eg.esperantgada.dailytodo.repository
 
+import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.liveData
@@ -20,6 +21,8 @@ class TodoRepository @Inject constructor(private val todoDao: TodoDao) {
     suspend fun delete(todo: Todo){
         todoDao.delete(todo)
     }
+
+    //fun getUri(todoId : Int) = todoDao.getUri(todoId)
 
     fun getTodoList(
         searchQuery : String,

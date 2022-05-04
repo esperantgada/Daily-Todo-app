@@ -9,6 +9,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import com.google.android.material.timepicker.TimeFormat
+import eg.esperantgada.dailytodo.TAG
 import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmReceiver
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.utils.SET_ACTION
@@ -24,6 +26,18 @@ object TodoAlarm {
         val alarmManager: AlarmManager? =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
+        val timeFormat = SimpleDateFormat("hh:mm a")
+        val parsedTime = timeFormat.parse(todo.time)
+        val expectedFormat = SimpleDateFormat("hh:mm")
+        val newTime = expectedFormat.format(parsedTime!!)
+
+        Log.d(TODO_ALARM_TAG, "NEW FORMATTED TIME IS $newTime")
+
+        val (todoHour, todoMinute) = newTime.split(":").map { it }
+
+        Log.d(TODO_ALARM_TAG, "THE HOUR IS $todoHour and minute is $todoMinute")
+
+
         val intent = Intent(context, TodoAlarmReceiver::class.java)
 
         val pendingIntent = PendingIntent.getBroadcast(
@@ -35,6 +49,7 @@ object TodoAlarm {
                 putExtra("date", todo.date)
                 putExtra("time", todo.time)
                 putExtra("id", todo.id)
+                putExtra("ringtoneUri", todo.ringtoneUri)
                 Log.d(TODO_ALARM_TAG, "${todo.id}")
             },
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT

@@ -11,6 +11,10 @@ android {
     compileSdk 32
 
     defaultConfig {
+        configurations.all {
+            resolutionStrategy { force 'androidx.core:core-ktx:1.6.0' }
+        }
+
         applicationId "eg.esperantgada.dailytodo"
         minSdk 21
         targetSdk 32
@@ -42,12 +46,14 @@ android {
 }
 
 dependencies {
-
-    implementation 'androidx.preference:preference:1.1.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
     def dataStoreVersion = "1.0.0-alpha02"
     def room_version = "2.4.1"
+
+
+    implementation 'com.google.android.gms:play-services-ads:20.6.0'
+    implementation 'androidx.preference:preference:1.2.0'
+    implementation 'com.google.android.material:material:1.5.0'
+    implementation 'androidx.paging:paging-runtime-ktx:3.1.1'
 
     //noinspection GradleCompatible
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -61,6 +67,9 @@ dependencies {
 
     implementation "androidx.room:room-paging:2.4.2"
 
+    implementation 'com.airbnb.android:lottie:3.4.1'
+    //kapt "org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.2.0"
+
 
 
 
@@ -68,34 +77,43 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.4.1"
 
     // Lifecycle + ViewModel & LiveData
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.0'
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation 'androidx.lifecycle:lifecycle-common-java8:2.4.1'
 
     // Navigation Component
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.4.0"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.0-beta01"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.0-beta01"
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.1"
+    implementation "androidx.room:room-runtime:2.4.2"
     kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:2.4.1"
+    implementation "androidx.room:room-ktx:2.4.2"
 
     // Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
 
     // Dagger Hilt
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
+    //implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
+    implementation("com.google.dagger:hilt-android:2.41")
+    kapt("com.google.dagger:hilt-android-compiler:2.41")
 
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:$dataStoreVersion"
+
+    //neomorphism
+    implementation 'com.github.fornewid:neumorphism:0.2.1'
+    //awesome dialog
+    implementation 'com.github.chnouman:AwesomeDialog:1.0.4'
+
+    //implementation "com.example:multiselectionspinner"
+    implementation 'com.github.AnuraganuPunalur:Multi-Selection-Spinner-Android:1.0'
+
 }
 
 kapt {

@@ -4,6 +4,10 @@
     package="eg.esperantgada.dailytodo">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+
 
     <application
         android:name=".application.TodoApplication"
@@ -16,31 +20,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DailyToDo"
         tools:ignore="DataExtractionRules">
-
+        <activity
+            android:name=".SecondStartActivity"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".StartActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW"/>
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:configChanges="orientation|screenSize"/>
-
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/title_activity_settings" />
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" />
 
         <receiver android:name=".broadcastreceiver.TodoAlarmReceiver" />
+        <receiver android:name=".broadcastreceiver.CancelNotificationReceiver"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1581485430995496~1199027256" />
     </application>
 
 </manifest>

@@ -7,7 +7,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import eg.esperantgada.dailytodo.repository.NoteRepository
 import eg.esperantgada.dailytodo.repository.TodoRepository
+import eg.esperantgada.dailytodo.room.NoteDao
 import eg.esperantgada.dailytodo.room.TodoDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -30,12 +32,21 @@ object AppModule{
             .addCallback(callback)
             .build()
 
+    @Singleton
     @Provides
     fun provideTodoDao(todoDatabase: TodoDatabase) = todoDatabase.todoDao()
 
     @Provides
     @Singleton
+    fun provideNoteDao(todoDatabase: TodoDatabase) = todoDatabase.noteDao()
+
+    @Provides
+    @Singleton
     fun provideTodoRepository(todoDatabase: TodoDatabase) = TodoRepository(todoDatabase.todoDao())
+
+    @Provides
+    @Singleton
+    fun provideNoteRepository(todoDatabase: TodoDatabase) = NoteRepository(todoDatabase.noteDao())
 
     @ApplicationScope
     @Provides

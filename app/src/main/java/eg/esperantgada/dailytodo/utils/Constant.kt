@@ -2,6 +2,7 @@ package eg.esperantgada.dailytodo.utils
 
 import android.app.Activity
 
+//For todos
 const val ADD_TODO_RESULT_OK = Activity.RESULT_FIRST_USER
 const val EDIT_TODO_RESULT_OK = Activity.RESULT_FIRST_USER + 1
 const val REQUEST_KEY = "add_edit_request_key"
@@ -18,3 +19,9 @@ const val DESCRIPTION_TEXT = "Notification description"
 
 const val SET_ACTION = "eg.esperantgada.dailytodo.broadcastreceiver.TodoBroadcastReceiver"
 const val TODO_ALARM_TAG = "TodoAlarm"
+
+//For note
+const val ADD_NOTE_RESULT_OK = Activity.RESULT_FIRST_USER
+const val EDIT_NOTE_RESULT_OK = Activity.RESULT_FIRST_USER +1
+const val NOTE_REQUEST_KEY = "add_edit_note_request_key"
+const val ADD_EDIT_NOTE_RESULT_KEY = "add_edit_note_result_key"

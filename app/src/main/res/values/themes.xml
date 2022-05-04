@@ -1,10 +1,10 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Theme.DailyToDo" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/colorPrimaryDark</item>
-        <item name="colorPrimaryDark">@color/darkGray</item>
-        <item name="colorAccent">@color/green_light</item>
+        <item name="colorPrimary">@color/darkGray</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
 
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/blue</item>
@@ -12,6 +12,7 @@
         <item name="colorOnSecondary">@color/black</item>
 
         <!-- Customize your theme here. -->
-        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox</item>
+        <item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox
+        </item>
     </style>
 </resources>

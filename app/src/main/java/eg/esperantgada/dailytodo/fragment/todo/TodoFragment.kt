@@ -1,4 +1,4 @@
-package eg.esperantgada.dailytodo.fragment
+package eg.esperantgada.dailytodo.fragment.todo
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -8,12 +8,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.paging.PagingData
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +30,7 @@ import eg.esperantgada.dailytodo.utils.ADD_EDIT_RESULT_KEY
 import eg.esperantgada.dailytodo.utils.REQUEST_KEY
 import eg.esperantgada.dailytodo.utils.exhaustive
 import eg.esperantgada.dailytodo.utils.onQueryTextChanged
+import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -44,6 +44,8 @@ import java.util.*
 class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
     private val todoViewModel: TodoViewModel by viewModels()
+    private val viewModel : AddEditTodoViewModel by activityViewModels()
+
 
     private var _binding : FragmentTodoBinding? = null
     private val binding get() = _binding!!
@@ -52,7 +54,9 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
     private lateinit var searchView: SearchView
 
-    private lateinit var todoList : PagingData<Todo>
+    private lateinit var todoList : List<Todo>
+
+    private lateinit var todoTimer : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,8 +84,9 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
                 adapter = todoAdapter
                 layoutManager = LinearLayoutManager(requireContext())
                 setHasFixedSize(true)
-                floating.setOnClickListener { todoViewModel.addNewTodo() }
             }
+
+            floating.setOnClickListener { todoViewModel.addNewTodo() }
 
             //Gets and handles the result of adding or editing from AddEditTodoFragment
             setFragmentResultListener(REQUEST_KEY) { _, bundle ->
@@ -93,14 +98,15 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             todoViewModel.todos.collectLatest { todosList ->
-                todoList = todosList
                 todoAdapter.submitData(viewLifecycleOwner.lifecycle, todosList)
             }
         }
 
+
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            todoViewModel.allTodo.observe(viewLifecycleOwner){
-                binding.emptyItemTextView.isVisible = it.isEmpty()
+            todoViewModel.allTodo.observe(viewLifecycleOwner){ todos ->
+                todoList = todos
+                binding.emptyItemTextView.isVisible = todoList.isEmpty()
             }
         }
 
@@ -126,7 +132,8 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
                     is TodoEvent.GoToEditFragment -> {
                         val action =
-                            TodoFragmentDirections.actionTodoFragmentToAddEditFragment(event.todo,
+                            TodoFragmentDirections.actionTodoFragmentToAddEditFragment(
+                                event.todo,
                                 "Edit todo")
                         findNavController().navigate(action)
                     }
@@ -136,7 +143,8 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
                             .show()
                     }
                     TodoEvent.GotoAlertDialogFragment -> {
-                        val action = TodoFragmentDirections.actionGlobalAlertDialogueFragment()
+                        val action =
+                            TodoFragmentDirections.actionGlobalAlertDialogueFragment()
                         findNavController().navigate(action)
                     }
                 }.exhaustive
@@ -233,6 +241,11 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         todoViewModel.onTodoCheckedChanged(todo, isChecked)
     }
 
+    override fun startTodoCountDownTimer(): Boolean {
+        TODO("Not yet implemented")
+    }
+
+
     //Sets drag and swipe actions on items in the recycler view
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
         ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT) {
@@ -245,7 +258,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
             val fromPosition = viewHolder.adapterPosition
             val toPosition = target.adapterPosition
 
-            Collections.swap(todoList as MutableList<*>, fromPosition, toPosition)
+            Collections.swap(todoList, fromPosition, toPosition)
             recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
 
             return true
@@ -264,7 +277,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         super.onDestroyView()
 
         _binding = null
-        searchView.setOnQueryTextListener(null)
+       // searchView.setOnQueryTextListener(null)
     }
 
 }

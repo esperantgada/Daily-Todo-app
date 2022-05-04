@@ -2,11 +2,12 @@ package eg.esperantgada.dailytodo.utils
 
 import android.app.TimePickerDialog
 import android.content.Context
+import android.widget.EditText
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.util.*
 
-fun TextInputEditText.getTimePicker(context: Context, format : String){
+fun EditText.getTimePicker(context: Context, format : String){
 
     isFocusableInTouchMode = false
     isFocusable = false
