@@ -13,12 +13,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -36,19 +33,19 @@ import eg.esperantgada.dailytodo.notification.Ringtone
 import eg.esperantgada.dailytodo.utils.*
 import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 const val TAG1 = "AddEditTodoFragment"
 
 @Suppress("IMPLICIT_CAST_TO_ANY", "DEPRECATION")
 @AndroidEntryPoint
-class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinnerSelectionListener {
+class AddEditTodoFragment : Fragment(),
+    MultiSelectionSpinnerDialog.OnMultiSpinnerSelectionListener {
 
-    private var _binding : FragmentAddEditTodoBinding? = null
+    private var _binding: FragmentAddEditTodoBinding? = null
     private val binding get() = _binding!!
 
 
-    private val viewModel : AddEditTodoViewModel by viewModels()
+    private val viewModel: AddEditTodoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -154,21 +151,20 @@ class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinn
     }
 
 
-
     @Deprecated("Deprecated in Java")
     @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == 23 && resultCode == Activity.RESULT_OK){
-            val uri  = data!!.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+        if (requestCode == 23 && resultCode == Activity.RESULT_OK) {
+            val uri = data!!.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
             val ringtone = RingtoneManager.getRingtone(requireContext(), uri)
             viewModel.todoRingtoneUri = uri.toString()
             //val soundTitle = ringtone.getTitle(requireContext())
-           // binding.ringtoneButton.setText(soundTitle)
+            // binding.ringtoneButton.setText(soundTitle)
 
 
-            if (setWritePermission(requireContext())){
+            if (setWritePermission(requireContext())) {
                 val soundTitle = ringtone.getTitle(requireContext())
                 //binding.ringtoneButton.setText(soundTitle)
 
@@ -179,18 +175,20 @@ class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinn
 
 
     //Set permission before being able to access ringtone title
-    private fun setWritePermission(context: Context) : Boolean{
-        val permission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) Settings.System.canWrite(context)
-        else ContextCompat.checkSelfPermission(context, android.Manifest.permission.WRITE_SETTINGS)
+    private fun setWritePermission(context: Context): Boolean {
+        val permission =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) Settings.System.canWrite(context)
+            else ContextCompat.checkSelfPermission(context,
+                android.Manifest.permission.WRITE_SETTINGS)
 
-        return if (permission as Boolean){
+        return if (permission as Boolean) {
             true
-        }else{
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
                 intent.data = Uri.parse("package: ${context.packageName}")
                 activity?.startActivityFromFragment(this@AddEditTodoFragment, intent, 12)
-            }else{
+            } else {
                 ActivityCompat.requestPermissions(context as Activity,
                     arrayOf(android.Manifest.permission.WRITE_SETTINGS), 12)
             }
@@ -200,25 +198,15 @@ class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinn
     }
 
 
-
     override fun OnMultiSpinnerItemSelected(chosenItems: MutableList<String>?) {
-         val daysList: MutableList<String> = arrayListOf()
+        val daysList: MutableList<String> = arrayListOf()
 
         if (chosenItems != null) {
-            for (i in chosenItems.indices){
+            for (i in chosenItems.indices) {
                 daysList.add(chosenItems[i])
             }
         }
-
-        binding.repeatSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked){
-                binding.repeatIntervalNeumor.isVisible = true
-                binding.multiSelectionSpinner.isVisible = true
-                viewModel.setDay(daysList)
-
-                Log.d(TAG1, "SWITCH IS CHECKED : $isChecked")
-            }
-        }
+        viewModel.setDay(daysList)
 
         Log.d(TAG1, "SELECTED ITEMS LIST : $daysList")
     }
