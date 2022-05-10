@@ -98,6 +98,7 @@
     <string name="saturday">Saturday</string>
     <string name="sunday">Sunday</string>
     <string name="set_notification_sound_optional">Set notification sound(optional)</string>
+    <string name="timer_completed_text">00:00:00:00</string>
 
     <string-array name="repeat_interval">
         <item>@string/daily</item>

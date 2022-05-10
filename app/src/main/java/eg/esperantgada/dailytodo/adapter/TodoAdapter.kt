@@ -89,11 +89,10 @@ class TodoAdapter(
                 }
 
                 override fun onFinish() {
-                    binding.todoTimer.text = "00:00:00:00"
+                    binding.todoTimer.text = context.getString(R.string.timer_completed_text)
                 }
             }
             countDownTimer.start()
-
             binding.apply {
                 checkbox.isChecked = todo.completed
                 todoTextView.text = todo.name
