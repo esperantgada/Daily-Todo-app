@@ -13,6 +13,7 @@ class TodoAlarmBootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         if (intent != null) {
             if (intent.action == "android.intent.action.BOOT_COMPLETED") {
+
                 val mondayTuesday: List<String> = listOf("Monday", "Tuesday")
                 val mondayWednesday: List<String> = listOf("Monday", "Wednesday")
                 val mondayThursday: List<String> = listOf("Monday", "Thursday")
@@ -745,6 +746,10 @@ class TodoAlarmBootReceiver : BroadcastReceiver() {
                                     }
                                 }
                             }
+                        }else{
+                            sound.play()
+                            notificationHelper.onCreateNotification(name = name!!,
+                                todoDateAndTime)
                         }
                     }
                 }

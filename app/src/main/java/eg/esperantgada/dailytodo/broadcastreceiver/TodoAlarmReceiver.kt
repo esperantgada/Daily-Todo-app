@@ -730,6 +730,10 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                             }
                         }
                     }
+                }else{
+                    sound.play()
+                    notificationHelper.onCreateNotification(name = name!!,
+                        todoDateAndTime)
                 }
             }
         }

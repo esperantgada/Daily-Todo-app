@@ -64,21 +64,39 @@ object TodoAlarm {
         val currentTime = Calendar.getInstance().time
 
         if (currentTime <= todoTime) {
-            alarmManager?.let {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setInexactRepeating(
-                        AlarmManager.RTC_WAKEUP,
-                        todoTime.time,
-                        AlarmManager.INTERVAL_DAY,
-                        pendingIntent
-                    )
-                } else {
-                    alarmManager.setRepeating(
-                        AlarmManager.RTC_WAKEUP,
-                        todoTime.time,
-                        AlarmManager.INTERVAL_DAY,
-                        pendingIntent
-                    )
+            if (dayList != null){
+                alarmManager?.let {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmManager.setRepeating(
+                            AlarmManager.RTC_WAKEUP,
+                            todoTime.time,
+                            AlarmManager.INTERVAL_DAY,
+                            pendingIntent
+                        )
+                    } else {
+                        alarmManager.setInexactRepeating(
+                            AlarmManager.RTC_WAKEUP,
+                            todoTime.time,
+                            AlarmManager.INTERVAL_DAY,
+                            pendingIntent
+                        )
+                    }
+                }
+            }else{    //If dayList is null,it won't set repeating alarm
+                alarmManager?.let {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        alarmManager.setExactAndAllowWhileIdle(
+                            AlarmManager.RTC_WAKEUP,
+                            todoTime.time,
+                            pendingIntent
+                        )
+                    } else {
+                        alarmManager.setExact(
+                            AlarmManager.RTC_WAKEUP,
+                            todoTime.time,
+                            pendingIntent
+                        )
+                    }
                 }
             }
         } else {

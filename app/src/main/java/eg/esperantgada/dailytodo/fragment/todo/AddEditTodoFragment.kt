@@ -13,9 +13,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -33,6 +35,7 @@ import eg.esperantgada.dailytodo.notification.Ringtone
 import eg.esperantgada.dailytodo.utils.*
 import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 import java.util.*
+import kotlin.properties.Delegates
 
 const val TAG1 = "AddEditTodoFragment"
 
@@ -43,6 +46,8 @@ class AddEditTodoFragment : Fragment(),
 
     private var _binding: FragmentAddEditTodoBinding? = null
     private val binding get() = _binding!!
+
+    private var isSwitchChecked : Boolean = false
 
 
     private val viewModel: AddEditTodoViewModel by viewModels()
@@ -107,6 +112,12 @@ class AddEditTodoFragment : Fragment(),
                 viewModel.todoDuration = it.toString()
             }
 
+            repeatSwitch.setOnCheckedChangeListener { _, isChecked ->
+                isSwitchChecked = isChecked
+
+                    repeatIntervalNeumor.isVisible = isSwitchChecked
+                    multiSelectionSpinner.isVisible = isSwitchChecked
+            }
 
 /*
            ringtoneUri.addTextChangedListener {
@@ -206,8 +217,11 @@ class AddEditTodoFragment : Fragment(),
                 daysList.add(chosenItems[i])
             }
         }
-        viewModel.setDay(daysList)
+        isSwitchChecked = binding.repeatSwitch.isChecked
 
+        if (isSwitchChecked){
+            viewModel.setDay(daysList)
+        }
         Log.d(TAG1, "SELECTED ITEMS LIST : $daysList")
     }
 
