@@ -18,6 +18,7 @@ import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.broadcastreceiver.CancelNotificationReceiver
 import eg.esperantgada.dailytodo.utils.*
 
+@Suppress("DEPRECATION")
 class NotificationHelper(private val context: Context) {
 
     @SuppressLint("InlinedApi")
@@ -74,7 +75,6 @@ class NotificationHelper(private val context: Context) {
             )
             .build()
 
-        notification.flags = Notification.FLAG_INSISTENT
         NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, notification)
     }
 
@@ -89,7 +89,6 @@ class NotificationHelper(private val context: Context) {
 
             channel.enableLights(true)
             channel.lightColor = Color.parseColor(ColorPicker.getColors())
-            channel.enableVibration(true)
 
             val notificationManager : NotificationManager =
                 context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

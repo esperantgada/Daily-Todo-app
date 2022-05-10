@@ -17,12 +17,13 @@ import eg.esperantgada.dailytodo.utils.SET_ACTION
 import eg.esperantgada.dailytodo.utils.TODO_ALARM_TAG
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 //Sets alarm for the broadcast receiver
 object TodoAlarm {
 
     @SuppressLint("SimpleDateFormat", "InlinedApi")
-    fun setTodoAlarmReminder(context: Context, todo: Todo) {
+    fun setTodoAlarmReminder(context: Context, todo: Todo, dayList: List<String>?) {
         val alarmManager: AlarmManager? =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
@@ -30,7 +31,6 @@ object TodoAlarm {
         val parsedTime = timeFormat.parse(todo.time)
         val expectedFormat = SimpleDateFormat("hh:mm")
         val newTime = expectedFormat.format(parsedTime!!)
-
         Log.d(TODO_ALARM_TAG, "NEW FORMATTED TIME IS $newTime")
 
         val (todoHour, todoMinute) = newTime.split(":").map { it }
@@ -50,6 +50,7 @@ object TodoAlarm {
                 putExtra("time", todo.time)
                 putExtra("id", todo.id)
                 putExtra("ringtoneUri", todo.ringtoneUri)
+                putStringArrayListExtra("days", dayList?.let { ArrayList(it) })
                 Log.d(TODO_ALARM_TAG, "${todo.id}")
             },
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT
@@ -62,18 +63,20 @@ object TodoAlarm {
         val todoTime = format.parse(dateAndTimeReminder)
         val currentTime = Calendar.getInstance().time
 
-        if (currentTime < todoTime) {
+        if (currentTime <= todoTime) {
             alarmManager?.let {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    alarmManager.setExactAndAllowWhileIdle(
+                    alarmManager.setInexactRepeating(
                         AlarmManager.RTC_WAKEUP,
                         todoTime.time,
+                        AlarmManager.INTERVAL_DAY,
                         pendingIntent
                     )
                 } else {
-                    alarmManager.setExact(
+                    alarmManager.setRepeating(
                         AlarmManager.RTC_WAKEUP,
                         todoTime.time,
+                        AlarmManager.INTERVAL_DAY,
                         pendingIntent
                     )
                 }

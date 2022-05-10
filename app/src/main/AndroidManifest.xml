@@ -4,6 +4,8 @@
     package="eg.esperantgada.dailytodo">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -47,8 +49,16 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" />
 
-        <receiver android:name=".broadcastreceiver.TodoAlarmReceiver" />
+        <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"/>
         <receiver android:name=".broadcastreceiver.CancelNotificationReceiver"/>
+        <receiver android:name=".broadcastreceiver.TodoAlarmBootReceiver" android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

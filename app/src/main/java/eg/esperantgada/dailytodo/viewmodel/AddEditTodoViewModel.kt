@@ -2,7 +2,6 @@ package eg.esperantgada.dailytodo.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.os.CountDownTimer
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -38,41 +37,15 @@ class AddEditTodoViewModel @Inject constructor(
 
        var countDownTimer : String = "12 Days : 23 Hours : 36 Minutes : 45 Second"
 
-    private var _day = MutableLiveData<String>()
-     val day = _day
-
-    private var _twoDays = MutableLiveData<List<String>>()
-     val twoDays = _twoDays
-
-    private var _threeDays = MutableLiveData<List<String>>()
-     val threeDays = _threeDays
-
-    private var _fourDays = MutableLiveData<List<String>>()
-     val fourDays = _fourDays
-
-    private var _fiveDays = MutableLiveData<List<String>>()
-     val fiveDays = _twoDays
+    private var _days = MutableLiveData<List<String>>()
+     val days = _days
 
 
-     fun setDay(sentDay : String){
-        _day.value = sentDay
+
+     fun setDay(sentDay : List<String>){
+        _days.value = sentDay
     }
 
-    fun setTwoDays(sentTwoDays : List<String>){
-        _twoDays.value = sentTwoDays
-    }
-
-    fun setThreeDays(sentThreeDays : List<String>){
-        _threeDays.value = sentThreeDays
-    }
-
-    fun setFourDays(sentFourDays : List<String>){
-        _fourDays.value = sentFourDays
-    }
-
-    fun setFiveDays(sentFiveDays : List<String>){
-        _fiveDays.value = sentFiveDays
-    }
 
     //The local time that will be stored in the database
     @SuppressLint("NewApi")
@@ -202,10 +175,11 @@ class AddEditTodoViewModel @Inject constructor(
                         createdAt = formattedDate,
                     )
                     updateTodo(updatedTodo)
-                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
+                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo, _days.value)
                     val todoTimer = TodoTimer(updatedTodo)
                     todoTimer.countDownTimer.start()
                     Log.d(TAG, "COUNTDOWN START IN VIEWMODEL: $countDownTimer")
+                    Log.d(TAG, "DAY LIST IN VIEWMODEL: ${_days.value}")
                 }
                 else -> {
                     val newTodo = Todo(
@@ -217,7 +191,7 @@ class AddEditTodoViewModel @Inject constructor(
                         ringtoneUri = todoRingtoneUri,
                         createdAt = formattedDate)
                     insertTodo(newTodo)
-                    TodoAlarm.setTodoAlarmReminder(context, newTodo)
+                    TodoAlarm.setTodoAlarmReminder(context, newTodo, _days.value)
                    val todoTimer = TodoTimer(newTodo)
                     todoTimer.countDownTimer.start()
 

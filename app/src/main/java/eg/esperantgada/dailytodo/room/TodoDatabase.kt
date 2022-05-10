@@ -33,35 +33,6 @@ abstract class TodoDatabase : RoomDatabase(){
 
             applicationScope.launch {
 
-                tododao.insert(Todo(
-                    name = "Watch TV",
-                    date = "12/03/2020",
-                    time = "10:25",
-                    duration = "2 hours",
-                    ringtoneUri = "",
-                createdAt = "22/02/2020 12:25:36"))
-
-                tododao.insert(Todo(
-                    name = "Take Google Android Certification Exam",
-                    important = true,
-                    date = "23/03/1999",
-                    time = "00:00",
-                    duration = "2 hours",
-                    ringtoneUri = "",
-                    createdAt = "22/5/2022 04:25:13"
-                ))
-
-                tododao.insert(Todo(
-                    name = "Take Android Development courses",
-                    important = true,
-                    completed = true,
-                    date = "30/11/2020",
-                    time = "01:45",
-                    duration = "2 hours",
-                    ringtoneUri = "",
-                    createdAt = "23/4/2022"
-                ))
-
                 noteDao.insert(Note(
                     title = "Android",
                     description = "Android development"

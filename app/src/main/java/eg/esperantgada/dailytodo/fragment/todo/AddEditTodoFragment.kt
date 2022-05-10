@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
@@ -74,6 +75,7 @@ class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinn
             todoTime.setText(viewModel.todoTime)
             todoDate.setText(viewModel.todoDate)
             todoDuration.setText(viewModel.todoDuration)
+            //multiSelectionSpinner.text = viewModel.days.toString()
             //ringtoneButton.text = viewModel.todoRingtoneUri
 
 
@@ -107,6 +109,7 @@ class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinn
             todoDuration.addTextChangedListener {
                 viewModel.todoDuration = it.toString()
             }
+
 
 /*
            ringtoneUri.addTextChangedListener {
@@ -199,11 +202,21 @@ class AddEditTodoFragment : Fragment(), MultiSelectionSpinnerDialog.OnMultiSpinn
 
 
     override fun OnMultiSpinnerItemSelected(chosenItems: MutableList<String>?) {
-         var daysList: MutableList<String> = arrayListOf()
+         val daysList: MutableList<String> = arrayListOf()
 
         if (chosenItems != null) {
             for (i in chosenItems.indices){
                 daysList.add(chosenItems[i])
+            }
+        }
+
+        binding.repeatSwitch.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked){
+                binding.repeatIntervalNeumor.isVisible = true
+                binding.multiSelectionSpinner.isVisible = true
+                viewModel.setDay(daysList)
+
+                Log.d(TAG1, "SWITCH IS CHECKED : $isChecked")
             }
         }
 
