@@ -52,8 +52,6 @@ class NotificationHelper(private val context: Context) {
             PendingIntent.getBroadcast(context, 0, cancelIntent, PendingIntent.FLAG_IMMUTABLE)
 
 
-        //Creates a default sound for the notification
-
         //The notification that will be sent to the user
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_launcher_foreground)

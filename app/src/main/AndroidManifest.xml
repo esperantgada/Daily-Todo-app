@@ -51,6 +51,7 @@
 
         <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"/>
         <receiver android:name=".broadcastreceiver.CancelNotificationReceiver"/>
+            tools:ignore="Instantiatable" />
         <receiver android:name=".broadcastreceiver.TodoAlarmBootReceiver" android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -58,6 +59,9 @@
                 <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
             </intent-filter>
         </receiver>
+
+        <service android:name=".service.TodoRingtoneService"/>
+        <service android:name=".service.TodoCountDownTimerService"/>
 
 
         <meta-data

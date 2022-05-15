@@ -19,7 +19,10 @@ data class Todo @JvmOverloads constructor(
     val name: String,
 
     val important: Boolean = false,
+
     val completed: Boolean = false,
+
+    val switchOn: Boolean = false,
 
     @ColumnInfo(name = "created_at")
     val createdAt: String,
@@ -34,10 +37,6 @@ data class Todo @JvmOverloads constructor(
     val duration: String,
 
     @ColumnInfo(name = "task_sound")
-    val ringtoneUri: String
+    val ringtoneUri: String,
 
-) : Parcelable{
-    val dataFormatted : String
-        get() = DateFormat.getDateTimeInstance().format(createdAt)
-
-}
+) : Parcelable

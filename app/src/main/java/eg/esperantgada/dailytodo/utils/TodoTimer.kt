@@ -1,15 +1,20 @@
 package eg.esperantgada.dailytodo.utils
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.Intent
 import android.os.CountDownTimer
 import android.util.Log
+import dagger.hilt.android.qualifiers.ApplicationContext
 import eg.esperantgada.dailytodo.model.Todo
+import eg.esperantgada.dailytodo.service.TodoCountDownTimerService
+import eg.esperantgada.dailytodo.service.TodoRingtoneService
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
 const val TAG = "TodoTimer"
 
-class TodoTimer(private val todo: Todo) {
+class TodoTimer(private val context: Context, private val todo: Todo) {
 
     @SuppressLint("SimpleDateFormat")
 
@@ -24,6 +29,9 @@ class TodoTimer(private val todo: Todo) {
     val createdDateAndTime = todoCreatedDateAndTime?.time
     val dueDateAndTime = todoDueDateAndTime?.time
     val countTimeLength = dueDateAndTime?.minus(createdDateAndTime!!)
+
+    val startCountDownTimerServiceIntent = Intent(context, TodoCountDownTimerService::class.java)
+
 
 
     val countDownTimer = object : CountDownTimer(countTimeLength!!, 1000) {
@@ -42,10 +50,9 @@ class TodoTimer(private val todo: Todo) {
                     TimeUnit.MILLISECONDS.toMinutes(millisecond)))
             )
 
-            fun setResult(): String? = dayHourMinuteSecond
-
+            startCountDownTimerServiceIntent.putExtra("timeLength", countTimeLength)
+            context.startService(startCountDownTimerServiceIntent)
             Log.d(TAG, "COUNTDOWNTIMER : $dayHourMinuteSecond")
-
 
         }
 
@@ -53,7 +60,5 @@ class TodoTimer(private val todo: Todo) {
         override fun onFinish() {
             dayHourMinuteSecond = "00:00:00:00"
         }
-
     }
-    //Log.d(TAG, "COUNTDOWNTIMER IN METHOD: $dayHourMinuteSecond")
 }

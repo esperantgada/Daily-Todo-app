@@ -5,11 +5,13 @@ import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
 
-object Ringtone {
+ class Ringtone(private val context: Context) {
 
-    fun setNotificationRingtone(context: Context): Intent {
-        val currentRingtone: Uri =
-            RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM)
+    val currentRingtone: Uri =
+        RingtoneManager.getActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM)
+
+    fun setNotificationRingtone(): Intent {
+
 
         val ringtoneIntent = Intent(RingtoneManager.ACTION_RINGTONE_PICKER)
         ringtoneIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE, RingtoneManager.TYPE_RINGTONE)

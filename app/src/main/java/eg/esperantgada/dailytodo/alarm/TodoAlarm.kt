@@ -11,8 +11,10 @@ import android.os.Build
 import android.util.Log
 import com.google.android.material.timepicker.TimeFormat
 import eg.esperantgada.dailytodo.TAG
+import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmBootReceiver
 import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmReceiver
 import eg.esperantgada.dailytodo.model.Todo
+import eg.esperantgada.dailytodo.service.TodoRingtoneService
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import eg.esperantgada.dailytodo.utils.TODO_ALARM_TAG
 import java.text.SimpleDateFormat
@@ -49,6 +51,7 @@ object TodoAlarm {
                 putExtra("date", todo.date)
                 putExtra("time", todo.time)
                 putExtra("id", todo.id)
+                putExtra("todo", todo)
                 putExtra("ringtoneUri", todo.ringtoneUri)
                 putStringArrayListExtra("days", dayList?.let { ArrayList(it) })
                 Log.d(TODO_ALARM_TAG, "${todo.id}")
@@ -73,6 +76,7 @@ object TodoAlarm {
                             AlarmManager.INTERVAL_DAY,
                             pendingIntent
                         )
+
                     } else {
                         alarmManager.setInexactRepeating(
                             AlarmManager.RTC_WAKEUP,

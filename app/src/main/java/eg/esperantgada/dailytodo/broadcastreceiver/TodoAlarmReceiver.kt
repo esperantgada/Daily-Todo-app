@@ -5,12 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import androidx.core.net.toUri
+import androidx.fragment.app.FragmentManager
 import eg.esperantgada.dailytodo.notification.NotificationHelper
+import eg.esperantgada.dailytodo.service.TodoRingtoneService
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import java.util.*
 
 @Suppress("DEPRECATION")
 class TodoAlarmReceiver : BroadcastReceiver() {
+
     override fun onReceive(context: Context, intent: Intent) {
 
         val mondayTuesday: List<String> = listOf("Monday", "Tuesday")
@@ -109,6 +112,9 @@ class TodoAlarmReceiver : BroadcastReceiver() {
         val notificationHelper = NotificationHelper(context)
         val sound = RingtoneManager.getRingtone(context, uri?.toUri())
 
+        val startServiceIntent = Intent(context, TodoRingtoneService::class.java)
+        startServiceIntent.putExtra("ringtoneUri", uri)
+
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
 
@@ -119,7 +125,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                     when (dayList.size) {
 
                         0 -> {
-                            sound.play()
+                            context.startService(startServiceIntent)
                             notificationHelper.onCreateNotification(name = name!!, todoDateAndTime)
                         }
 
@@ -129,14 +135,14 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.WEDNESDAY || day == Calendar.THURSDAY || day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
                             } else {
                                 if (dayList[0] == "Monday") {
                                     if (day == Calendar.MONDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -144,7 +150,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                                 if (dayList[0] == "Tuesday") {
                                     if (day == Calendar.TUESDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -152,7 +158,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                                 if (dayList[0] == "Wednesday") {
                                     if (day == Calendar.WEDNESDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -160,7 +166,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                                 if (dayList[0] == "Thursday") {
                                     if (day == Calendar.THURSDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -168,7 +174,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                                 if (dayList[0] == "Friday") {
                                     if (day == Calendar.FRIDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -176,7 +182,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                                 if (dayList[0] == "Saturday") {
                                     if (day == Calendar.SATURDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -184,7 +190,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                                 if (dayList[0] == "Sunday") {
                                     if (day == Calendar.SUNDAY) {
-                                        sound.play()
+                                        context.startService(startServiceIntent)
                                         notificationHelper.onCreateNotification(name = name!!,
                                             todoDateAndTime)
                                     }
@@ -196,7 +202,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                         2 -> {
                             if (mondayTuesday.containsAll(dayList)) {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -205,7 +211,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (mondayWednesday.containsAll(dayList)) {
                                 if (day == Calendar.MONDAY || day == Calendar.WEDNESDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -213,7 +219,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (mondayThursday.containsAll(dayList)) {
                                 if (day == Calendar.MONDAY || day == Calendar.THURSDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -221,7 +227,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (mondayFriday.containsAll(dayList)) {
                                 if (day == Calendar.MONDAY || day == Calendar.FRIDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -229,7 +235,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (mondaySaturday.containsAll(dayList)) {
                                 if (day == Calendar.MONDAY || day == Calendar.SATURDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -237,7 +243,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (mondaySunday.containsAll(dayList)) {
                                 if (day == Calendar.MONDAY || day == Calendar.SUNDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -245,7 +251,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (tuesdayWednesday.containsAll(dayList)) {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -253,7 +259,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (tuesdayThursday.containsAll(dayList)) {
                                 if (day == Calendar.TUESDAY || day == Calendar.THURSDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -261,7 +267,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (tuesdayFriday.containsAll(dayList)) {
                                 if (day == Calendar.TUESDAY || day == Calendar.FRIDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -269,7 +275,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (tuesdaySaturday.containsAll(dayList)) {
                                 if (day == Calendar.TUESDAY || day == Calendar.SATURDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -277,7 +283,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (tuesdaySunday.containsAll(dayList)) {
                                 if (day == Calendar.TUESDAY || day == Calendar.SUNDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -285,7 +291,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (wednesdayThursday.containsAll(dayList)) {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.THURSDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -293,7 +299,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (wednesdayFriday.containsAll(dayList)) {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.FRIDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -301,7 +307,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (wednesdaySaturday.containsAll(dayList)) {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.SATURDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -309,7 +315,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (wednesdaySunday.containsAll(dayList)) {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.SUNDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -317,7 +323,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (thursdayFriday.containsAll(dayList)) {
                                 if (day == Calendar.THURSDAY || day == Calendar.FRIDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -325,7 +331,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (thursdaySaturday.containsAll(dayList)) {
                                 if (day == Calendar.THURSDAY || day == Calendar.SATURDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -341,7 +347,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (fridaySaturday.containsAll(dayList)) {
                                 if (day == Calendar.FRIDAY || day == Calendar.SATURDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -349,7 +355,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (fridaySunday.containsAll(dayList)) {
                                 if (day == Calendar.FRIDAY || day == Calendar.SUNDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -357,7 +363,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
                             if (saturdaySunday.containsAll(dayList)) {
                                 if (day == Calendar.SATURDAY || day == Calendar.SUNDAY) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -370,7 +376,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.WEDNESDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -380,7 +386,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.THURSDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -390,7 +396,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.FRIDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -400,7 +406,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -410,7 +416,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -420,7 +426,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.THURSDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -430,7 +436,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.FRIDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -440,7 +446,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -450,7 +456,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -460,7 +466,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.FRIDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -470,7 +476,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -480,7 +486,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -490,7 +496,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.THURSDAY || day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -500,7 +506,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.THURSDAY || day == Calendar.FRIDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -510,7 +516,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.FRIDAY || day == Calendar.SATURDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -523,7 +529,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.WEDNESDAY || day == Calendar.THURSDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -533,7 +539,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.WEDNESDAY || day == Calendar.FRIDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -543,7 +549,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.WEDNESDAY || day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -553,7 +559,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.MONDAY || day == Calendar.TUESDAY ||
                                     day == Calendar.WEDNESDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -563,7 +569,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.THURSDAY || day == Calendar.FRIDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -573,7 +579,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.THURSDAY || day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -583,7 +589,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.TUESDAY || day == Calendar.WEDNESDAY ||
                                     day == Calendar.THURSDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -593,7 +599,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.FRIDAY || day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -603,7 +609,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.FRIDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -613,7 +619,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                 if (day == Calendar.THURSDAY || day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -627,7 +633,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.FRIDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -638,7 +644,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -649,7 +655,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.WEDNESDAY || day == Calendar.THURSDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -661,7 +667,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -673,7 +679,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.FRIDAY ||
                                     day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -684,7 +690,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -699,7 +705,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -711,7 +717,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -723,7 +729,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.THURSDAY || day == Calendar.FRIDAY ||
                                     day == Calendar.SATURDAY || day == Calendar.SUNDAY
                                 ) {
-                                    sound.play()
+                                    context.startService(startServiceIntent)
                                     notificationHelper.onCreateNotification(name = name!!,
                                         todoDateAndTime)
                                 }
@@ -731,7 +737,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                         }
                     }
                 }else{
-                    sound.play()
+                    context.startService(startServiceIntent)
                     notificationHelper.onCreateNotification(name = name!!,
                         todoDateAndTime)
                 }

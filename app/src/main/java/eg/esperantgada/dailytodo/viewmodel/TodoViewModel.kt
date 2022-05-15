@@ -1,5 +1,6 @@
 package eg.esperantgada.dailytodo.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -25,6 +26,8 @@ import javax.inject.Inject
  * Inject [todoDao] in the [ViewModel]
  */
 
+const val TAG_V = "TodoViewModel"
+
 @Suppress("KDocUnresolvedReference")
 @HiltViewModel
 class TodoViewModel @Inject constructor(
@@ -38,6 +41,15 @@ class TodoViewModel @Inject constructor(
      * [SavedStateHandle] which will save it
      */
     val searchQuery = state.getLiveData("searchQuery", "")
+
+    var timer = MutableLiveData<String>()
+
+    fun setTimer(todoTimer : String){
+        timer.value = todoTimer
+
+        Log.d(TAG_V, "TIMER IN TODO VIEWMODEL : ${timer.value}")
+    }
+
 
    /* val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
     val hideCompleted = MutableStateFlow(false)*/

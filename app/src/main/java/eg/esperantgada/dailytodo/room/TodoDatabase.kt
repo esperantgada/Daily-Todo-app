@@ -16,7 +16,7 @@ import javax.inject.Provider
  * This database is created or provided by dependency injection
  */
 
-@Database(entities = [Todo::class, Note::class], version = 7, exportSchema = false)
+@Database(entities = [Todo::class, Note::class], version = 10, exportSchema = false)
 abstract class TodoDatabase : RoomDatabase(){
 
     abstract fun todoDao() : TodoDao
@@ -28,7 +28,6 @@ abstract class TodoDatabase : RoomDatabase(){
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
 
-            val tododao = database.get().todoDao()
             val noteDao = database.get().noteDao()
 
             applicationScope.launch {
@@ -42,7 +41,6 @@ abstract class TodoDatabase : RoomDatabase(){
                     title = "Kotlin",
                     description = "Android development language"
                 ))
-
             }
         }
     }

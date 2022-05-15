@@ -2,11 +2,11 @@ package eg.esperantgada.dailytodo.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.core.net.toUri
+import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eg.esperantgada.dailytodo.alarm.TodoAlarm
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
@@ -35,10 +35,16 @@ class AddEditTodoViewModel @Inject constructor(
     private val addEditTodoEventChannel = Channel<AddEditTodoEvent>()
     val addEditTodoEvent = addEditTodoEventChannel.receiveAsFlow()
 
-       var countDownTimer : String = "12 Days : 23 Hours : 36 Minutes : 45 Second"
 
     private var _days = MutableLiveData<List<String>>()
      val days = _days
+
+     val ringtoneTitle = MutableLiveData<String>()
+
+
+    fun setRingtoneTitle(sentRingtoneTitle : String){
+        ringtoneTitle.value = sentRingtoneTitle
+    }
 
 
 
@@ -58,7 +64,7 @@ class AddEditTodoViewModel @Inject constructor(
 
 
     //Retrieve the data sent from TodoFragment and save it in the state so that that it doesn't lost
-    val sentTodo = state.get<Todo>("todo")
+    private val sentTodo = state.get<Todo>("todo")
 
     //This takes a task's name and save it in the state instance as key/value
     var todoName = state.get<String>("todoName") ?: sentTodo?.name ?: ""
@@ -88,16 +94,21 @@ class AddEditTodoViewModel @Inject constructor(
     var todoDuration = state.get<String>("todoDuration") ?: sentTodo?.duration ?: ""
     set(value) {
         field = value
-        state.set("todoDuration", todoDuration)
+        state["todoDuration"] = todoDuration
     }
 
    var todoRingtoneUri = state.get<String>("ringtoneUri") ?: sentTodo?.ringtoneUri ?: ""
         set(value) {
             field = value
-            state.set("ringtoneUri", todoRingtoneUri)
+            state["ringtoneUri"] = todoRingtoneUri
         }
 
-    //val todoUri = sentTodo?.let { todoRepository.getUri(it.id) }
+    var isSwitchOn = state.get<Boolean>("switch") ?: sentTodo?.switchOn ?: false
+    set(value) {
+        field = value
+        state["switch"] = isSwitchOn
+    }
+
 
     //Updates item and navigates back
     private fun updateTodo(todo: Todo) {
@@ -173,12 +184,13 @@ class AddEditTodoViewModel @Inject constructor(
                         duration = todoDuration,
                         ringtoneUri = todoRingtoneUri,
                         createdAt = formattedDate,
+                        switchOn = isSwitchOn
                     )
+
                     updateTodo(updatedTodo)
-                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo, _days.value)
-                    val todoTimer = TodoTimer(updatedTodo)
+                    val todoTimer = TodoTimer(context, updatedTodo)
                     todoTimer.countDownTimer.start()
-                    Log.d(TAG, "COUNTDOWN START IN VIEWMODEL: $countDownTimer")
+                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo, _days.value)
                     Log.d(TAG, "DAY LIST IN VIEWMODEL: ${_days.value}")
                 }
                 else -> {
@@ -189,14 +201,14 @@ class AddEditTodoViewModel @Inject constructor(
                         time = todoTime,
                         duration = todoDuration,
                         ringtoneUri = todoRingtoneUri,
-                        createdAt = formattedDate)
+                        createdAt = formattedDate,
+                        switchOn = isSwitchOn
+                    )
+
                     insertTodo(newTodo)
-                    TodoAlarm.setTodoAlarmReminder(context, newTodo, _days.value)
-                   val todoTimer = TodoTimer(newTodo)
+                    val todoTimer = TodoTimer(context, newTodo)
                     todoTimer.countDownTimer.start()
-
-                    Log.d(TAG, "COUNTDOWN START IN VIEWMODEL: $countDownTimer")
-
+                    TodoAlarm.setTodoAlarmReminder(context, newTodo, _days.value)
                 }
             }
         }

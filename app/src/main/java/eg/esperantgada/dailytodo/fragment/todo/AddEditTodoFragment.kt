@@ -13,9 +13,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
@@ -35,7 +35,6 @@ import eg.esperantgada.dailytodo.notification.Ringtone
 import eg.esperantgada.dailytodo.utils.*
 import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 import java.util.*
-import kotlin.properties.Delegates
 
 const val TAG1 = "AddEditTodoFragment"
 
@@ -47,7 +46,7 @@ class AddEditTodoFragment : Fragment(),
     private var _binding: FragmentAddEditTodoBinding? = null
     private val binding get() = _binding!!
 
-    private var isSwitchChecked : Boolean = false
+    private var isSwitchChecked: Boolean = false
 
 
     private val viewModel: AddEditTodoViewModel by viewModels()
@@ -64,22 +63,19 @@ class AddEditTodoFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         binding.apply {
             todoName.setText(viewModel.todoName)
             importantTodo.isChecked = viewModel.isImportant
             importantTodo.jumpDrawablesToCurrentState()
-            /* dateCreatedTextView.isVisible = viewModel.sentTodo != null
-            scheduledDateTextView.isVisible = viewModel.sentTodo != null
-            scheduledDateTextView.text = getString(R.string.scheduled_for, viewModel.todoDate, viewModel.todoTime)
-            dateCreatedTextView.text = context?.getString(R.string.created_at, viewModel.sentTodo?.dataFormatted)*/
             todoDate.getDatePicker(requireContext(), "dd/MM/yyyy", Date())
             todoTime.getTimePicker(requireContext(), "h:mm a")
             todoTime.setText(viewModel.todoTime)
             todoDate.setText(viewModel.todoDate)
             todoDuration.setText(viewModel.todoDuration)
-            //multiSelectionSpinner.text = viewModel.days.toString()
-            //ringtoneButton.text = viewModel.todoRingtoneUri
-
+            repeatSwitch.isChecked = viewModel.isSwitchOn
+            repeatIntervalNeumor.isVisible = binding.repeatSwitch.isChecked
+            multiSelectionSpinner.isVisible = binding.repeatSwitch.isChecked
 
             //Sets item's name in the viewModel to the name of edited item and save it SaveStateHandle
             todoName.addTextChangedListener {
@@ -89,6 +85,12 @@ class AddEditTodoFragment : Fragment(),
             //Sets item's importance in the viewModel to the importance of edited item and save it SaveStateHandle
             importantTodo.setOnCheckedChangeListener { _, isChecked ->
                 viewModel.isImportant = isChecked
+            }
+
+            repeatSwitch.setOnCheckedChangeListener { _, isChecked ->
+                viewModel.isSwitchOn = isChecked
+                repeatIntervalNeumor.isVisible = isChecked
+                multiSelectionSpinner.isVisible = isChecked
             }
 
             todoDate.addTextChangedListener {
@@ -105,60 +107,57 @@ class AddEditTodoFragment : Fragment(),
             }
 
             ringtoneButton.setOnClickListener {
-                startActivityForResult(Ringtone.setNotificationRingtone(requireContext()), 23)
+                val ringtone = Ringtone(requireContext())
+                startActivityForResult(ringtone.setNotificationRingtone(), 23)
             }
 
             todoDuration.addTextChangedListener {
                 viewModel.todoDuration = it.toString()
             }
 
-            repeatSwitch.setOnCheckedChangeListener { _, isChecked ->
-                isSwitchChecked = isChecked
 
-                    repeatIntervalNeumor.isVisible = isSwitchChecked
-                    multiSelectionSpinner.isVisible = isSwitchChecked
+            val uri = viewModel.todoRingtoneUri
+            val ringtone = RingtoneManager.getRingtone(requireContext(), uri.toUri())
+            binding.ringtoneButton.text = ringtone.getTitle(requireContext())
+
+
+
+            viewLifecycleOwner.lifecycleScope.launchWhenStarted {
+                viewModel.addEditTodoEvent.collect { event ->
+                    when (event) {
+                        is AddEditTodoEvent.GoBackWithResult -> {
+                            binding.todoName.clearFocus()
+
+                            //Navigates back to TodoFragment with the result of adding or editing action
+                            setFragmentResult(
+                                REQUEST_KEY,
+                                bundleOf(ADD_EDIT_RESULT_KEY to event.result)
+                            )
+                            findNavController().popBackStack()
+                        }
+
+                        is AddEditTodoEvent.ShowInvalidInputMessage -> {
+                            Snackbar.make(requireView(), event.message, Snackbar.LENGTH_LONG)
+                                .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
+                                .show()
+                        }
+                    }.exhaustive
+                }
             }
 
-/*
-           ringtoneUri.addTextChangedListener {
-                viewModel.todoRingtoneUri = it.toString()
-            }
-*/
+            //Creates an array of string
+            val frequencyList =
+                ArrayList(listOf(*resources.getStringArray(R.array.repeat_interval)))
+
+            //Sets multi selection spinner
+            binding.multiSelectionSpinner.setAdapterWithOutImage(requireContext(),
+                frequencyList,
+                this@AddEditTodoFragment)
+
+            binding.multiSelectionSpinner
+                .initMultiSpinner(requireContext(), binding.multiSelectionSpinner)
+
         }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.addEditTodoEvent.collect { event ->
-                when (event) {
-                    is AddEditTodoEvent.GoBackWithResult -> {
-                        binding.todoName.clearFocus()
-
-                        //Navigates back to TodoFragment with the result of adding or editing action
-                        setFragmentResult(
-                            REQUEST_KEY,
-                            bundleOf(ADD_EDIT_RESULT_KEY to event.result)
-                        )
-                        findNavController().popBackStack()
-                    }
-
-                    is AddEditTodoEvent.ShowInvalidInputMessage -> {
-                        Snackbar.make(requireView(), event.message, Snackbar.LENGTH_LONG)
-                            .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
-                            .show()
-                    }
-                }.exhaustive
-            }
-        }
-
-        //Creates an array of string
-        val frequencyList =
-            ArrayList<String>(listOf(*resources.getStringArray(R.array.repeat_interval)))
-
-        //Sets multi selection spinner
-        binding.multiSelectionSpinner.setAdapterWithOutImage(requireContext(), frequencyList, this)
-
-        binding.multiSelectionSpinner
-            .initMultiSpinner(requireContext(), binding.multiSelectionSpinner)
-
     }
 
 
@@ -168,18 +167,17 @@ class AddEditTodoFragment : Fragment(),
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == 23 && resultCode == Activity.RESULT_OK) {
-            val uri = data!!.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
-            val ringtone = RingtoneManager.getRingtone(requireContext(), uri)
-            viewModel.todoRingtoneUri = uri.toString()
-            //val soundTitle = ringtone.getTitle(requireContext())
-            // binding.ringtoneButton.setText(soundTitle)
+            val todoUri =
+                data!!.getParcelableExtra<Uri>(RingtoneManager.EXTRA_RINGTONE_PICKED_URI)
+            viewModel.todoRingtoneUri = todoUri.toString()
+
 
 
             if (setWritePermission(requireContext())) {
-                val soundTitle = ringtone.getTitle(requireContext())
-                //binding.ringtoneButton.setText(soundTitle)
-
-                Log.d(TAG1, "NOTIFICATION SOUND : $soundTitle")
+                val uri = viewModel.todoRingtoneUri
+                val ringtone = RingtoneManager.getRingtone(requireContext(), uri.toUri())
+                binding.ringtoneButton.text = ringtone.getTitle(requireContext())
+                Log.d(TAG1, "NOTIFICATION SOUND : ${ringtone.getTitle(requireContext())}")
             }
         }
     }
@@ -219,11 +217,12 @@ class AddEditTodoFragment : Fragment(),
         }
         isSwitchChecked = binding.repeatSwitch.isChecked
 
-        if (isSwitchChecked){
+        if (isSwitchChecked) {
             viewModel.setDay(daysList)
         }
         Log.d(TAG1, "SELECTED ITEMS LIST : $daysList")
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
