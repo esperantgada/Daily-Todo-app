@@ -23,9 +23,9 @@ class TodoAlarmBootReceiver : BroadcastReceiver() {
             if (intent.action == "android.intent.action.BOOT_COMPLETED") {
 
                 @SuppressLint("SimpleDateFormat", "InlinedApi")
-                fun setTodoAlarmReminder(context: Context, todo: Todo, dayList: List<String>?) {
+                fun setTodoAlarmReminder(todo: Todo, dayList: List<String>?) {
                     val alarmManager: AlarmManager? =
-                        context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
+                        context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
                     val timeFormat = SimpleDateFormat("hh:mm a")
                     val parsedTime = timeFormat.parse(todo.time)
