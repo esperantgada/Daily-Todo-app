@@ -9,23 +9,18 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import com.google.android.material.timepicker.TimeFormat
-import eg.esperantgada.dailytodo.TAG
-import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmBootReceiver
 import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmReceiver
 import eg.esperantgada.dailytodo.model.Todo
-import eg.esperantgada.dailytodo.service.TodoRingtoneService
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import eg.esperantgada.dailytodo.utils.TODO_ALARM_TAG
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 //Sets alarm for the broadcast receiver
 object TodoAlarm {
 
     @SuppressLint("SimpleDateFormat", "InlinedApi")
-    fun setTodoAlarmReminder(context: Context, todo: Todo, dayList: List<String>?) {
+    fun setTodoAlarmReminder(context: Context, todo: Todo) {
         val alarmManager: AlarmManager? =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
@@ -53,7 +48,7 @@ object TodoAlarm {
                 putExtra("id", todo.id)
                 putExtra("todo", todo)
                 putExtra("ringtoneUri", todo.ringtoneUri)
-                putStringArrayListExtra("days", dayList?.let { ArrayList(it) })
+                putStringArrayListExtra("days", todo.repeatFrequency as ArrayList<String>?)
                 Log.d(TODO_ALARM_TAG, "${todo.id}")
             },
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_ONE_SHOT
@@ -67,7 +62,7 @@ object TodoAlarm {
         val currentTime = Calendar.getInstance().time
 
         if (currentTime <= todoTime) {
-            if (dayList != null){
+            if (todo.repeatFrequency != null && todo.repeatFrequency.isNotEmpty()){
                 alarmManager?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         alarmManager.setRepeating(
@@ -84,9 +79,10 @@ object TodoAlarm {
                             AlarmManager.INTERVAL_DAY,
                             pendingIntent
                         )
+
                     }
                 }
-            }else{    //If dayList is null,it won't set repeating alarm
+            }else{
                 alarmManager?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         alarmManager.setExactAndAllowWhileIdle(

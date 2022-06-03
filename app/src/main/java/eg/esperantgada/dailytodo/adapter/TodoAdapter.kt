@@ -3,6 +3,8 @@ package eg.esperantgada.dailytodo.adapter
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +19,7 @@ import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.TodoItemBinding
 import eg.esperantgada.dailytodo.fragment.todo.TodoFragment
 import eg.esperantgada.dailytodo.model.Todo
+import eg.esperantgada.dailytodo.utils.ColorPicker
 import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
 import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
@@ -25,8 +28,7 @@ const val TAG = "TodoAdapter"
 
 class TodoAdapter(
     private val context: Context,
-    private val listener: OnItemClickedListener,
-    private val todoViewModel: TodoViewModel
+    private val listener: OnItemClickedListener
 ) : PagingDataAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
 
     inner class TodoViewHolder(private val binding: TodoItemBinding) :
@@ -66,11 +68,6 @@ class TodoAdapter(
                 todoTextView.paint.isStrikeThruText = todo.completed
                 priorityImageView.isVisible = todo.important
                 durationTextView.text = todo.duration
-                //todoTimer.text = todoViewModel.timer.value
-
-                todoViewModel.timer.observeForever {
-                    todoTimer.text = it
-                }
             }
             binding.createdDateAndTime.text = todo.createdAt
             binding.dueDateAndTime.text =
@@ -98,9 +95,6 @@ class TodoAdapter(
         fun onItemClicked(todo: Todo)
 
         fun onCheckBoxClicked(todo: Todo, isChecked: Boolean)
-
-        fun setTodoCountDownTimer(): String
-
     }
 
     companion object {

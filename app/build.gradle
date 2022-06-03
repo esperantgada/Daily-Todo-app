@@ -114,6 +114,9 @@ dependencies {
     //implementation "com.example:multiselectionspinner"
     implementation 'com.github.AnuraganuPunalur:Multi-Selection-Spinner-Android:1.0'
 
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+
 }
 
 kapt {

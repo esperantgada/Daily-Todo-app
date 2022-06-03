@@ -30,6 +30,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +49,7 @@
                     android:layout_marginBottom="8dp"
                     android:background="@null"
                     android:hint="@string/what_do_you_want_to_do"
+                    android:importantForAutofill="no"
                     android:inputType="textMultiLine|textCapSentences"
                     android:minHeight="48dp"
                     android:textColorHint="#757575"
@@ -54,7 +57,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:importantForAutofill="no" />
+                    tools:ignore="TextContrastCheck" />
 
             </soup.neumorphism.NeumorphCardView>
 
@@ -66,6 +69,8 @@
                 android:layout_height="70dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/todo_name_edit_neumor"
                 app:layout_constraintTop_toBottomOf="@id/todo_name_edit_neumor"
@@ -84,6 +89,7 @@
                     android:drawableEnd="@drawable/ic_date"
                     android:gravity="top|start"
                     android:hint="@string/on_what_date_will_it_be_achieved"
+                    android:importantForAutofill="no"
                     android:inputType="textMultiLine|textCapSentences"
                     android:minHeight="48dp"
                     android:textColorHint="#757575"
@@ -91,8 +97,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextFields"
-                    android:importantForAutofill="no" />
+                    tools:ignore="TextFields,TextContrastCheck" />
             </soup.neumorphism.NeumorphCardView>
 
             <soup.neumorphism.NeumorphCardView
@@ -102,6 +107,8 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/todo_date_edit_text_neumor"
                 app:layout_constraintTop_toBottomOf="@id/todo_date_edit_text_neumor"
@@ -120,6 +127,7 @@
                     android:drawableEnd="@drawable/ic_time"
                     android:gravity="top|start"
                     android:hint="@string/what_time_will_it_be_done"
+                    android:importantForAutofill="no"
                     android:inputType="textMultiLine|textCapSentences"
                     android:minHeight="48dp"
                     android:textColorHint="#757575"
@@ -127,8 +135,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextFields,DuplicateSpeakableTextCheck"
-                    android:importantForAutofill="no" />
+                    tools:ignore="TextFields,DuplicateSpeakableTextCheck,TextContrastCheck" />
 
             </soup.neumorphism.NeumorphCardView>
 
@@ -139,6 +146,8 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/todo_time_edit_text_neumor"
                 app:layout_constraintTop_toBottomOf="@id/todo_time_edit_text_neumor"
@@ -157,6 +166,7 @@
                     android:drawableEnd="@drawable/ic_time"
                     android:gravity="top|start"
                     android:hint="What's task duration?"
+                    android:importantForAutofill="no"
                     android:inputType="textMultiLine|textCapSentences"
                     android:minHeight="48dp"
                     android:textColorHint="#757575"
@@ -164,8 +174,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextFields"
-                    android:importantForAutofill="no" />
+                    tools:ignore="TextFields,TextContrastCheck" />
 
             </soup.neumorphism.NeumorphCardView>
 
@@ -176,6 +185,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="@id/todo_duration_neumor"
                 app:layout_constraintTop_toBottomOf="@id/todo_duration_neumor"
@@ -200,6 +211,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintBottom_toTopOf="@id/repeat_switch"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/todo_imoprtant_neumor"
@@ -218,8 +231,19 @@
                     android:hint="@string/set_notification_sound_optional"
                     android:textColorHint="#757575"
                     android:textSize="16sp"
-                    app:drawableEndCompat="@drawable/ic_notification" />
+                    app:drawableEndCompat="@drawable/ic_notification"
+                    tools:ignore="TextContrastCheck" />
             </soup.neumorphism.NeumorphCardView>
+
+            <TextView
+                android:id="@+id/ringtone_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/repeat_switch"
@@ -227,8 +251,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:checked="false"
                 android:layout_marginEnd="20dp"
+                android:checked="false"
                 android:text="Repeat"
                 android:textColor="#2E7D32"
                 android:textSize="16sp"
@@ -236,7 +260,7 @@
                 app:layout_constraintHorizontal_bias="0.2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ringtone_button_neumor"
-                tools:ignore="UseSwitchCompatOrMaterialXml" />
+                tools:ignore="UseSwitchCompatOrMaterialXml,TextContrastCheck" />
 
 
             <soup.neumorphism.NeumorphCardView
@@ -245,6 +269,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/repeat_switch"
                 app:neumorph_shapeType="pressed">

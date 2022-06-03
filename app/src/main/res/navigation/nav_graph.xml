@@ -13,9 +13,9 @@
         <action
             android:id="@+id/action_todoFragment_to_addEditFragment"
             app:destination="@id/addEditTodoFragment"
-            app:enterAnim="@anim/from_left"
+            app:enterAnim="@anim/from_bottom"
             app:exitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_right"
+            app:popEnterAnim="@anim/from_top"
             app:popExitAnim="@anim/to_left" />
     </fragment>
     <fragment
@@ -67,6 +67,10 @@
         <action
             android:id="@+id/action_noteListFragment_to_addNoteFragment"
             app:destination="@id/addNoteFragment"
+            app:enterAnim="@anim/from_top"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/to_top"
             app:popUpTo="@id/addNoteFragment"
             app:popUpToInclusive="false" />
     </fragment>
@@ -76,9 +80,17 @@
         tools:layout="@layout/fragment_start">
         <action
             android:id="@+id/action_startFragment_to_noteListFragment"
-            app:destination="@id/noteListFragment" />
+            app:destination="@id/noteListFragment"
+            app:enterAnim="@anim/from_bottom"
+            app:exitAnim="@anim/to_left"
+            app:popEnterAnim="@anim/from_left"
+            app:popExitAnim="@anim/from_right" />
         <action
             android:id="@+id/action_startFragment_to_todoFragment"
-            app:destination="@id/todoFragment" />
+            app:destination="@id/todoFragment"
+            app:enterAnim="@anim/from_right"
+            app:exitAnim="@anim/from_left"
+            app:popEnterAnim="@anim/from_top"
+            app:popExitAnim="@anim/to_bottom" />
     </fragment>
 </navigation>

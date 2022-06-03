@@ -2,6 +2,7 @@ package eg.esperantgada.dailytodo.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
 import eg.esperantgada.dailytodo.dependencyinjection.ApplicationScope
 import eg.esperantgada.dailytodo.model.Note
@@ -16,7 +17,8 @@ import javax.inject.Provider
  * This database is created or provided by dependency injection
  */
 
-@Database(entities = [Todo::class, Note::class], version = 10, exportSchema = false)
+@Database(entities = [Todo::class, Note::class], version = 16, exportSchema = false)
+@TypeConverters(Converter::class)
 abstract class TodoDatabase : RoomDatabase(){
 
     abstract fun todoDao() : TodoDao

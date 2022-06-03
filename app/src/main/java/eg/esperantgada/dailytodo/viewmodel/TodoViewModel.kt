@@ -42,14 +42,6 @@ class TodoViewModel @Inject constructor(
      */
     val searchQuery = state.getLiveData("searchQuery", "")
 
-    var timer = MutableLiveData<String>()
-
-    fun setTimer(todoTimer : String){
-        timer.value = todoTimer
-
-        Log.d(TAG_V, "TIMER IN TODO VIEWMODEL : ${timer.value}")
-    }
-
 
    /* val sortOrder = MutableStateFlow(SortOrder.BY_DATE)
     val hideCompleted = MutableStateFlow(false)*/

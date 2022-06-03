@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#D3D3D3"
     android:layout_height="wrap_content"
+    android:background="#D3D3D3"
     android:padding="6dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
+        style="@style/Widget.Neumorph.CardView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="0dp"
-        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="6dp">
 
         <soup.neumorphism.NeumorphCardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            style="@style/Widget.Neumorph.CardView"
             android:layout_rowWeight="1"
+            app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+            app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
             android:padding="6dp">
 
 
@@ -32,45 +36,37 @@
                     android:id="@+id/priority_image_neumor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    style="@style/Widget.Neumorph.CardView"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                     app:layout_constraintBottom_toTopOf="@id/todo_text_neumor"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/todoTimer"
-                            android:textColor="@color/black"
-                            android:text="24 Days : 12 Hours : 45 Minutes : 26 Sec"
-                            android:layout_margin="4dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"/>
+                    <ImageView
+                        android:id="@+id/priority_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="20dp"
+                        android:contentDescription="@string/just_an_image"
+                        android:src="@drawable/ic_priority" />
 
-                        <ImageView
-                            android:id="@+id/priority_image_view"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="end"
-                            android:layout_marginStart="20dp"
-                            android:contentDescription="@string/just_an_image"
-                            android:src="@drawable/ic_priority" />
-
-
-                    </LinearLayout>
 
                 </soup.neumorphism.NeumorphCardView>
 
                 <soup.neumorphism.NeumorphCardView
                     android:id="@+id/checkbox_neumor"
                     android:layout_width="wrap_content"
+                    style="@style/Widget.Neumorph.CardView"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/todo_text_neumor"
-                    app:layout_constraintEnd_toStartOf="@id/todo_text_neumor">
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/todo_text_neumor"
+                    app:layout_constraintBottom_toBottomOf="@id/todo_text_neumor">
 
                     <CheckBox
                         android:id="@+id/checkbox"
@@ -86,20 +82,26 @@
 
                 <soup.neumorphism.NeumorphCardView
                     android:id="@+id/todo_text_neumor"
+                    style="@style/Widget.Neumorph.CardView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/checkbox_neumor"
-                    app:layout_constraintStart_toEndOf="@id/checkbox_neumor"
                     app:layout_constraintTop_toTopOf="@id/checkbox_neumor">
 
                     <TextView
                         android:id="@+id/todo_text_view"
-                        android:layout_width="300dp"
+                        android:layout_width="270dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
                         android:layout_marginTop="8dp"
+                        android:paddingStart="6dp"
+                        android:paddingEnd="4dp"
+                        android:paddingBottom="6dp"
                         android:maxLength="300"
-                        android:maxLines="20"
+                        android:maxLines="10"
+                        android:layout_marginEnd="10dp"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         tools:text="Today's meeting" />
@@ -128,16 +130,22 @@
                         <soup.neumorphism.NeumorphTextView
                             android:id="@+id/created_at_text_view"
                             android:layout_width="wrap_content"
+                            style="@style/Widget.Neumorph.TextView"
                             android:layout_height="wrap_content"
                             android:text="@string/created_date_and_time"
+                            app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                            app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                             android:textSize="11sp"
                             android:textStyle="bold" />
 
                         <soup.neumorphism.NeumorphTextView
                             android:id="@+id/created_date_and_time"
                             android:layout_width="wrap_content"
+                            style="@style/Widget.Neumorph.TextView"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
+                            app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                            app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                             android:textSize="9sp"
                             tools:ignore="SmallSp"
                             tools:text="@string/april_8_2022_12_36" />
@@ -171,17 +179,23 @@
                         <soup.neumorphism.NeumorphTextView
                             android:id="@+id/due_date_and_time_text_view"
                             android:layout_width="wrap_content"
+                            style="@style/Widget.Neumorph.TextView"
                             android:layout_height="wrap_content"
                             android:text="@string/due_date_and_time"
+                            app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                            app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                             android:textSize="11sp"
                             android:textStyle="bold" />
 
                         <soup.neumorphism.NeumorphTextView
                             android:id="@+id/due_date_and_time"
                             android:layout_width="wrap_content"
+                            style="@style/Widget.Neumorph.TextView"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="4dp"
                             android:layout_marginBottom="10dp"
+                            app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                            app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                             android:textSize="9sp"
                             tools:ignore="SmallSp"
                             tools:text="@string/april_8_2022_12_36" />

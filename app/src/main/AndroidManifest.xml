@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
@@ -21,7 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DailyToDo"
-        tools:ignore="DataExtractionRules">
+        tools:ignore="DataExtractionRules,ExtraText">
         <activity
             android:name=".SecondStartActivity"
             android:exported="false"
@@ -49,20 +48,13 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" />
 
-        <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"/>
+        <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"
+            android:enabled="true"/>
+
         <receiver android:name=".broadcastreceiver.CancelNotificationReceiver"/>
             tools:ignore="Instantiatable" />
-        <receiver android:name=".broadcastreceiver.TodoAlarmBootReceiver" android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
-            </intent-filter>
-        </receiver>
 
         <service android:name=".service.TodoRingtoneService"/>
-        <service android:name=".service.TodoCountDownTimerService"/>
-
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

@@ -19,7 +19,7 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add_edit.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add_edit_note.xml" value="0.1" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add_edit_todo.xml" value="0.1" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add_edit_todo.xml" value="0.16" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_add_note.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_detail.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/fragment_entry.xml" value="0.20471014492753623" />
@@ -32,7 +32,7 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/nav_drawer_header.xml" value="0.19791666666666666" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/note_item.xml" value="0.20471014492753623" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/settings_activity.xml" value="0.11041666666666666" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/todo_item.xml" value="0.12" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/todo_item.xml" value="0.144" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/layout/toolbar.xml" value="0.20471014492753623" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/menu/nav_drawer_menu.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/menu/note_menu.xml" value="0.25416666666666665" />

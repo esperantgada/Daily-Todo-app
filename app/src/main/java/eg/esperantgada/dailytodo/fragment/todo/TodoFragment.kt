@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,14 +23,10 @@ import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.SettingsActivity
 import eg.esperantgada.dailytodo.adapter.TodoAdapter
 import eg.esperantgada.dailytodo.databinding.FragmentTodoBinding
-import eg.esperantgada.dailytodo.databinding.TodoItemBinding
 import eg.esperantgada.dailytodo.event.TodoEvent
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.repository.SortOrder
-import eg.esperantgada.dailytodo.utils.ADD_EDIT_RESULT_KEY
-import eg.esperantgada.dailytodo.utils.REQUEST_KEY
-import eg.esperantgada.dailytodo.utils.exhaustive
-import eg.esperantgada.dailytodo.utils.onQueryTextChanged
+import eg.esperantgada.dailytodo.utils.*
 import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
 import kotlinx.android.synthetic.main.todo_item.*
 import kotlinx.coroutines.flow.*
@@ -52,7 +47,6 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     private var _binding : FragmentTodoBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var  todoItemBinding : TodoItemBinding
 
     private lateinit var todoAdapter: TodoAdapter
 
@@ -80,7 +74,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         super.onViewCreated(view, savedInstanceState)
 
 
-        todoAdapter = TodoAdapter(requireContext(), this, todoViewModel)
+        todoAdapter = TodoAdapter(requireContext(), this)
 
         binding.apply {
             recyclerView.apply {
@@ -106,13 +100,6 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
                 Log.d(TAG3, "TODO LIST SUBMITTED IN TODO FRAGMENT : $todosList")
             }
         }
-
-        todoViewModel.timer.observe(viewLifecycleOwner){
-            val timer = it
-
-            Log.d(TAG3, "TIMER FROM VIEWMODEL : $timer")
-        }
-
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             todoViewModel.allTodo.observe(viewLifecycleOwner){ todos ->
@@ -254,10 +241,6 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         todoViewModel.onTodoCheckedChanged(todo, isChecked)
     }
 
-    override fun setTodoCountDownTimer(): String {
-        return todoList.toString()
-    }
-
 
     //Sets drag and swipe actions on items in the recycler view
     private val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -285,40 +268,6 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
     })
 
-
-    inner class TodoCountDownTimerReceiver : BroadcastReceiver() {
-        override fun onReceive(p0: Context?, intent: Intent?) {
-            if (intent != null) {
-                gettimer(intent)
-                Log.d(TAG3, "onReceived CALLED IN  TODO FRAGMENT")
-            }
-        }
-    }
-
-
-    private fun gettimer(intent: Intent) {
-        if (intent.extras != null) {
-            val todoTimer = intent.getStringExtra("timer")
-            if (todoTimer != null) {
-                todoViewModel.setTimer(todoTimer)
-                Log.d(TAG3, "TIMER IN TODO FRAGMENT : $todoTimer")
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.my.app")
-        val receiver = TodoCountDownTimerReceiver()
-        activity?.registerReceiver(receiver, intentFilter)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        val receiver = TodoCountDownTimerReceiver()
-        activity?.let { LocalBroadcastManager.getInstance(it) }?.unregisterReceiver(receiver)
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

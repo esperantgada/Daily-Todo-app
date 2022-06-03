@@ -5,9 +5,9 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import androidx.core.net.toUri
-import androidx.fragment.app.FragmentManager
 import eg.esperantgada.dailytodo.notification.NotificationHelper
 import eg.esperantgada.dailytodo.service.TodoRingtoneService
+import eg.esperantgada.dailytodo.sharepreference.TodoSharePreference
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import java.util.*
 
@@ -99,6 +99,9 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
         val tuesdayWednesdayThursdayFridaySaturdaySunday: List<String> =
             listOf("Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+        val todoSharePreference = TodoSharePreference(context)
+
 
 
         val name = intent.getStringExtra("name")

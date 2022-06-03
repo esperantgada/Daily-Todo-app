@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/note_main_layout"
     android:layout_width="match_parent"
-    android:background="#D3D3D3"
     android:layout_height="wrap_content">
 
 
@@ -25,6 +24,8 @@
             android:layout_height="match_parent"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
+            app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+            app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
             android:padding="6dp"
             tools:ignore="ExtraText,MissingConstraints">
 
@@ -38,6 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
                     android:layout_marginBottom="4dp"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -54,6 +57,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/delete_image_neumor"
                     app:layout_constraintTop_toTopOf="parent"
@@ -78,6 +83,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                     app:layout_constraintStart_toStartOf="@id/note_title_neumor"
                     app:layout_constraintTop_toBottomOf="@id/note_title_neumor"
                     app:neumorph_shapeType="basin">
@@ -99,6 +106,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                     app:layout_constraintStart_toStartOf="@id/note_description_neuro"
                     app:layout_constraintTop_toBottomOf="@id/note_description_neuro">
 
@@ -120,6 +129,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="6dp"
+                    app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                    app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/note_date_neumor">

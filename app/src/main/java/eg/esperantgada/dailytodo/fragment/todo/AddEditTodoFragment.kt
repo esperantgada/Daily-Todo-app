@@ -2,19 +2,15 @@ package eg.esperantgada.dailytodo.fragment.todo
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -32,6 +28,7 @@ import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.FragmentAddEditTodoBinding
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
 import eg.esperantgada.dailytodo.notification.Ringtone
+import eg.esperantgada.dailytodo.sharepreference.TodoSharePreference
 import eg.esperantgada.dailytodo.utils.*
 import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 import java.util.*
@@ -100,6 +97,12 @@ class AddEditTodoFragment : Fragment(),
             todoTime.addTextChangedListener {
                 viewModel.todoTime = it.toString()
             }
+
+/*
+            ringtoneText.addTextChangedListener {
+                viewModel.todoRingtoneUri = it.toString()
+            }
+*/
 
 
             saveFloatingButton.setOnClickListener {
@@ -172,10 +175,9 @@ class AddEditTodoFragment : Fragment(),
             viewModel.todoRingtoneUri = todoUri.toString()
 
 
-
-            if (setWritePermission(requireContext())) {
-                val uri = viewModel.todoRingtoneUri
-                val ringtone = RingtoneManager.getRingtone(requireContext(), uri.toUri())
+            if (isWriteSettingsPermissionGranted()) {
+                val uri = viewModel.todoRingtoneUri.toUri()
+                val ringtone = RingtoneManager.getRingtone(requireContext(), uri)
                 binding.ringtoneButton.text = ringtone.getTitle(requireContext())
                 Log.d(TAG1, "NOTIFICATION SOUND : ${ringtone.getTitle(requireContext())}")
             }
@@ -184,41 +186,37 @@ class AddEditTodoFragment : Fragment(),
 
 
     //Set permission before being able to access ringtone title
-    private fun setWritePermission(context: Context): Boolean {
-        val permission =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) Settings.System.canWrite(context)
-            else ContextCompat.checkSelfPermission(context,
-                android.Manifest.permission.WRITE_SETTINGS)
+    @SuppressLint("NewApi")
+    private fun isWriteSettingsPermissionGranted(): Boolean {
+        var permission = Settings.System.canWrite(requireContext())
 
-        return if (permission as Boolean) {
-            true
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
-                intent.data = Uri.parse("package: ${context.packageName}")
-                activity?.startActivityFromFragment(this@AddEditTodoFragment, intent, 12)
-            } else {
-                ActivityCompat.requestPermissions(context as Activity,
-                    arrayOf(android.Manifest.permission.WRITE_SETTINGS), 12)
-            }
+        if (!permission) {
+            val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS)
+            intent.data = Uri.parse("package: ${requireContext().packageName}")
+            activity?.startActivityFromFragment(this@AddEditTodoFragment, intent, 12)
 
-            false
+            permission = true
         }
+
+
+        return permission
     }
 
 
     override fun OnMultiSpinnerItemSelected(chosenItems: MutableList<String>?) {
         val daysList: MutableList<String> = arrayListOf()
+        val todoSharePreference = TodoSharePreference(requireContext())
 
         if (chosenItems != null) {
             for (i in chosenItems.indices) {
                 daysList.add(chosenItems[i])
             }
         }
+        todoSharePreference.saveSpinnerSelectedItems("days", daysList)
         isSwitchChecked = binding.repeatSwitch.isChecked
 
         if (isSwitchChecked) {
-            viewModel.setDay(daysList)
+            viewModel.days = daysList
         }
         Log.d(TAG1, "SELECTED ITEMS LIST : $daysList")
     }

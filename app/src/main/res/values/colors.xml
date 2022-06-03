@@ -26,4 +26,15 @@
     <color name="pink_400">#FFEC407A</color>
     <color name="pink_600">#FFD81B60</color>
     <color name="pink_950">#FFB31650</color>
+
+    <color name="background">#19191E</color>
+
+    <!-- Light theme colors. -->
+    <color name="design_default_color_shadow_light">#ffffff</color>
+    <color name="design_default_color_shadow_dark">#d9d9d9</color>
+
+    <!-- Dark theme colors. -->
+    <color name="shadow_light">#2c2c2c</color>
+    <color name="shadow_dark">#111111</color>
+
 </resources>

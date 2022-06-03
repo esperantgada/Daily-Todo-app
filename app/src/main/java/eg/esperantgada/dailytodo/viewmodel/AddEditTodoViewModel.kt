@@ -2,11 +2,11 @@ package eg.esperantgada.dailytodo.viewmodel
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.media.Ringtone
-import android.media.RingtoneManager
 import android.util.Log
-import androidx.core.net.toUri
-import androidx.lifecycle.*
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eg.esperantgada.dailytodo.alarm.TodoAlarm
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
@@ -15,7 +15,6 @@ import eg.esperantgada.dailytodo.repository.TodoRepository
 import eg.esperantgada.dailytodo.utils.ADD_TODO_RESULT_OK
 import eg.esperantgada.dailytodo.utils.EDIT_TODO_RESULT_OK
 import eg.esperantgada.dailytodo.utils.INVALID_INPUT_MESSAGE
-import eg.esperantgada.dailytodo.utils.TodoTimer
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -37,21 +36,10 @@ class AddEditTodoViewModel @Inject constructor(
 
 
     private var _days = MutableLiveData<List<String>>()
-     val days = _days
-
-     val ringtoneTitle = MutableLiveData<String>()
-
-
-    fun setRingtoneTitle(sentRingtoneTitle : String){
-        ringtoneTitle.value = sentRingtoneTitle
-    }
-
-
 
      fun setDay(sentDay : List<String>){
         _days.value = sentDay
     }
-
 
     //The local time that will be stored in the database
     @SuppressLint("NewApi")
@@ -59,7 +47,7 @@ class AddEditTodoViewModel @Inject constructor(
     @SuppressLint("NewApi")
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy hh:mm a")
     @SuppressLint("NewApi")
-    private val formattedDate  = currentDateTime.format(formatter)
+     val formattedDate  = currentDateTime.format(formatter)
 
 
 
@@ -70,25 +58,25 @@ class AddEditTodoViewModel @Inject constructor(
     var todoName = state.get<String>("todoName") ?: sentTodo?.name ?: ""
         set(value) {
             field = value
-            state.set("todoName", value)
+            state["todoName"] = value
         }
 
     var isImportant = state.get<Boolean>("isImportant") ?: sentTodo?.important ?: false
         set(value) {
             field = value
-            state.set("isImportant", isImportant)
+            state["isImportant"] = isImportant
         }
 
     var todoDate = state.get<String>("date") ?: sentTodo?.date ?: ""
         set(value) {
             field = value
-            state.set("todoDate", todoDate)
+            state["todoDate"] = todoDate
         }
 
     var todoTime = state.get<String>("todoTime") ?: sentTodo?.time ?: ""
         set(value) {
             field = value
-            state.set("todoTime", todoTime)
+            state["todoTime"] = todoTime
         }
 
     var todoDuration = state.get<String>("todoDuration") ?: sentTodo?.duration ?: ""
@@ -103,12 +91,18 @@ class AddEditTodoViewModel @Inject constructor(
             state["ringtoneUri"] = todoRingtoneUri
         }
 
+    var days = state.get<List<String>>("frequency") ?: sentTodo?.repeatFrequency ?: arrayListOf()
+    set(value) {
+        field = value
+        state["frequency"] = days
+    }
+
+
     var isSwitchOn = state.get<Boolean>("switch") ?: sentTodo?.switchOn ?: false
     set(value) {
         field = value
         state["switch"] = isSwitchOn
     }
-
 
     //Updates item and navigates back
     private fun updateTodo(todo: Todo) {
@@ -184,14 +178,16 @@ class AddEditTodoViewModel @Inject constructor(
                         duration = todoDuration,
                         ringtoneUri = todoRingtoneUri,
                         createdAt = formattedDate,
-                        switchOn = isSwitchOn
+                        switchOn = isSwitchOn,
+                        repeatFrequency = days
                     )
-
                     updateTodo(updatedTodo)
-                    val todoTimer = TodoTimer(context, updatedTodo)
-                    todoTimer.countDownTimer.start()
-                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo, _days.value)
-                    Log.d(TAG, "DAY LIST IN VIEWMODEL: ${_days.value}")
+
+                    //val todoTimer = TodoTimer(context, updatedTodo)
+                    //todoTimer.countDownTimer.start()
+                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
+                    Log.d(TAG, "UPDATED DAY LIST IN VIEWMODEL: ${_days.value}")
+
                 }
                 else -> {
                     val newTodo = Todo(
@@ -202,13 +198,15 @@ class AddEditTodoViewModel @Inject constructor(
                         duration = todoDuration,
                         ringtoneUri = todoRingtoneUri,
                         createdAt = formattedDate,
-                        switchOn = isSwitchOn
+                        switchOn = isSwitchOn,
+                        repeatFrequency = days
                     )
 
                     insertTodo(newTodo)
-                    val todoTimer = TodoTimer(context, newTodo)
-                    todoTimer.countDownTimer.start()
-                    TodoAlarm.setTodoAlarmReminder(context, newTodo, _days.value)
+
+                    Log.d(TAG, "NEW DAY LIST IN VIEWMODEL: ${_days.value}")
+                    Log.d(TAG, "TODO NAME IN ADDEDITTODOFRAGMENT : $todoName")
+                    TodoAlarm.setTodoAlarmReminder(context, newTodo)
                 }
             }
         }

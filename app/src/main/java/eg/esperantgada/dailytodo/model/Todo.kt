@@ -39,4 +39,7 @@ data class Todo @JvmOverloads constructor(
     @ColumnInfo(name = "task_sound")
     val ringtoneUri: String,
 
+    @ColumnInfo(name = "repeat_frequency")
+    val repeatFrequency : List<String>?
+
 ) : Parcelable
