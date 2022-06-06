@@ -38,7 +38,7 @@ const val TAG3 = "TodoFragment"
 /**
  * Inject the [TodoViewModel] in the [Fragment]
  */
-@Suppress("DEPRECATION")
+@Suppress("DEPRECATION", "KDocUnresolvedReference")
 @AndroidEntryPoint
 class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
@@ -52,7 +52,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
     private lateinit var searchView: SearchView
 
-    private lateinit var todoList : List<Todo>
+    private lateinit var todos : List<Todo>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,19 +94,20 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            todoViewModel.allTodo.observe(viewLifecycleOwner){ todoList ->
+                todos = todoList
+                binding.emptyItemTextView.isVisible = todoList.isEmpty()
+
+                Log.d(TAG3, "TODO LIST IN TODO FRAGMENT: $todos")
+            }
+        }
+
+
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             todoViewModel.todos.collectLatest { todosList ->
                 todoAdapter.submitData(viewLifecycleOwner.lifecycle, todosList)
 
                 Log.d(TAG3, "TODO LIST SUBMITTED IN TODO FRAGMENT : $todosList")
-            }
-        }
-
-        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            todoViewModel.allTodo.observe(viewLifecycleOwner){ todos ->
-                todoList = todos
-                binding.emptyItemTextView.isVisible = todoList.isEmpty()
-
-                Log.d(TAG3, "TODO LIST IN TODO FRAGMENT: $todos")
             }
         }
 
@@ -167,6 +168,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     /**
      * Logic for search in [SearchView]
      */
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.todo_menu, menu)
 
@@ -195,6 +197,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     /**
      * Handles all logic for [actionBar] menu
      */
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
@@ -254,7 +257,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
             val fromPosition = viewHolder.adapterPosition
             val toPosition = target.adapterPosition
 
-            Collections.swap(todoList, fromPosition, toPosition)
+            Collections.swap(todos, fromPosition, toPosition)
             recyclerView.adapter?.notifyItemMoved(fromPosition, toPosition)
 
             return true

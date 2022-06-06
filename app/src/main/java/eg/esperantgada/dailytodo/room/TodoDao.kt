@@ -43,7 +43,7 @@ interface TodoDao {
     @Query("DELETE  FROM todo_table WHERE completed = 1")
     fun deleteAllCompletedTodo()
 
-    @Query("SELECT * FROM TODO_TABLE")
+    @Query("SELECT * FROM todo_table")
     fun getAllTodo() : Flow<List<Todo>>
 
     /*@Query("SELECT * FROM todo_table WHERE id= :todoId")

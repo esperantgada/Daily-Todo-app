@@ -16,6 +16,7 @@ import androidx.navigation.NavDeepLinkBuilder
 import eg.esperantgada.dailytodo.MainActivity
 import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.broadcastreceiver.CancelNotificationReceiver
+import eg.esperantgada.dailytodo.broadcastreceiver.StopRingtoneReceiver
 import eg.esperantgada.dailytodo.utils.*
 
 @Suppress("DEPRECATION")
@@ -26,30 +27,39 @@ class NotificationHelper(private val context: Context) {
         onCreateNotificationChannel()
 
         //Intent to allow the user to navigate back to the app when receiving a notification
-        /*val intent = Intent(context, MainActivity::class.java).apply {
+       /* val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)*/
-
-        /*val pendingIntent = NavDeepLinkBuilder(context)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+*/
+        val pendingIntent = NavDeepLinkBuilder(context)
             .setGraph(R.navigation.nav_graph)
             .setDestination(R.id.todoFragment)
             .createPendingIntent()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             PendingIntent.FLAG_IMMUTABLE
-        }*/
+        }
 
-        val intent = Intent(context, MainActivity::class.java)
+        /*val intent = Intent(context, MainActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             context,
             NOTIFICATION_ID,
             intent,
             PendingIntent.FLAG_IMMUTABLE
-        )
+        )*/
 
+
+        //Cancel notification pending intent
         val cancelIntent = Intent(context, CancelNotificationReceiver::class.java)
         val cancelPendingIntent : PendingIntent =
             PendingIntent.getBroadcast(context, 0, cancelIntent, PendingIntent.FLAG_IMMUTABLE)
+
+
+        //Stop notification ringtone pending intent
+        val stopIntent = Intent(context, StopRingtoneReceiver::class.java)
+        val stopRingtonePendingIntent : PendingIntent =
+            PendingIntent.getBroadcast(context, 0, stopIntent, PendingIntent.FLAG_IMMUTABLE)
+
 
 
         //The notification that will be sent to the user
@@ -58,9 +68,8 @@ class NotificationHelper(private val context: Context) {
             .setContentTitle("Todo name : ${name.uppercase()}")
             .setContentText("Due time : ${todoDateAndTime.uppercase()}")
             .setStyle(NotificationCompat.BigTextStyle()
-                .bigText("You have to start ${name.uppercase()} in 5 minutes. Your scheduled " +
-                        "it for $todoDateAndTime This is the remaining time to start your task. " +
-                        "Please, don't miss it. Take it in account"))
+                .bigText("You have to start ${name.uppercase()} now. You scheduled " +
+                        "it for $todoDateAndTime. Please, don't miss it. Take it in account"))
             .setContentIntent(pendingIntent)
             .setAutoCancel(false)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -68,8 +77,13 @@ class NotificationHelper(private val context: Context) {
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .addAction(
                 R.drawable.todo_icon,
-                context.getString(R.string.cancel_ringtone),
+                context.getString(R.string.cancel_notification),
                 cancelPendingIntent
+            )
+            .addAction(
+                R.drawable.todo_icon,
+                context.getString(R.string.stop_ringtone),
+                stopRingtonePendingIntent
             )
             .build()
 

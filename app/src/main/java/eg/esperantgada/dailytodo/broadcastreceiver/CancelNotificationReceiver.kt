@@ -21,8 +21,5 @@ class CancelNotificationReceiver : BroadcastReceiver(){
 
         notificationManager.cancel(NOTIFICATION_ID)
 
-        val serviceIntent = Intent(context, TodoRingtoneService::class.java)
-
-        context.stopService(serviceIntent)
     }
 }

@@ -4,6 +4,7 @@
     package="eg.esperantgada.dailytodo">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS"
@@ -49,6 +50,9 @@
             android:parentActivityName=".MainActivity" />
 
         <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"
+            android:enabled="true"/>
+
+        <receiver android:name=".broadcastreceiver.StopRingtoneReceiver"
             android:enabled="true"/>
 
         <receiver android:name=".broadcastreceiver.CancelNotificationReceiver"/>

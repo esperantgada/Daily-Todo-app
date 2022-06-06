@@ -75,7 +75,8 @@
     <string name="dark">dark</string>
     <string name="night_auto">time</string>
     <string name="battery">battery</string>
-    <string name="cancel_ringtone">Cancel</string>
+    <string name="cancel_notification">Cancel</string>
+    <string name="stop_ringtone">Stop ringtone</string>
 
     <!-- Preference Titles -->
     <string name="ui">UI</string>

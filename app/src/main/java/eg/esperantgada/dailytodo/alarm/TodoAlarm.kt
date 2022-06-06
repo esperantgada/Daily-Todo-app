@@ -61,7 +61,11 @@ object TodoAlarm {
         val todoTime = format.parse(dateAndTimeReminder)
         val currentTime = Calendar.getInstance().time
 
-        if (currentTime <= todoTime) {
+        Log.d(TODO_ALARM_TAG, "TODO TIME $todoTime")
+        Log.d(TODO_ALARM_TAG, "CURRENT TIME $currentTime")
+
+
+        if (todoTime >= currentTime || currentTime >= todoTime) {
             if (todo.repeatFrequency != null && todo.repeatFrequency.isNotEmpty()){
                 alarmManager?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -99,8 +103,6 @@ object TodoAlarm {
                     }
                 }
             }
-        } else {
-            alarmManager?.cancel(pendingIntent)
         }
     }
 }

@@ -23,7 +23,7 @@ import javax.inject.Inject
 class NoteViewModel @Inject constructor(
     private val noteRepository: NoteRepository,
     private val preferenceRepository: PreferenceRepository,
-    private val state : SavedStateHandle
+    state : SavedStateHandle
 ) : ViewModel(){
 
     val searchQuery = state.getLiveData("searchQuery", "")
