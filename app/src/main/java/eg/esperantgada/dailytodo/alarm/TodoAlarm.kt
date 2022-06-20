@@ -9,14 +9,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
-import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmReceiver
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import eg.esperantgada.dailytodo.utils.TODO_ALARM_TAG
 import java.text.SimpleDateFormat
 import java.util.*
 
-//Sets alarm for the broadcast receiver
+
+/*
 object TodoAlarm {
 
     @SuppressLint("SimpleDateFormat", "InlinedApi")
@@ -35,9 +35,9 @@ object TodoAlarm {
         Log.d(TODO_ALARM_TAG, "THE HOUR IS $todoHour and minute is $todoMinute")
 
 
-        val intent = Intent(context, TodoAlarmReceiver::class.java)
+        val intent = Intent(context, TodoAlarmService::class.java)
 
-        val pendingIntent = PendingIntent.getBroadcast(
+        val pendingIntent = PendingIntent.getForegroundService(
             context,
             todo.id,
             intent.apply {
@@ -61,11 +61,12 @@ object TodoAlarm {
         val todoTime = format.parse(dateAndTimeReminder)
         val currentTime = Calendar.getInstance().time
 
+
         Log.d(TODO_ALARM_TAG, "TODO TIME $todoTime")
         Log.d(TODO_ALARM_TAG, "CURRENT TIME $currentTime")
 
 
-        if (todoTime >= currentTime || currentTime >= todoTime) {
+        if (todoTime >= currentTime) {
             if (todo.repeatFrequency != null && todo.repeatFrequency.isNotEmpty()){
                 alarmManager?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -106,3 +107,4 @@ object TodoAlarm {
         }
     }
 }
+*/

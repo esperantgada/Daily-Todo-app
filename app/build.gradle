@@ -116,6 +116,10 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.9'
 
+    // WorkManager dependency
+    implementation 'android.arch.work:work-runtime-ktx:1.0.1'
+
+
 
 }
 

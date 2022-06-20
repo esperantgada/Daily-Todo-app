@@ -5,11 +5,13 @@ import android.content.Intent
 import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.IBinder
+import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
+import android.util.Log
+import android.widget.SearchView
 import androidx.core.net.toUri
-import dagger.hilt.android.qualifiers.ApplicationContext
-import eg.esperantgada.dailytodo.fragment.todo.AddEditTodoFragment
-import eg.esperantgada.dailytodo.room.TodoDatabase
-import java.security.Provider
+import eg.esperantgada.dailytodo.viewmodel.TAG
+import java.util.*
 
 
 class TodoRingtoneService : Service() {
@@ -19,6 +21,7 @@ class TodoRingtoneService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         val ringtoneUri = intent?.getStringExtra("ringtoneUri")
+
         sound = RingtoneManager.getRingtone(applicationContext, ringtoneUri?.toUri())
         sound?.play()
 

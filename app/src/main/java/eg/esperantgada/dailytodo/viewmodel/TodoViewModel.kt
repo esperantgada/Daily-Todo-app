@@ -1,5 +1,6 @@
 package eg.esperantgada.dailytodo.viewmodel
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
 import androidx.paging.PagingData
@@ -102,9 +103,10 @@ class TodoViewModel @Inject constructor(
     //When a task is checked, it is updated in the database
     fun onTodoCheckedChanged(
         todo: Todo,
-        isChecked : Boolean
+        isChecked : Boolean,
+        context: Context
     ) = viewModelScope.launch { 
-        todoRepository.update(todo.copy(completed = isChecked))
+        todoRepository.update(context, todo.copy(completed = isChecked))
     }
 
     fun onItemSwiped(todo: Todo){
@@ -115,9 +117,9 @@ class TodoViewModel @Inject constructor(
     }
 
     //This undoes the delete action and insert the task in the database
-    fun onUndoDelete(todo: Todo){
+    fun onUndoDelete(context: Context, todo: Todo){
         viewModelScope.launch {
-            todoRepository.insert(todo)
+            todoRepository.insert(context, todo)
         }
     }
 

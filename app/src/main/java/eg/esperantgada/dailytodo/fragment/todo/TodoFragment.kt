@@ -159,7 +159,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         Snackbar.make(requireView(), "TASK DELETED", Snackbar.LENGTH_LONG)
             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
             .setAction("UNDO") {
-                todoViewModel.onUndoDelete(event.todo)
+                todoViewModel.onUndoDelete(requireContext(), event.todo)
                 Toast.makeText(requireContext(), "Undone successfully", Toast.LENGTH_LONG)
                     .show()
             }.show()
@@ -241,7 +241,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
 
     override fun onCheckBoxClicked(todo: Todo, isChecked: Boolean) {
-        todoViewModel.onTodoCheckedChanged(todo, isChecked)
+        todoViewModel.onTodoCheckedChanged(todo, isChecked, requireActivity())
     }
 
 

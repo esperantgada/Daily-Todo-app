@@ -1,8 +1,8 @@
 package eg.esperantgada.dailytodo
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import eg.esperantgada.dailytodo.databinding.ActivitySecondStartBinding
 
 class SecondStartActivity : AppCompatActivity() {
@@ -31,4 +31,15 @@ class SecondStartActivity : AppCompatActivity() {
         };thread.start ()
 
     }
+
+   /* override fun onStop() {
+        super.onStop()
+
+        startTodoAlarmService()
+    }
+    private fun startTodoAlarmService(){
+        val serviceIntent = Intent(this, TodoAlarmService::class.java)
+        applicationContext.startService(serviceIntent)
+
+    }*/
 }

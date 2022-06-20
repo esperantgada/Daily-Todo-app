@@ -73,6 +73,8 @@ class AddEditTodoFragment : Fragment(),
             repeatSwitch.isChecked = viewModel.isSwitchOn
             repeatIntervalNeumor.isVisible = binding.repeatSwitch.isChecked
             multiSelectionSpinner.isVisible = binding.repeatSwitch.isChecked
+            frequencyTextNeumor.isVisible = binding.repeatSwitch.isChecked
+            frequencyText.text = viewModel.days.toString().replace("[","").replace("]", "")
 
             //Sets item's name in the viewModel to the name of edited item and save it SaveStateHandle
             todoName.addTextChangedListener {
@@ -88,6 +90,7 @@ class AddEditTodoFragment : Fragment(),
                 viewModel.isSwitchOn = isChecked
                 repeatIntervalNeumor.isVisible = isChecked
                 multiSelectionSpinner.isVisible = isChecked
+                frequencyTextNeumor.isVisible =  isChecked
             }
 
             todoDate.addTextChangedListener {
@@ -98,15 +101,9 @@ class AddEditTodoFragment : Fragment(),
                 viewModel.todoTime = it.toString()
             }
 
-/*
-            ringtoneText.addTextChangedListener {
-                viewModel.todoRingtoneUri = it.toString()
-            }
-*/
-
 
             saveFloatingButton.setOnClickListener {
-                viewModel.onSaveClick()
+                viewModel.onSaveClick(requireActivity())
             }
 
             ringtoneButton.setOnClickListener {

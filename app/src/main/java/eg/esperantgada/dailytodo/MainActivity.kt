@@ -1,12 +1,8 @@
 package eg.esperantgada.dailytodo
 
-import android.media.RingtoneManager
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.net.toUri
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,8 +13,6 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import dagger.hilt.android.AndroidEntryPoint
 import eg.esperantgada.dailytodo.databinding.ActivityMainBinding
-import eg.esperantgada.dailytodo.sharepreference.TodoSharePreference
-import eg.esperantgada.dailytodo.viewmodel.AddEditTodoViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -28,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
 
-    private val viewModel: AddEditTodoViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,14 +65,21 @@ class MainActivity : AppCompatActivity() {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
-    override fun onStart() {
-        super.onStart()
 
-        val uri = viewModel.todoRingtoneUri.toUri()
-        val ringtone = RingtoneManager.getRingtone(this, uri)
+      /*  @SuppressLint("NewApi")
+        override fun onStop() {
+            super.onStop()
 
-        if (ringtone.isPlaying){
-            ringtone.stop()
+            startTodoAlarmService()
         }
-    }
+
+
+        private fun startTodoAlarmService(){
+            val serviceIntent = Intent(this, TodoAlarmService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                applicationContext.startForegroundService(serviceIntent)
+            }
+
+    }*/
+
 }

@@ -288,16 +288,47 @@
 
             <com.anurag.multiselectionspinner.MultiSpinner
                 android:id="@+id/multi_selection_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
+                android:layout_marginEnd="4dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toTopOf="@id/repeat_interval_neumor"
+                app:layout_constraintBottom_toBottomOf="@id/repeat_interval_neumor"
+                app:layout_constraintStart_toEndOf="@id/repeat_interval_neumor"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <soup.neumorphism.NeumorphCardView
+                android:id="@+id/frequency_text_neumor"
+                style="@style/Widget.Neumorph.CardView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="10dp"
                 android:visibility="gone"
-                android:layout_marginBottom="30dp"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/repeat_interval_neumor"
-                app:layout_constraintStart_toStartOf="@id/repeat_interval_neumor"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintVertical_bias="0.17"
+                app:neumorph_shapeType="pressed">
+
+                <TextView
+                    android:id="@+id/frequency_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@null"
+                    android:hint="Frequency"
+                    android:textColorHint="#757575"
+                    android:textSize="16sp"
+                    tools:ignore="TextContrastCheck" />
+            </soup.neumorphism.NeumorphCardView>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

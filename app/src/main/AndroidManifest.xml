@@ -4,6 +4,9 @@
     package="eg.esperantgada.dailytodo">
 
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.START_FOREGROUND_SERVICES_FROM_BACKGROUND"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.SET_ALARM"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
@@ -49,8 +52,6 @@
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" />
 
-        <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"
-            android:enabled="true"/>
 
         <receiver android:name=".broadcastreceiver.StopRingtoneReceiver"
             android:enabled="true"/>
@@ -59,6 +60,7 @@
             tools:ignore="Instantiatable" />
 
         <service android:name=".service.TodoRingtoneService"/>
+
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"

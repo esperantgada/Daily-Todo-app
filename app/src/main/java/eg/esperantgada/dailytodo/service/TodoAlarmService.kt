@@ -1,22 +1,33 @@
-package eg.esperantgada.dailytodo.broadcastreceiver
+package eg.esperantgada.dailytodo.service
 
-import android.content.BroadcastReceiver
-import android.content.Context
+import android.app.Service
 import android.content.Intent
 import android.media.RingtoneManager
+import android.os.IBinder
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import eg.esperantgada.dailytodo.notification.NotificationHelper
-import eg.esperantgada.dailytodo.service.TodoRingtoneService
-import eg.esperantgada.dailytodo.sharepreference.TodoSharePreference
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import java.util.*
 
-
 /*
-class TodoAlarmReceiver : BroadcastReceiver() {
+class TodoAlarmService : Service(){
 
-    override fun onReceive(context: Context, intent: Intent) {
 
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (intent != null) {
+            showNotification(intent)
+        }
+        return START_STICKY
+    }
+    override fun onBind(p0: Intent?): IBinder? {
+        TODO("Not yet implemented")
+    }
+
+
+    fun showNotification(intent: Intent){
+
+        val context = applicationContext
         val mondayTuesday: List<String> = listOf("Monday", "Tuesday")
         val mondayWednesday: List<String> = listOf("Monday", "Wednesday")
         val mondayThursday: List<String> = listOf("Monday", "Thursday")
@@ -104,10 +115,6 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
 
 
-
-
-
-
         val name = intent.getStringExtra("name")
         val date = intent.getStringExtra("date")
         val time = intent.getStringExtra("time")
@@ -121,11 +128,9 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
         val startServiceIntent = Intent(context, TodoRingtoneService::class.java)
         startServiceIntent.putExtra("ringtoneUri", uri)
-        context.startService(startServiceIntent)
 
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
-
 
 
         if (SET_ACTION == intent.action) {
@@ -145,10 +150,8 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.SATURDAY || day == Calendar.SUNDAY
                                 ) {
                                     context.startService(startServiceIntent)
-                                    */
-/*notificationHelper.onCreateNotification(name = name!!,
-                                        todoDateAndTime)*//*
-
+                                    notificationHelper.onCreateNotification(name = name!!,
+                                        todoDateAndTime)
                                 }
                             } else {
                                 if (dayList[0] == "Monday") {

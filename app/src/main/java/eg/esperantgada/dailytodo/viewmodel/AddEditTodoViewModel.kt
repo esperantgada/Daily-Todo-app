@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import eg.esperantgada.dailytodo.alarm.TodoAlarm
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.repository.TodoRepository
@@ -105,18 +104,18 @@ class AddEditTodoViewModel @Inject constructor(
     }
 
     //Updates item and navigates back
-    private fun updateTodo(todo: Todo) {
+    private fun updateTodo(context: Context, todo: Todo) {
         viewModelScope.launch {
-            todoRepository.update(todo)
+            todoRepository.update(context, todo)
             addEditTodoEventChannel.send(AddEditTodoEvent.GoBackWithResult(EDIT_TODO_RESULT_OK))
         }
     }
 
 
     //Inserts item and navigates back
-    private fun insertTodo(todo: Todo) {
+    private fun insertTodo(context: Context, todo: Todo) {
         viewModelScope.launch {
-            todoRepository.insert(todo)
+            todoRepository.insert(context, todo)
             addEditTodoEventChannel.send(AddEditTodoEvent.GoBackWithResult(ADD_TODO_RESULT_OK))
         }
     }
@@ -164,7 +163,7 @@ class AddEditTodoViewModel @Inject constructor(
     }
 
     //Will be executed when FAB will be clicked in the fragment
-    fun onSaveClick() {
+    fun onSaveClick(context: Context) {
         if (isInputInvalid()){
             return
         }else{
@@ -181,11 +180,9 @@ class AddEditTodoViewModel @Inject constructor(
                         switchOn = isSwitchOn,
                         repeatFrequency = days
                     )
-                    updateTodo(updatedTodo)
+                    updateTodo(context, updatedTodo)
 
-                    //val todoTimer = TodoTimer(context, updatedTodo)
-                    //todoTimer.countDownTimer.start()
-                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
+                    //TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
                     Log.d(TAG, "UPDATED DAY LIST IN VIEWMODEL: ${_days.value}")
 
                 }
@@ -202,11 +199,12 @@ class AddEditTodoViewModel @Inject constructor(
                         repeatFrequency = days
                     )
 
-                    insertTodo(newTodo)
+                    insertTodo(context, newTodo)
+
 
                     Log.d(TAG, "NEW DAY LIST IN VIEWMODEL: ${_days.value}")
                     Log.d(TAG, "TODO NAME IN ADDEDITTODOFRAGMENT : $todoName")
-                    TodoAlarm.setTodoAlarmReminder(context, newTodo)
+                    //TodoAlarm.setTodoAlarmReminder(context, newTodo)
                 }
             }
         }
