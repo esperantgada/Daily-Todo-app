@@ -12,9 +12,8 @@ import eg.esperantgada.dailytodo.model.Note
 import eg.esperantgada.dailytodo.utils.ColorPicker
 
 class NoteAdapter(
-    private val context: Context,
-    private val listener : OnNoteClickedListener
-    ) : PagingDataAdapter<Note, NoteAdapter.NoteViewHolder> (DiffCallback){
+    private val listener: OnNoteClickedListener
+) : PagingDataAdapter<Note, NoteAdapter.NoteViewHolder> (DiffCallback){
 
 
     inner class NoteViewHolder(

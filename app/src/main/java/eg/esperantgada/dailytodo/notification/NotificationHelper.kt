@@ -71,7 +71,7 @@ class NotificationHelper(private val context: Context) {
                 .bigText("You have to start ${name.uppercase()} now. You scheduled " +
                         "it for $todoDateAndTime. Please, don't miss it. Take it in account"))
             .setContentIntent(pendingIntent)
-            .setAutoCancel(false)
+            .setAutoCancel(true)
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
             .setCategory(NotificationCompat.CATEGORY_ALARM)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

@@ -1,36 +1,27 @@
 package eg.esperantgada.dailytodo.repository
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import androidx.paging.liveData
-import androidx.work.Constraints
-import androidx.work.Data
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
-import eg.esperantgada.dailytodo.MainActivity
+import eg.esperantgada.dailytodo.alarm.TodoAlarm
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.room.TodoDao
-import eg.esperantgada.dailytodo.utils.TODO_ALARM_TAG
-import eg.esperantgada.dailytodo.worker.TodoWorker
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class TodoRepository @Inject constructor(private val todoDao: TodoDao) {
 
-    suspend fun insert(context: Context, todo : Todo) {
+    suspend fun insert(todo : Todo) {
         todoDao.insert(todo)
-        setWorkRequest(context, todo)
+        //setWorkRequest(context, todo)
+        //TodoAlarm.setTodoAlarmReminder(context, todo)
+
     }
 
-    suspend fun update(context: Context, todo: Todo){
+    suspend fun update(todo: Todo){
         todoDao.update(todo)
-        setWorkRequest(context, todo)
+        //setWorkRequest(context, todo)
+
+        //TodoAlarm.setTodoAlarmReminder(context, todo)
     }
 
     suspend fun delete(todo: Todo){
@@ -57,6 +48,7 @@ class TodoRepository @Inject constructor(private val todoDao: TodoDao) {
         todoDao.deleteAllCompletedTodo()
     }
 
+/*
     private fun setWorkRequest(context: Context, todo: Todo){
 
         val timeFormat = SimpleDateFormat("hh:mm a")
@@ -139,4 +131,5 @@ class TodoRepository @Inject constructor(private val todoDao: TodoDao) {
 
         }
     }
+*/
 }

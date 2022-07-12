@@ -119,6 +119,22 @@ dependencies {
     // WorkManager dependency
     implementation 'android.arch.work:work-runtime-ktx:1.0.1'
 
+    //Material dialog
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:color:3.3.0'
+
+    //GSon
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    //Round image
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //RecyclerView item swipe decoration
+    //implementation 'com.agilie:swipe2delete:1.0'
+
 
 
 }

@@ -37,4 +37,16 @@
     <color name="shadow_light">#2c2c2c</color>
     <color name="shadow_dark">#111111</color>
 
+    <color name="pink">#bc79bb</color>
+    <color name="background_color">#5d6fc1</color>
+    <color name="deepblush">#e46d8d</color>
+    <color name="orange">#e56b68</color>
+    <color name="lightseagreen">#20B2AA</color>
+    <color name="lightpink">#f2e7f8</color>
+    <color name="lavenderblush">#FFF0F5</color>
+    <color name="antiquewhite">#FAEBD7</color>
+    <color name="honeydew">#F0FFF0</color>
+    <color name="whitesmoke">#F5F5F5</color>
+    <color name="red">#FF0000</color>
+
 </resources>

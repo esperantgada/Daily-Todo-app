@@ -17,11 +17,15 @@
     <string name="name_cannot_be_empty">Name cannot be empty</string>
     <string name="confirm_deletion_message">Confirm Deletion</string>
     <string name="cancel">Cancel</string>
+    <string name="delete_category">Delete Category</string>
+    <string name="create_new_category">Create new Category</string>
+    <string name="delete">Delete</string>
+    <string name="delete_warning">Deleting this category will remove all your tasks. Do you confirm?</string>
     <string name="yes">YES</string>
     <string name="scheduled_for">Scheduled for %s  %s</string>
     <string name="date_and_time"> %s %s</string>
     <string name="successful_deletion_message"> Deleted successfully</string>
-    <string name="alert_dialog_message">Do you really want to delete? You  cannott get them back</string>
+    <string name="alert_dialog_message">Do you really want to delete? You  cannot get them back</string>
     <string name="title_activity_settings">SettingsActivity</string>
 
     <!-- Preference Titles -->
@@ -100,6 +104,7 @@
     <string name="sunday">Sunday</string>
     <string name="set_notification_sound_optional">Set notification sound(optional)</string>
     <string name="timer_completed_text">00:00:00:00</string>
+    <string name="floating_button_icon">Floating button icon</string>
 
     <string-array name="repeat_interval">
         <item>@string/daily</item>

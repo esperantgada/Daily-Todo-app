@@ -1,35 +1,24 @@
 package eg.esperantgada.dailytodo.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
-import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.lifecycle.LifecycleOwner
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.TodoItemBinding
-import eg.esperantgada.dailytodo.fragment.todo.TodoFragment
 import eg.esperantgada.dailytodo.model.Todo
-import eg.esperantgada.dailytodo.utils.ColorPicker
-import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
-import java.text.SimpleDateFormat
-import java.util.concurrent.TimeUnit
+import eg.esperantgada.dailytodo.model.relationship.CategoryWithTodo
 
 const val TAG = "TodoAdapter"
 
 class TodoAdapter(
     private val context: Context,
     private val listener: OnItemClickedListener
-) : PagingDataAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
+) : ListAdapter<Todo, TodoAdapter.TodoViewHolder>(DiffCallback) {
 
     inner class TodoViewHolder(private val binding: TodoItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -64,7 +53,7 @@ class TodoAdapter(
         fun bind(todo: Todo) {
             binding.apply {
                 checkbox.isChecked = todo.completed
-                todoTextView.text = todo.name
+                todoTextView.text = todo.categoryName
                 todoTextView.paint.isStrikeThruText = todo.completed
                 priorityImageView.isVisible = todo.important
                 durationTextView.text = todo.duration

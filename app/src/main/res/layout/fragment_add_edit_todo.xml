@@ -139,6 +139,26 @@
 
             </soup.neumorphism.NeumorphCardView>
 
+            <soup.neumorphism.NeumorphTextView
+                android:id="@+id/category_spinner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/todo_time_edit_text_neumor"
+                app:layout_constraintTop_toBottomOf="@+id/todo_time_edit_text_neumor"
+                app:boxStrokeColor="@color/white"
+                android:hint="Category"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white"
+                app:endIconTint="@color/white">
+
+            </soup.neumorphism.NeumorphTextView>
+
+
             <soup.neumorphism.NeumorphCardView
                 android:id="@+id/todo_duration_neumor"
                 style="@style/Widget.Neumorph.CardView"
@@ -149,8 +169,8 @@
                 app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
                 app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="@id/todo_time_edit_text_neumor"
-                app:layout_constraintTop_toBottomOf="@id/todo_time_edit_text_neumor"
+                app:layout_constraintStart_toStartOf="@id/category_spinner"
+                app:layout_constraintTop_toBottomOf="@id/category_spinner"
                 app:layout_constraintVertical_bias="0.17"
                 app:neumorph_shapeType="pressed">
 
@@ -338,8 +358,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/save_floating_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="50dp"

@@ -11,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AutoCompleteTextView
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -23,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.anurag.multiselectionspinner.MultiSelectionSpinnerDialog
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.FragmentAddEditTodoBinding
@@ -70,6 +72,7 @@ class AddEditTodoFragment : Fragment(),
             todoTime.setText(viewModel.todoTime)
             todoDate.setText(viewModel.todoDate)
             todoDuration.setText(viewModel.todoDuration)
+            categorySpinner.text = viewModel.categoryName
             repeatSwitch.isChecked = viewModel.isSwitchOn
             repeatIntervalNeumor.isVisible = binding.repeatSwitch.isChecked
             multiSelectionSpinner.isVisible = binding.repeatSwitch.isChecked
@@ -91,6 +94,7 @@ class AddEditTodoFragment : Fragment(),
                 repeatIntervalNeumor.isVisible = isChecked
                 multiSelectionSpinner.isVisible = isChecked
                 frequencyTextNeumor.isVisible =  isChecked
+
             }
 
             todoDate.addTextChangedListener {
@@ -102,8 +106,12 @@ class AddEditTodoFragment : Fragment(),
             }
 
 
+            categorySpinner.addTextChangedListener {
+                viewModel.categoryName = it.toString()
+            }
+
             saveFloatingButton.setOnClickListener {
-                viewModel.onSaveClick(requireActivity())
+                viewModel.onSaveClick(requireActivity().applicationContext)
             }
 
             ringtoneButton.setOnClickListener {

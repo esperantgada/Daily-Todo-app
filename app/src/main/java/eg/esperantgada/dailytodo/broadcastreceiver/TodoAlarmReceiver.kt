@@ -12,7 +12,7 @@ import eg.esperantgada.dailytodo.utils.SET_ACTION
 import java.util.*
 
 
-/*
+
 class TodoAlarmReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
@@ -106,8 +106,6 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
 
 
-
-
         val name = intent.getStringExtra("name")
         val date = intent.getStringExtra("date")
         val time = intent.getStringExtra("time")
@@ -121,7 +119,7 @@ class TodoAlarmReceiver : BroadcastReceiver() {
 
         val startServiceIntent = Intent(context, TodoRingtoneService::class.java)
         startServiceIntent.putExtra("ringtoneUri", uri)
-        context.startService(startServiceIntent)
+        //context.startService(startServiceIntent)
 
         val calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_WEEK)
@@ -145,9 +143,9 @@ class TodoAlarmReceiver : BroadcastReceiver() {
                                     day == Calendar.SATURDAY || day == Calendar.SUNDAY
                                 ) {
                                     context.startService(startServiceIntent)
-                                    */
-/*notificationHelper.onCreateNotification(name = name!!,
-                                        todoDateAndTime)*//*
+
+                                    notificationHelper.onCreateNotification(name = name!!,
+                                        todoDateAndTime)
 
                                 }
                             } else {
@@ -755,4 +753,4 @@ class TodoAlarmReceiver : BroadcastReceiver() {
             }
         }
     }
-}*/
+}

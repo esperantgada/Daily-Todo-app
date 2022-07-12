@@ -53,6 +53,9 @@
             android:parentActivityName=".MainActivity" />
 
 
+        <receiver android:name=".broadcastreceiver.TodoAlarmReceiver"
+            android:enabled="true"/>
+
         <receiver android:name=".broadcastreceiver.StopRingtoneReceiver"
             android:enabled="true"/>
 
@@ -60,6 +63,7 @@
             tools:ignore="Instantiatable" />
 
         <service android:name=".service.TodoRingtoneService"/>
+        <service android:name=".service.TodoAlarmService"/>
 
 
         <meta-data

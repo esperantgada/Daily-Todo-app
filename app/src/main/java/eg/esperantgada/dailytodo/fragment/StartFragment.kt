@@ -35,7 +35,7 @@ class StartFragment : Fragment() {
 
         binding.apply {
             scheduleTaskButton.setOnClickListener {
-                findNavController().navigate(R.id.action_startFragment_to_todoFragment)
+                findNavController().navigate(R.id.action_startFragment_to_categoryListFragment)
             }
 
             takeNoteButton.setOnClickListener {

@@ -15,6 +15,9 @@ data class Todo @JvmOverloads constructor(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
 
+    @ColumnInfo(name = "category_name")
+    val categoryName: String,
+
     @ColumnInfo(name = "todo_name")
     val name: String,
 

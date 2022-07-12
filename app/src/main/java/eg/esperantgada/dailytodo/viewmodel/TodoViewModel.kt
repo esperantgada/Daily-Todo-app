@@ -106,7 +106,7 @@ class TodoViewModel @Inject constructor(
         isChecked : Boolean,
         context: Context
     ) = viewModelScope.launch { 
-        todoRepository.update(context, todo.copy(completed = isChecked))
+        todoRepository.update(todo.copy(completed = isChecked))
     }
 
     fun onItemSwiped(todo: Todo){
@@ -117,9 +117,9 @@ class TodoViewModel @Inject constructor(
     }
 
     //This undoes the delete action and insert the task in the database
-    fun onUndoDelete(context: Context, todo: Todo){
+    fun onUndoDelete(todo: Todo){
         viewModelScope.launch {
-            todoRepository.insert(context, todo)
+            todoRepository.insert(todo)
         }
     }
 

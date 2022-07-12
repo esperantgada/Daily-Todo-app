@@ -9,6 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.util.Log
+import eg.esperantgada.dailytodo.broadcastreceiver.TodoAlarmReceiver
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.utils.SET_ACTION
 import eg.esperantgada.dailytodo.utils.TODO_ALARM_TAG
@@ -16,11 +17,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-/*
+
 object TodoAlarm {
+
 
     @SuppressLint("SimpleDateFormat", "InlinedApi")
     fun setTodoAlarmReminder(context: Context, todo: Todo) {
+
         val alarmManager: AlarmManager? =
             context.getSystemService(Context.ALARM_SERVICE) as AlarmManager?
 
@@ -35,14 +38,16 @@ object TodoAlarm {
         Log.d(TODO_ALARM_TAG, "THE HOUR IS $todoHour and minute is $todoMinute")
 
 
-        val intent = Intent(context, TodoAlarmService::class.java)
+        val intent = Intent(context, TodoAlarmReceiver::class.java)
+        intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND)
+        intent.addFlags(Intent.FLAG_FROM_BACKGROUND)
 
-        val pendingIntent = PendingIntent.getForegroundService(
+        val pendingIntent = PendingIntent.getBroadcast(
             context,
             todo.id,
             intent.apply {
                 action = SET_ACTION
-                putExtra("name", todo.name)
+                putExtra("name", todo.categoryName)
                 putExtra("date", todo.date)
                 putExtra("time", todo.time)
                 putExtra("id", todo.id)
@@ -66,7 +71,7 @@ object TodoAlarm {
         Log.d(TODO_ALARM_TAG, "CURRENT TIME $currentTime")
 
 
-        if (todoTime >= currentTime) {
+        if (todoTime >= currentTime || todoTime <= currentTime) {
             if (todo.repeatFrequency != null && todo.repeatFrequency.isNotEmpty()){
                 alarmManager?.let {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -107,4 +112,4 @@ object TodoAlarm {
         }
     }
 }
-*/
+

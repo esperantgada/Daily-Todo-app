@@ -63,7 +63,7 @@ class NoteListFragment : Fragment(), NoteAdapter.OnNoteClickedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        noteAdapter = NoteAdapter(requireContext(), this)
+        noteAdapter = NoteAdapter(this)
 
         binding.apply {
             noteRecyclerView.apply {

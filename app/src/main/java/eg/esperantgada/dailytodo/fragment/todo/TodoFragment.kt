@@ -37,7 +37,8 @@ const val TAG3 = "TodoFragment"
 
 /**
  * Inject the [TodoViewModel] in the [Fragment]
- */
+ *//*
+
 @Suppress("DEPRECATION", "KDocUnresolvedReference")
 @AndroidEntryPoint
 class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
@@ -103,20 +104,26 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
 
 
+*/
+/*
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             todoViewModel.todos.collectLatest { todosList ->
-                todoAdapter.submitData(viewLifecycleOwner.lifecycle, todosList)
+                todoAdapter.submitList(todosList)
 
                 Log.d(TAG3, "TODO LIST SUBMITTED IN TODO FRAGMENT : $todosList")
             }
         }
+*//*
+
 
 
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
-        /**
+        */
+/**
          * This will handle the different events action that the ViewModel will send.
-         */
+         *//*
+
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             todoViewModel.todoEvent.collect { event ->
                 when (event) {
@@ -159,15 +166,17 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         Snackbar.make(requireView(), "TASK DELETED", Snackbar.LENGTH_LONG)
             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_SLIDE)
             .setAction("UNDO") {
-                todoViewModel.onUndoDelete(requireContext(), event.todo)
+                todoViewModel.onUndoDelete(event.todo)
                 Toast.makeText(requireContext(), "Undone successfully", Toast.LENGTH_LONG)
                     .show()
             }.show()
     }
 
-    /**
+    */
+/**
      * Logic for search in [SearchView]
-     */
+     *//*
+
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.todo_menu, menu)
@@ -194,9 +203,11 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     }
 
 
-    /**
+    */
+/**
      * Handles all logic for [actionBar] menu
-     */
+     *//*
+
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
@@ -232,9 +243,11 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     }
 
 
-    /**
+    */
+/**
      * If an item is clicked or if a task is checked, the viewModel updates this one in the database
-     */
+     *//*
+
     override fun onItemClicked(todo: Todo) {
         todoViewModel.onTodoSelected(todo)
     }
@@ -264,7 +277,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val todo = todoAdapter.snapshot()[viewHolder.adapterPosition]
+            val todo = todoAdapter.currentList[viewHolder.adapterPosition]
             if (todo != null) {
                 todoViewModel.onItemSwiped(todo)
             }
@@ -278,4 +291,4 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         _binding = null
         // searchView.setOnQueryTextListener(null)
     }
-}
+}*/

@@ -8,7 +8,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import eg.esperantgada.dailytodo.alarm.TodoAlarm
 import eg.esperantgada.dailytodo.event.AddEditTodoEvent
+import eg.esperantgada.dailytodo.model.Category
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.repository.TodoRepository
 import eg.esperantgada.dailytodo.utils.ADD_TODO_RESULT_OK
@@ -25,7 +27,6 @@ const val TAG = "AddEditTodoViewModel"
 
 @HiltViewModel
 class AddEditTodoViewModel @Inject constructor(
-    private val context: Context,
     private val todoRepository: TodoRepository,
     private val state: SavedStateHandle,
 ) : ViewModel() {
@@ -40,6 +41,7 @@ class AddEditTodoViewModel @Inject constructor(
         _days.value = sentDay
     }
 
+
     //The local time that will be stored in the database
     @SuppressLint("NewApi")
     private val currentDateTime = LocalDateTime.now()
@@ -52,6 +54,7 @@ class AddEditTodoViewModel @Inject constructor(
 
     //Retrieve the data sent from TodoFragment and save it in the state so that that it doesn't lost
     private val sentTodo = state.get<Todo>("todo")
+    private val sentCategory = state.get<Category>("category")
 
     //This takes a task's name and save it in the state instance as key/value
     var todoName = state.get<String>("todoName") ?: sentTodo?.name ?: ""
@@ -59,6 +62,13 @@ class AddEditTodoViewModel @Inject constructor(
             field = value
             state["todoName"] = value
         }
+
+    var categoryName = state.get<String>("category") ?: sentCategory?.categoryName ?: "Untitled"
+        set(value) {
+            field = value
+            state["category"] = value
+        }
+
 
     var isImportant = state.get<Boolean>("isImportant") ?: sentTodo?.important ?: false
         set(value) {
@@ -84,7 +94,8 @@ class AddEditTodoViewModel @Inject constructor(
         state["todoDuration"] = todoDuration
     }
 
-   var todoRingtoneUri = state.get<String>("ringtoneUri") ?: sentTodo?.ringtoneUri ?: ""
+
+    var todoRingtoneUri = state.get<String>("ringtoneUri") ?: sentTodo?.ringtoneUri ?: ""
         set(value) {
             field = value
             state["ringtoneUri"] = todoRingtoneUri
@@ -104,18 +115,18 @@ class AddEditTodoViewModel @Inject constructor(
     }
 
     //Updates item and navigates back
-    private fun updateTodo(context: Context, todo: Todo) {
+    private fun updateTodo(todo: Todo) {
         viewModelScope.launch {
-            todoRepository.update(context, todo)
+            todoRepository.update(todo)
             addEditTodoEventChannel.send(AddEditTodoEvent.GoBackWithResult(EDIT_TODO_RESULT_OK))
         }
     }
 
 
     //Inserts item and navigates back
-    private fun insertTodo(context: Context, todo: Todo) {
+    private fun insertTodo(todo: Todo) {
         viewModelScope.launch {
-            todoRepository.insert(context, todo)
+            todoRepository.insert(todo)
             addEditTodoEventChannel.send(AddEditTodoEvent.GoBackWithResult(ADD_TODO_RESULT_OK))
         }
     }
@@ -170,7 +181,7 @@ class AddEditTodoViewModel @Inject constructor(
             when {
                 sentTodo != null -> {
                     val updatedTodo = sentTodo.copy(
-                        name = todoName,
+                        categoryName = categoryName,
                         important = isImportant,
                         date = todoDate,
                         time = todoTime,
@@ -178,17 +189,18 @@ class AddEditTodoViewModel @Inject constructor(
                         ringtoneUri = todoRingtoneUri,
                         createdAt = formattedDate,
                         switchOn = isSwitchOn,
-                        repeatFrequency = days
+                        repeatFrequency = days,
+                        name = todoName
                     )
-                    updateTodo(context, updatedTodo)
+                    updateTodo(updatedTodo)
 
-                    //TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
+                    TodoAlarm.setTodoAlarmReminder(context, updatedTodo)
                     Log.d(TAG, "UPDATED DAY LIST IN VIEWMODEL: ${_days.value}")
 
                 }
                 else -> {
                     val newTodo = Todo(
-                        name = todoName,
+                        categoryName = categoryName,
                         important = isImportant,
                         date = todoDate,
                         time = todoTime,
@@ -196,15 +208,16 @@ class AddEditTodoViewModel @Inject constructor(
                         ringtoneUri = todoRingtoneUri,
                         createdAt = formattedDate,
                         switchOn = isSwitchOn,
-                        repeatFrequency = days
+                        repeatFrequency = days,
+                        name = todoName
                     )
 
-                    insertTodo(context, newTodo)
+                    insertTodo(newTodo)
 
 
                     Log.d(TAG, "NEW DAY LIST IN VIEWMODEL: ${_days.value}")
                     Log.d(TAG, "TODO NAME IN ADDEDITTODOFRAGMENT : $todoName")
-                    //TodoAlarm.setTodoAlarmReminder(context, newTodo)
+                    TodoAlarm.setTodoAlarmReminder(context, newTodo)
                 }
             }
         }

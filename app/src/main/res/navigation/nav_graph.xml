@@ -6,19 +6,6 @@
     app:startDestination="@id/startFragment">
 
     <fragment
-        android:id="@+id/todoFragment"
-        android:name="eg.esperantgada.dailytodo.fragment.todo.TodoFragment"
-        android:label="My tasks"
-        tools:layout="@layout/fragment_todo">
-        <action
-            android:id="@+id/action_todoFragment_to_addEditFragment"
-            app:destination="@id/addEditTodoFragment"
-            app:enterAnim="@anim/from_bottom"
-            app:exitAnim="@anim/to_right"
-            app:popEnterAnim="@anim/from_top"
-            app:popExitAnim="@anim/to_left" />
-    </fragment>
-    <fragment
         android:id="@+id/addEditTodoFragment"
         android:name="eg.esperantgada.dailytodo.fragment.todo.AddEditTodoFragment"
         android:label="{title}"
@@ -30,6 +17,13 @@
         <argument
             android:name="title"
             app:argType="string" />
+        <action
+            android:id="@+id/action_addEditTodoFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <argument
+            android:name="category"
+            app:argType="eg.esperantgada.dailytodo.model.Category"
+            app:nullable="true" />
     </fragment>
     <dialog
         android:id="@+id/alertDialogFragment"
@@ -92,5 +86,30 @@
             app:exitAnim="@anim/from_left"
             app:popEnterAnim="@anim/from_top"
             app:popExitAnim="@anim/to_bottom" />
+        <action
+            android:id="@+id/action_startFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.category.CategoryListFragment"
+        android:label="fragment_category_list"
+        tools:layout="@layout/fragment_category_list" >
+        <action
+            android:id="@+id/action_categoryListFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="eg.esperantgada.dailytodo.fragment.category.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_addEditTodoFragment"
+            app:destination="@id/addEditTodoFragment" />
+        <argument
+            android:name="category"
+            app:argType="eg.esperantgada.dailytodo.model.Category"
+            app:nullable="true" />
     </fragment>
 </navigation>

@@ -7,9 +7,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import eg.esperantgada.dailytodo.repository.CategoryRepository
 import eg.esperantgada.dailytodo.repository.NoteRepository
 import eg.esperantgada.dailytodo.repository.TodoRepository
-import eg.esperantgada.dailytodo.room.NoteDao
 import eg.esperantgada.dailytodo.room.TodoDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -34,19 +34,38 @@ object AppModule{
 
     @Singleton
     @Provides
-    fun provideTodoDao(todoDatabase: TodoDatabase) = todoDatabase.todoDao()
+    fun provideTodoDao(todoDatabase: TodoDatabase) = todoDatabase.getTodoDao()
 
     @Provides
     @Singleton
-    fun provideNoteDao(todoDatabase: TodoDatabase) = todoDatabase.noteDao()
+    fun provideNoteDao(todoDatabase: TodoDatabase) = todoDatabase.getNoteDao()
 
     @Provides
     @Singleton
-    fun provideTodoRepository(todoDatabase: TodoDatabase) = TodoRepository(todoDatabase.todoDao())
+    fun provideCategoryDao(todoDatabase: TodoDatabase) = todoDatabase.getCategoryDao()
+
+
 
     @Provides
     @Singleton
-    fun provideNoteRepository(todoDatabase: TodoDatabase) = NoteRepository(todoDatabase.noteDao())
+    fun provideTodoRepository(
+        todoDatabase: TodoDatabase
+    ) = TodoRepository(todoDatabase.getTodoDao())
+
+
+
+    @Provides
+    @Singleton
+    fun provideNoteRepository(
+        todoDatabase: TodoDatabase
+    ) = NoteRepository(todoDatabase.getNoteDao())
+
+    @Provides
+    @Singleton
+    fun provideCategoryRepository(
+        todoDatabase: TodoDatabase
+    ) = CategoryRepository(todoDatabase.getCategoryDao())
+
 
     @ApplicationScope
     @Provides
