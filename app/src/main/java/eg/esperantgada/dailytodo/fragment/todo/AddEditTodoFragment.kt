@@ -110,7 +110,7 @@ class AddEditTodoFragment : Fragment(),
                 viewModel.categoryName = it.toString()
             }
 
-            saveFloatingButton.setOnClickListener {
+            saveTodoButton.setOnClickListener {
                 viewModel.onSaveClick(requireActivity().applicationContext)
             }
 

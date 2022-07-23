@@ -97,7 +97,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextFields,TextContrastCheck" />
+                    tools:ignore="TextFields,TextContrastCheck,TouchTargetSizeCheck" />
             </soup.neumorphism.NeumorphCardView>
 
             <soup.neumorphism.NeumorphCardView
@@ -135,7 +135,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextFields,DuplicateSpeakableTextCheck,TextContrastCheck" />
+                    tools:ignore="TextFields,DuplicateSpeakableTextCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
             </soup.neumorphism.NeumorphCardView>
 
@@ -146,15 +146,18 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
+                android:hint="Category"
+                android:textColorHint="@color/white"
                 android:textSize="18sp"
+                app:boxStrokeColor="@color/white"
+                app:endIconTint="@color/white"
+                app:hintTextColor="@color/white"
+                app:neumorph_shadowColorLight="@color/design_default_color_shadow_light"
+                app:neumorph_shadowColorDark="@color/design_default_color_shadow_dark"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/todo_time_edit_text_neumor"
                 app:layout_constraintTop_toBottomOf="@+id/todo_time_edit_text_neumor"
-                app:boxStrokeColor="@color/white"
-                android:hint="Category"
-                android:textColorHint="@color/white"
-                app:hintTextColor="@color/white"
-                app:endIconTint="@color/white">
+                tools:ignore="TextContrastCheck">
 
             </soup.neumorphism.NeumorphTextView>
 
@@ -194,7 +197,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:ignore="TextFields,TextContrastCheck" />
+                    tools:ignore="TextFields,TextContrastCheck,TouchTargetSizeCheck" />
 
             </soup.neumorphism.NeumorphCardView>
 
@@ -357,16 +360,20 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/save_floating_button"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:id="@+id/save_todo_button"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="50dp"
-        android:contentDescription="@string/just_floating_action_button"
-        android:src="@drawable/ic_check_mark"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="60dp"
+        android:tint="#FFFFFF"
+        app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck,ImageContrastCheck,RedundantDescriptionCheck" />
+        app:showMotionSpec="@android:anim/bounce_interpolator"
+        app:srcCompat="@drawable/ic_add_white_24dp"
+        app:tint="@color/white"
+        android:contentDescription="@string/floating_button_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

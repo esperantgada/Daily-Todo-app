@@ -16,14 +16,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageButton
-            android:id="@+id/insert_icon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_gravity="center_vertical"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/icon_smiley"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
         <soup.neumorphism.NeumorphCardView
             android:id="@+id/todo_name_edit_neumor"
@@ -45,13 +37,13 @@
                 android:layout_marginRight="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="@null"
-                android:hint="Add category"
+                android:hint="@string/add_category"
                 android:importantForAutofill="no"
                 android:inputType="textMultiLine|textCapSentences"
                 android:minHeight="48dp"
                 android:textColorHint="@color/black"
                 android:textSize="16sp"
-                tools:ignore="TextContrastCheck" />
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
         </soup.neumorphism.NeumorphCardView>
 
@@ -68,12 +60,13 @@
 
         <Button
             android:id="@+id/background_image"
-            android:layout_width="80dp"
+            android:layout_width="wrap_content"
             android:layout_height="35dp"
+            android:layout_marginStart="2dp"
             android:background="@drawable/roundedbutton"
-            android:text="Photo"
+            android:text="@string/pick_image"
             android:textSize="10sp"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="SmallSp,TouchTargetSizeCheck" />
 
         <Button
             android:id="@+id/background_color"
@@ -81,9 +74,20 @@
             android:layout_height="35dp"
             android:layout_marginStart="8dp"
             android:background="@drawable/roundedbutton"
-            android:text="Color"
+            android:text="@string/pick_color"
             android:textSize="10sp"
-            tools:ignore="TouchTargetSizeCheck" />
+            tools:ignore="SmallSp,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/insert_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center_vertical"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/icon_smiley"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
 
     </LinearLayout>
 

@@ -5,27 +5,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import eg.esperantgada.dailytodo.databinding.CategoryBackgroundItemListBinding
 
+
 class ColorAdapter(
     private val colors : IntArray,
 ) : RecyclerView.Adapter<ColorAdapter.ColorViewHolder>() {
 
-    var adapterListener : ImageAdapter.OnItemClickedListener? = null
+    var colorAdapterListener : OnColorItemClickedListener? = null
 
 
     inner class ColorViewHolder(
         private val binding: CategoryBackgroundItemListBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+/*
         init {
             binding.root.setOnClickListener {
-                val color = colors[position]
+                val color = colors[absoluteAdapterPosition]
                 adapterListener?.onItemClicked(color)
             }
         }
+*/
 
 
-        fun bind(color: Int) {
+        fun bind(color: Int, adapterListener: OnColorItemClickedListener) {
             binding.roundBackground.setImageResource(color)
+            binding.root.setOnClickListener {
+                val colorId = colors[absoluteAdapterPosition]
+                adapterListener.onItemClicked(colorId)
+            }
+
         }
     }
 
@@ -39,12 +47,12 @@ class ColorAdapter(
 
     override fun onBindViewHolder(holder: ColorViewHolder, position: Int) {
         val currentColor = colors[position]
-        holder.bind(currentColor)
+        colorAdapterListener?.let { holder.bind(currentColor, it) }
     }
 
     override fun getItemCount() = colors.size
 
-    interface OnItemClickedListener {
+    interface OnColorItemClickedListener {
 
         fun onItemClicked(color: Int)
 

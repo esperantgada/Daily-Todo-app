@@ -8,6 +8,7 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import eg.esperantgada.dailytodo.event.TodoEvent
 import eg.esperantgada.dailytodo.model.Todo
+import eg.esperantgada.dailytodo.repository.CategoryRepository
 import eg.esperantgada.dailytodo.repository.PreferenceRepository
 import eg.esperantgada.dailytodo.repository.SortOrder
 import eg.esperantgada.dailytodo.repository.TodoRepository
@@ -34,7 +35,8 @@ const val TAG_V = "TodoViewModel"
 class TodoViewModel @Inject constructor(
     private val todoRepository: TodoRepository,
     private val preferenceRepository: PreferenceRepository,
-    private val state : SavedStateHandle
+    private val categoryRepository: CategoryRepository,
+    state : SavedStateHandle
     ) : ViewModel(){
 
     /**
@@ -129,6 +131,8 @@ class TodoViewModel @Inject constructor(
             todoEventChannel.send(TodoEvent.GoToAddTodoFragment)
         }
     }
+
+    fun getAllTodoByCategoryName(name : String) = categoryRepository.getTodoByCategoryName(name)
 
     //Helps to check if the list is empty and displays empty list message to the user
     val allTodo = todoRepository.getAllTodo().asLiveData()

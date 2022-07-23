@@ -14,13 +14,12 @@ data class Category(
     @ColumnInfo(name = "category_name")
     var categoryName : String,
 
-    @ColumnInfo(name = "category_image")
-    var image : Int,
-
-    @ColumnInfo(name = "category_color")
-    val color : Int,
+    @ColumnInfo(name = "category_background")
+    var background : Int,
 
     @ColumnInfo(name = "category_icon")
-    var icon:Int
+    var icon:Int,
+
+    val delete : Boolean = false
 
 ) : Parcelable

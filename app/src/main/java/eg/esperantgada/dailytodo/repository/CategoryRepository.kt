@@ -1,13 +1,13 @@
 package eg.esperantgada.dailytodo.repository
 
-import androidx.lifecycle.asLiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import eg.esperantgada.dailytodo.model.Category
 import eg.esperantgada.dailytodo.room.CategoryDao
 import javax.inject.Inject
 
-class CategoryRepository @Inject constructor(private val categoryDao: CategoryDao) {
+class CategoryRepository
+@Inject constructor(private val categoryDao: CategoryDao) {
 
     suspend fun insertCategory(category: Category){
         categoryDao.insert(category)
@@ -21,26 +21,20 @@ class CategoryRepository @Inject constructor(private val categoryDao: CategoryDa
         categoryDao.delete(category)
     }
 
-    fun getCategoryByName(name: String) = categoryDao.getCategoryByName(name)
+    fun getTodoByCategoryName(name: String) = categoryDao.getAllTodoByCategoryName(name)
 
     fun getAllCategories() = categoryDao.getCategories()
+
+
+    //val categories = categoryDao.getCategories()
 
 
 
     fun getCategories() = Pager(
         PagingConfig(
-            pageSize = 20,
+            pageSize = 10,
             maxSize = 50,
             enablePlaceholders = true
         ), pagingSourceFactory = {categoryDao.getAllCategories()}
-    )
-
-    fun getAllTodoByCategoryName() = Pager(
-        PagingConfig(
-            pageSize = 20,
-            maxSize = 50,
-            enablePlaceholders = true
-        ), pagingSourceFactory = {categoryDao.getAllCategories()}
-    )
-
+    ).flow
 }

@@ -105,6 +105,9 @@
     <string name="set_notification_sound_optional">Set notification sound(optional)</string>
     <string name="timer_completed_text">00:00:00:00</string>
     <string name="floating_button_icon">Floating button icon</string>
+    <string name="pick_image">Pick image</string>
+    <string name="pick_color">Pick color</string>
+    <string name="add_category">Add category</string>
 
     <string-array name="repeat_interval">
         <item>@string/daily</item>

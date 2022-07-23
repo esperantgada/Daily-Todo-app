@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -27,6 +26,7 @@ import eg.esperantgada.dailytodo.event.TodoEvent
 import eg.esperantgada.dailytodo.model.Todo
 import eg.esperantgada.dailytodo.repository.SortOrder
 import eg.esperantgada.dailytodo.utils.*
+import eg.esperantgada.dailytodo.viewmodel.CategoryViewModel
 import eg.esperantgada.dailytodo.viewmodel.TodoViewModel
 import kotlinx.android.synthetic.main.todo_item.*
 import kotlinx.coroutines.flow.*
@@ -37,7 +37,7 @@ const val TAG3 = "TodoFragment"
 
 /**
  * Inject the [TodoViewModel] in the [Fragment]
- *//*
+ */
 
 @Suppress("DEPRECATION", "KDocUnresolvedReference")
 @AndroidEntryPoint
@@ -45,7 +45,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
     private val todoViewModel: TodoViewModel by viewModels()
 
-    private var _binding : FragmentTodoBinding? = null
+    private var _binding: FragmentTodoBinding? = null
     private val binding get() = _binding!!
 
 
@@ -53,7 +53,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
 
     private lateinit var searchView: SearchView
 
-    private lateinit var todos : List<Todo>
+    private lateinit var todos: List<Todo>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,7 +95,7 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            todoViewModel.allTodo.observe(viewLifecycleOwner){ todoList ->
+            todoViewModel.allTodo.observe(viewLifecycleOwner) { todoList ->
                 todos = todoList
                 binding.emptyItemTextView.isVisible = todoList.isEmpty()
 
@@ -104,25 +104,21 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         }
 
 
-*/
-/*
+
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            todoViewModel.todos.collectLatest { todosList ->
+            todoViewModel.allTodo.observe(viewLifecycleOwner) { todosList ->
                 todoAdapter.submitList(todosList)
 
                 Log.d(TAG3, "TODO LIST SUBMITTED IN TODO FRAGMENT : $todosList")
             }
         }
-*//*
-
 
 
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
 
-        */
-/**
+        /**
          * This will handle the different events action that the ViewModel will send.
-         *//*
+         */
 
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             todoViewModel.todoEvent.collect { event ->
@@ -132,18 +128,18 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
                     }
 
                     is TodoEvent.GoToAddTodoFragment -> {
-                        val action =
+/*                        val action =
                             TodoFragmentDirections.actionTodoFragmentToAddEditFragment(
                                 null, "Add todo")
-                        findNavController().navigate(action)
+                        findNavController().navigate(action)*/
                     }
 
                     is TodoEvent.GoToEditFragment -> {
-                        val action =
+                        /*val action =
                             TodoFragmentDirections.actionTodoFragmentToAddEditFragment(
                                 event.todo,
                                 "Edit todo")
-                        findNavController().navigate(action)
+                        findNavController().navigate(action)*/
                     }
                     is TodoEvent.ShowSavedTodoConfirmationMessage -> {
                         Snackbar.make(requireView(), event.message, Snackbar.LENGTH_LONG)
@@ -151,9 +147,9 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
                             .show()
                     }
                     TodoEvent.GotoAlertDialogFragment -> {
-                        val action =
+                       /* val action =
                             TodoFragmentDirections.actionGlobalAlertDialogueFragment()
-                        findNavController().navigate(action)
+                        findNavController().navigate(action)*/
                     }
                 }.exhaustive
             }
@@ -172,10 +168,10 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
             }.show()
     }
 
-    */
-/**
+
+    /**
      * Logic for search in [SearchView]
-     *//*
+     */
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -203,10 +199,10 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     }
 
 
-    */
-/**
+
+    /**
      * Handles all logic for [actionBar] menu
-     *//*
+     */
 
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -243,10 +239,10 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
     }
 
 
-    */
-/**
+
+    /**
      * If an item is clicked or if a task is checked, the viewModel updates this one in the database
-     *//*
+     */
 
     override fun onItemClicked(todo: Todo) {
         todoViewModel.onTodoSelected(todo)
@@ -291,4 +287,4 @@ class TodoFragment : Fragment(), TodoAdapter.OnItemClickedListener {
         _binding = null
         // searchView.setOnQueryTextListener(null)
     }
-}*/
+}

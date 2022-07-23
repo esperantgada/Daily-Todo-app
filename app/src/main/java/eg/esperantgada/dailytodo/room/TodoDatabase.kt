@@ -19,7 +19,7 @@ import javax.inject.Provider
  * This database is created or provided by dependency injection
  */
 
-@Database(entities = [Todo::class, Note::class, Category::class], version = 17, exportSchema = false)
+@Database(entities = [Todo::class, Note::class, Category::class], version = 25, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class TodoDatabase : RoomDatabase(){
 
@@ -37,36 +37,6 @@ abstract class TodoDatabase : RoomDatabase(){
             val categoryDao = database.get().getCategoryDao()
 
             applicationScope.launch {
-
-                categoryDao.insert(Category(
-                   "Office",
-                    R.drawable.category_work_background,
-                    R.color.colorGrey,
-                    R.drawable.icon_car
-                ))
-
-                categoryDao.insert(Category(
-                    "Office",
-                    R.drawable.category_work_background,
-                    R.color.colorGrey,
-                    R.drawable.icon_car
-                ))
-
-                categoryDao.insert(Category(
-                    "Office",
-                    R.drawable.category_work_background,
-                    R.color.colorGrey,
-                    R.drawable.icon_car
-                ))
-
-                categoryDao.insert(Category(
-                    "Office",
-                    R.drawable.category_work_background,
-                    R.color.colorGrey,
-                    R.drawable.icon_car
-                ))
-
-
 
                 noteDao.insert(Note(
                     title = "Android",

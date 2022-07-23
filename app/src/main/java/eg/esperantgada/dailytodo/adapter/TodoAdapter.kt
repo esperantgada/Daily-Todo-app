@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.databinding.TodoItemBinding
 import eg.esperantgada.dailytodo.model.Todo
-import eg.esperantgada.dailytodo.model.relationship.CategoryWithTodo
+
 
 const val TAG = "TodoAdapter"
 
@@ -53,7 +53,7 @@ class TodoAdapter(
         fun bind(todo: Todo) {
             binding.apply {
                 checkbox.isChecked = todo.completed
-                todoTextView.text = todo.categoryName
+                todoTextView.text = todo.name
                 todoTextView.paint.isStrikeThruText = todo.completed
                 priorityImageView.isVisible = todo.important
                 durationTextView.text = todo.duration

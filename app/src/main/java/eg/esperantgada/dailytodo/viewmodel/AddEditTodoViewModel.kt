@@ -63,10 +63,10 @@ class AddEditTodoViewModel @Inject constructor(
             state["todoName"] = value
         }
 
-    var categoryName = state.get<String>("category") ?: sentCategory?.categoryName ?: "Untitled"
+    var categoryName = state.get<String>("name") ?: sentCategory?.categoryName ?: ""
         set(value) {
             field = value
-            state["category"] = value
+            state["name"] = value
         }
 
 

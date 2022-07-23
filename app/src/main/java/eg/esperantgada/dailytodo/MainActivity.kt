@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.MobileAds
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 
@@ -55,31 +57,26 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
 
-        NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
+        //NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
         NavigationUI.setupWithNavController(binding.navView, navController)
+        binding.appLayoutBar.setupWithNavController(binding.toolbar, navController, binding.drawerLayout)
 
     }
+
+
+/*
+    override fun onBackPressed() {
+        if(supportFragmentManager.backStackEntryCount > 0){
+            supportFragmentManager.popBackStackImmediate()
+        }else{
+            super.onBackPressed()
+        }
+    }
+*/
+
 
 
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
-
-
-      /*  @SuppressLint("NewApi")
-        override fun onStop() {
-            super.onStop()
-
-            startTodoAlarmService()
-        }
-
-
-        private fun startTodoAlarmService(){
-            val serviceIntent = Intent(this, TodoAlarmService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                applicationContext.startForegroundService(serviceIntent)
-            }
-
-    }*/
-
 }

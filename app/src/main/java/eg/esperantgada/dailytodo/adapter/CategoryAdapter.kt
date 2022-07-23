@@ -4,17 +4,16 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import eg.esperantgada.dailytodo.databinding.CategoryListItemBinding
 import eg.esperantgada.dailytodo.model.Category
-import eg.esperantgada.dailytodo.model.Note
 
 class CategoryAdapter(
     private val context : Context,
-    private val listener : OnItemClickedListener
-    ) : PagingDataAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
+    private val categoryListener : OnCategoryItemClickedListener
+    ) : ListAdapter<Category, CategoryAdapter.CategoryViewHolder>(DiffCallback) {
 
 
     inner class CategoryViewHolder(private val binding: CategoryListItemBinding) :
@@ -29,19 +28,19 @@ class CategoryAdapter(
                     if (position != RecyclerView.NO_POSITION) {
                         val category = getItem(position)
                         if (category != null) {
-                            listener.onItemClicked(category)
+                            categoryListener.onItemClicked(category)
                         }
                     }
                 }
 
 
-                root.setOnClickListener {
+                deleteIcon.setOnClickListener {
                     //Gets the position of the View holder
                     val position = absoluteAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         val category = getItem(position)
                         if (category != null) {
-                            listener.onDeleteCategoryClicked(category, true)
+                            categoryListener.onDeleteCategoryClicked(category, true)
                         }
                     }
                 }
@@ -52,8 +51,9 @@ class CategoryAdapter(
 
         fun bind(category: Category) {
             binding.apply {
-                categoryIcon.setImageDrawable(ContextCompat.getDrawable(context, category.image))
+                categoryIcon.setImageDrawable(ContextCompat.getDrawable(context, category.icon))
                 categoryName.text = category.categoryName
+                categorySize.text = 12.toString()
             }
 
         }
@@ -73,12 +73,10 @@ class CategoryAdapter(
 
     }
 
-    interface OnItemClickedListener {
+    interface OnCategoryItemClickedListener {
         fun onItemClicked(category: Category)
 
         fun onDeleteCategoryClicked(category: Category, isClicked: Boolean)
-
-
     }
 
     companion object {

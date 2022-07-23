@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import eg.esperantgada.dailytodo.R
 import eg.esperantgada.dailytodo.SettingsActivity
 import eg.esperantgada.dailytodo.databinding.FragmentStartBinding
 
 
+@Suppress("DEPRECATION")
 class StartFragment : Fragment() {
 
     private var _binding : FragmentStartBinding? = null
@@ -35,7 +37,15 @@ class StartFragment : Fragment() {
 
         binding.apply {
             scheduleTaskButton.setOnClickListener {
-                findNavController().navigate(R.id.action_startFragment_to_categoryListFragment)
+                if (!findNavController().popBackStack(R.id.categoryListFragment, false)){
+                    findNavController()
+                        .navigate(
+                            StartFragmentDirections
+                                .actionStartFragmentToCategoryListFragment(),
+                            NavOptions.Builder().setLaunchSingleTop(true).build()
+                        )
+
+                }
             }
 
             takeNoteButton.setOnClickListener {

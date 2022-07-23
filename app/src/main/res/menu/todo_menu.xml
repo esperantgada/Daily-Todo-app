@@ -13,15 +13,17 @@
         android:id="@+id/sort_todo"
         android:icon="@drawable/ic_sort"
         android:title="@string/sort"
-        app:showAsAction="ifRoom">
+        app:showAsAction="ifRoom|collapseActionView">
 
         <menu>
             <item
                 android:id="@+id/sort_by_name"
+                app:showAsAction="ifRoom|collapseActionView"
                 android:title="@string/sort_by_name" />
 
             <item
                 android:id="@+id/sort_by_date_created"
+                app:showAsAction="always"
                 android:title="@string/sort_by_date_created" />
         </menu>
 
@@ -31,17 +33,20 @@
         android:id="@+id/hide_completed_todo"
         android:checkable="true"
         android:title="@string/hide_completed_todo"
-        app:showAsAction="never" />
+        android:visible="true"
+        app:showAsAction="collapseActionView" />
 
     <item
         android:id="@+id/delete_all_completed_todo"
         android:title="@string/delete_completed_tasks"
-        app:showAsAction="never" />
+        android:visible="true"
+         />
 
 
     <item
         android:id="@+id/setting"
         android:title="@string/settings"
-        app:showAsAction="never" />
+        android:visible="true"
+        app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

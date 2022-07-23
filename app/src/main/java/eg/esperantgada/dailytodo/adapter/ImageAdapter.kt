@@ -10,7 +10,7 @@ class ImageAdapter(
     private val images : IntArray,
     ) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
-    var adapterListener : OnItemClickedListener? = null
+    var adapterListener : OnImageItemClickedListener? = null
 
 
     inner class ImageViewHolder(
@@ -18,7 +18,7 @@ class ImageAdapter(
             ) : RecyclerView.ViewHolder(binding.root){
 
 
-                fun bind(imageId : Int){
+                fun bind(imageId : Int, adapterListener: OnImageItemClickedListener){
                     Picasso
                         .get()
                         .load(imageId)
@@ -27,8 +27,8 @@ class ImageAdapter(
                         .into(binding.roundBackground)
 
                     binding.root.setOnClickListener {
-                        val image = images[position]
-                        adapterListener?.onItemClicked(image)
+                        val image = images[absoluteAdapterPosition]
+                        adapterListener.onItemClicked(image)
                     }
 
                 }
@@ -44,12 +44,12 @@ class ImageAdapter(
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val currentImage = images[position]
-        holder.bind(currentImage)
+        adapterListener?.let { holder.bind(currentImage, it) }
     }
 
     override fun getItemCount() = images.size
 
-    interface OnItemClickedListener {
+    interface OnImageItemClickedListener {
 
         fun onItemClicked(imageId : Int)
 

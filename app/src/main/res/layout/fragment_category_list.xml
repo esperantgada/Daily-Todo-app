@@ -4,29 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#00E40000"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.category.CategoryListFragment">
 
 
-    <androidx.core.widget.NestedScrollView
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/category_recycler_view"
         android:layout_width="match_parent"
+        tools:listitem="@layout/category_list_item"
         android:layout_height="match_parent"
-        android:background="#00E40000"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_constraintEnd_toEndOf="parent">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/category_recycler_view"
-            android:layout_width="match_parent"
-            tools:listitem="@layout/category_list_item"
-            android:layout_height="match_parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-    </androidx.core.widget.NestedScrollView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_category_button"
@@ -36,6 +29,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="60dp"
+        android:contentDescription="@string/floating_button_icon"
         android:tint="#FFFFFF"
         app:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -43,6 +37,6 @@
         app:showMotionSpec="@android:anim/bounce_interpolator"
         app:srcCompat="@drawable/ic_add_white_24dp"
         app:tint="@color/white"
-        android:contentDescription="@string/floating_button_icon" />
+        tools:ignore="RedundantDescriptionCheck" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

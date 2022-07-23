@@ -5,7 +5,6 @@ import androidx.paging.PagingSource
 import androidx.room.*
 import eg.esperantgada.dailytodo.model.Category
 import eg.esperantgada.dailytodo.model.Todo
-import eg.esperantgada.dailytodo.model.relationship.CategoryWithTodo
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -23,14 +22,8 @@ interface CategoryDao {
     @Query("SELECT * FROM category_table")
     fun getAllCategories() : PagingSource<Int, Category>
 
-
-    /*@Query("SELECT * FROM category_table WHERE category_name =:categoryName")
-    fun getAllTodoByCategory(categoryName : String) : PagingSource<Int, CategoryWithTodo>
-*/
-
-    @Transaction
-    @Query("SELECT * FROM category_table WHERE category_name =:categoryName")
-    fun getCategoryByName(categoryName : String) : LiveData<CategoryWithTodo>
+    @Query("SELECT * FROM todo_table WHERE category_name =:name")
+    fun getAllTodoByCategoryName(name : String) : LiveData<List<Todo>>
 
     @Query("SELECT * FROM category_table")
     fun getCategories() : Flow<List<Category>>

@@ -46,6 +46,4 @@ interface TodoDao {
     @Query("SELECT * FROM todo_table")
     fun getAllTodo() : Flow<List<Todo>>
 
-    /*@Query("SELECT * FROM todo_table WHERE id= :todoId")
-    fun getUri(todoId : Int) : LiveData<String>*/
 }

@@ -41,6 +41,8 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/xml-v26/main_preferences.xml" value="0.2246376811594203" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/xml/main_preferences.xml" value="0.20471014492753623" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/DailyToDo/app/src/main/res/xml/root_preferences.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/activity_main.xml" value="0.25025641025641027" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/activity_second_start.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/activity_start.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/category_background_item_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/category_background_item_list.xml" value="0.25416666666666665" />
@@ -48,13 +50,21 @@
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_add_edit_category.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_add_edit_note.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_add_edit_todo.xml" value="0.16" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_blank.xml" value="0.11302083333333333" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_category.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_category_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_category_list.xml" value="0.21506442021803765" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_category_todo.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_essaie.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_instructions.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_note_list.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_start.xml" value="0.11302083333333333" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_test.xml" value="0.2" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/fragment_todo.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/new_category_dialog.xml" value="0.25025641025641027" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/new_category_dialog_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/new_categoryf_dialog.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/layout/new_categoryf_dialog_layout.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/hp/Daily-Todo-app/app/src/main/res/menu/todo_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>

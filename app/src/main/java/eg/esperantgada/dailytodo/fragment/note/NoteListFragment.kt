@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -30,6 +31,9 @@ import eg.esperantgada.dailytodo.viewmodel.NoteViewModel
 import kotlinx.coroutines.flow.collectLatest
 import java.util.*
 
+const val NOTE_TAG = "NoteListFragment"
+
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class NoteListFragment : Fragment(), NoteAdapter.OnNoteClickedListener {
 
@@ -247,8 +251,23 @@ class NoteListFragment : Fragment(), NoteAdapter.OnNoteClickedListener {
         noteViewModel.onDeleteClicked(note)
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        Log.d(NOTE_TAG, "onStop IS CALLED")
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        Log.d(NOTE_TAG, "onPause IS CALLED")
+
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+
+        Log.d(NOTE_TAG, "onDestroyView IS CALLED")
 
         _binding = null
     }
